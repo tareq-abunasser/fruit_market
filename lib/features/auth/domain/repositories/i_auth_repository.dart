@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:fruit_market/features/auth/domain/entities/user_info.dart';
 
 import '../entities/user.dart';
 import '../faliures/auth_failure.dart';
@@ -14,7 +15,7 @@ import '../faliures/auth_failure.dart';
 // Thankfully, the dartz package provides us, Dart programmers, with a Unit type too!
 
 abstract class IAuthRepository {
-  Future<Option<User>> getSignedInUser();
+  Either<AuthFailure, User> getSignedInUser();
 
   Future<Either<AuthFailure, Unit>> signInWithGoogle();
 
@@ -22,5 +23,9 @@ abstract class IAuthRepository {
 
   Future<void> signOut();
 
-  Future<Either<AuthFailure, Unit>> completeUserInfo();
+  Future<Either<AuthFailure, Unit>> completeUserInfo(UserInfo userInfo);
+
+  Future<Option<Either<AuthFailure, UserInfo>>> getUserInfo();
+
+  bool isFirstTimeOpenApp();
 }

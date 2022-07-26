@@ -33,6 +33,18 @@ class _$AuthFailureTearOff {
   InvalidEmailAndPasswordCombination invalidEmailAndPasswordCombination() {
     return const InvalidEmailAndPasswordCombination();
   }
+
+  UnknownError unknown() {
+    return const UnknownError();
+  }
+
+  UnAuthenticatedError unAuthenticated() {
+    return const UnAuthenticatedError();
+  }
+
+  Internet internet() {
+    return const Internet();
+  }
 }
 
 /// @nodoc
@@ -46,6 +58,9 @@ mixin _$AuthFailure {
     required TResult Function() serverError,
     required TResult Function() emailAlreadyInUse,
     required TResult Function() invalidEmailAndPasswordCombination,
+    required TResult Function() unknown,
+    required TResult Function() unAuthenticated,
+    required TResult Function() internet,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,6 +69,9 @@ mixin _$AuthFailure {
     TResult Function()? serverError,
     TResult Function()? emailAlreadyInUse,
     TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,6 +80,9 @@ mixin _$AuthFailure {
     TResult Function()? serverError,
     TResult Function()? emailAlreadyInUse,
     TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -72,6 +93,9 @@ mixin _$AuthFailure {
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
     required TResult Function(InvalidEmailAndPasswordCombination value)
         invalidEmailAndPasswordCombination,
+    required TResult Function(UnknownError value) unknown,
+    required TResult Function(UnAuthenticatedError value) unAuthenticated,
+    required TResult Function(Internet value) internet,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,6 +105,9 @@ mixin _$AuthFailure {
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
     TResult Function(InvalidEmailAndPasswordCombination value)?
         invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -90,6 +117,9 @@ mixin _$AuthFailure {
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
     TResult Function(InvalidEmailAndPasswordCombination value)?
         invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -156,6 +186,9 @@ class _$CancelledByUser implements CancelledByUser {
     required TResult Function() serverError,
     required TResult Function() emailAlreadyInUse,
     required TResult Function() invalidEmailAndPasswordCombination,
+    required TResult Function() unknown,
+    required TResult Function() unAuthenticated,
+    required TResult Function() internet,
   }) {
     return cancelledByUser();
   }
@@ -167,6 +200,9 @@ class _$CancelledByUser implements CancelledByUser {
     TResult Function()? serverError,
     TResult Function()? emailAlreadyInUse,
     TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
   }) {
     return cancelledByUser?.call();
   }
@@ -178,6 +214,9 @@ class _$CancelledByUser implements CancelledByUser {
     TResult Function()? serverError,
     TResult Function()? emailAlreadyInUse,
     TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
     required TResult orElse(),
   }) {
     if (cancelledByUser != null) {
@@ -194,6 +233,9 @@ class _$CancelledByUser implements CancelledByUser {
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
     required TResult Function(InvalidEmailAndPasswordCombination value)
         invalidEmailAndPasswordCombination,
+    required TResult Function(UnknownError value) unknown,
+    required TResult Function(UnAuthenticatedError value) unAuthenticated,
+    required TResult Function(Internet value) internet,
   }) {
     return cancelledByUser(this);
   }
@@ -206,6 +248,9 @@ class _$CancelledByUser implements CancelledByUser {
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
     TResult Function(InvalidEmailAndPasswordCombination value)?
         invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
   }) {
     return cancelledByUser?.call(this);
   }
@@ -218,6 +263,9 @@ class _$CancelledByUser implements CancelledByUser {
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
     TResult Function(InvalidEmailAndPasswordCombination value)?
         invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
     required TResult orElse(),
   }) {
     if (cancelledByUser != null) {
@@ -275,6 +323,9 @@ class _$ServerError implements ServerError {
     required TResult Function() serverError,
     required TResult Function() emailAlreadyInUse,
     required TResult Function() invalidEmailAndPasswordCombination,
+    required TResult Function() unknown,
+    required TResult Function() unAuthenticated,
+    required TResult Function() internet,
   }) {
     return serverError();
   }
@@ -286,6 +337,9 @@ class _$ServerError implements ServerError {
     TResult Function()? serverError,
     TResult Function()? emailAlreadyInUse,
     TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
   }) {
     return serverError?.call();
   }
@@ -297,6 +351,9 @@ class _$ServerError implements ServerError {
     TResult Function()? serverError,
     TResult Function()? emailAlreadyInUse,
     TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -313,6 +370,9 @@ class _$ServerError implements ServerError {
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
     required TResult Function(InvalidEmailAndPasswordCombination value)
         invalidEmailAndPasswordCombination,
+    required TResult Function(UnknownError value) unknown,
+    required TResult Function(UnAuthenticatedError value) unAuthenticated,
+    required TResult Function(Internet value) internet,
   }) {
     return serverError(this);
   }
@@ -325,6 +385,9 @@ class _$ServerError implements ServerError {
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
     TResult Function(InvalidEmailAndPasswordCombination value)?
         invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
   }) {
     return serverError?.call(this);
   }
@@ -337,6 +400,9 @@ class _$ServerError implements ServerError {
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
     TResult Function(InvalidEmailAndPasswordCombination value)?
         invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -395,6 +461,9 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     required TResult Function() serverError,
     required TResult Function() emailAlreadyInUse,
     required TResult Function() invalidEmailAndPasswordCombination,
+    required TResult Function() unknown,
+    required TResult Function() unAuthenticated,
+    required TResult Function() internet,
   }) {
     return emailAlreadyInUse();
   }
@@ -406,6 +475,9 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     TResult Function()? serverError,
     TResult Function()? emailAlreadyInUse,
     TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
   }) {
     return emailAlreadyInUse?.call();
   }
@@ -417,6 +489,9 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     TResult Function()? serverError,
     TResult Function()? emailAlreadyInUse,
     TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
     required TResult orElse(),
   }) {
     if (emailAlreadyInUse != null) {
@@ -433,6 +508,9 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
     required TResult Function(InvalidEmailAndPasswordCombination value)
         invalidEmailAndPasswordCombination,
+    required TResult Function(UnknownError value) unknown,
+    required TResult Function(UnAuthenticatedError value) unAuthenticated,
+    required TResult Function(Internet value) internet,
   }) {
     return emailAlreadyInUse(this);
   }
@@ -445,6 +523,9 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
     TResult Function(InvalidEmailAndPasswordCombination value)?
         invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
   }) {
     return emailAlreadyInUse?.call(this);
   }
@@ -457,6 +538,9 @@ class _$EmailAlreadyInUse implements EmailAlreadyInUse {
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
     TResult Function(InvalidEmailAndPasswordCombination value)?
         invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
     required TResult orElse(),
   }) {
     if (emailAlreadyInUse != null) {
@@ -520,6 +604,9 @@ class _$InvalidEmailAndPasswordCombination
     required TResult Function() serverError,
     required TResult Function() emailAlreadyInUse,
     required TResult Function() invalidEmailAndPasswordCombination,
+    required TResult Function() unknown,
+    required TResult Function() unAuthenticated,
+    required TResult Function() internet,
   }) {
     return invalidEmailAndPasswordCombination();
   }
@@ -531,6 +618,9 @@ class _$InvalidEmailAndPasswordCombination
     TResult Function()? serverError,
     TResult Function()? emailAlreadyInUse,
     TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
   }) {
     return invalidEmailAndPasswordCombination?.call();
   }
@@ -542,6 +632,9 @@ class _$InvalidEmailAndPasswordCombination
     TResult Function()? serverError,
     TResult Function()? emailAlreadyInUse,
     TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
     required TResult orElse(),
   }) {
     if (invalidEmailAndPasswordCombination != null) {
@@ -558,6 +651,9 @@ class _$InvalidEmailAndPasswordCombination
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
     required TResult Function(InvalidEmailAndPasswordCombination value)
         invalidEmailAndPasswordCombination,
+    required TResult Function(UnknownError value) unknown,
+    required TResult Function(UnAuthenticatedError value) unAuthenticated,
+    required TResult Function(Internet value) internet,
   }) {
     return invalidEmailAndPasswordCombination(this);
   }
@@ -570,6 +666,9 @@ class _$InvalidEmailAndPasswordCombination
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
     TResult Function(InvalidEmailAndPasswordCombination value)?
         invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
   }) {
     return invalidEmailAndPasswordCombination?.call(this);
   }
@@ -582,6 +681,9 @@ class _$InvalidEmailAndPasswordCombination
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
     TResult Function(InvalidEmailAndPasswordCombination value)?
         invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
     required TResult orElse(),
   }) {
     if (invalidEmailAndPasswordCombination != null) {
@@ -594,4 +696,414 @@ class _$InvalidEmailAndPasswordCombination
 abstract class InvalidEmailAndPasswordCombination implements AuthFailure {
   const factory InvalidEmailAndPasswordCombination() =
       _$InvalidEmailAndPasswordCombination;
+}
+
+/// @nodoc
+abstract class $UnknownErrorCopyWith<$Res> {
+  factory $UnknownErrorCopyWith(
+          UnknownError value, $Res Function(UnknownError) then) =
+      _$UnknownErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$UnknownErrorCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+    implements $UnknownErrorCopyWith<$Res> {
+  _$UnknownErrorCopyWithImpl(
+      UnknownError _value, $Res Function(UnknownError) _then)
+      : super(_value, (v) => _then(v as UnknownError));
+
+  @override
+  UnknownError get _value => super._value as UnknownError;
+}
+
+/// @nodoc
+
+class _$UnknownError implements UnknownError {
+  const _$UnknownError();
+
+  @override
+  String toString() {
+    return 'AuthFailure.unknown()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is UnknownError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() cancelledByUser,
+    required TResult Function() serverError,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() invalidEmailAndPasswordCombination,
+    required TResult Function() unknown,
+    required TResult Function() unAuthenticated,
+    required TResult Function() internet,
+  }) {
+    return unknown();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? cancelledByUser,
+    TResult Function()? serverError,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
+  }) {
+    return unknown?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? cancelledByUser,
+    TResult Function()? serverError,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
+    required TResult orElse(),
+  }) {
+    if (unknown != null) {
+      return unknown();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CancelledByUser value) cancelledByUser,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(InvalidEmailAndPasswordCombination value)
+        invalidEmailAndPasswordCombination,
+    required TResult Function(UnknownError value) unknown,
+    required TResult Function(UnAuthenticatedError value) unAuthenticated,
+    required TResult Function(Internet value) internet,
+  }) {
+    return unknown(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(InvalidEmailAndPasswordCombination value)?
+        invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
+  }) {
+    return unknown?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(InvalidEmailAndPasswordCombination value)?
+        invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
+    required TResult orElse(),
+  }) {
+    if (unknown != null) {
+      return unknown(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnknownError implements AuthFailure {
+  const factory UnknownError() = _$UnknownError;
+}
+
+/// @nodoc
+abstract class $UnAuthenticatedErrorCopyWith<$Res> {
+  factory $UnAuthenticatedErrorCopyWith(UnAuthenticatedError value,
+          $Res Function(UnAuthenticatedError) then) =
+      _$UnAuthenticatedErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$UnAuthenticatedErrorCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res>
+    implements $UnAuthenticatedErrorCopyWith<$Res> {
+  _$UnAuthenticatedErrorCopyWithImpl(
+      UnAuthenticatedError _value, $Res Function(UnAuthenticatedError) _then)
+      : super(_value, (v) => _then(v as UnAuthenticatedError));
+
+  @override
+  UnAuthenticatedError get _value => super._value as UnAuthenticatedError;
+}
+
+/// @nodoc
+
+class _$UnAuthenticatedError implements UnAuthenticatedError {
+  const _$UnAuthenticatedError();
+
+  @override
+  String toString() {
+    return 'AuthFailure.unAuthenticated()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is UnAuthenticatedError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() cancelledByUser,
+    required TResult Function() serverError,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() invalidEmailAndPasswordCombination,
+    required TResult Function() unknown,
+    required TResult Function() unAuthenticated,
+    required TResult Function() internet,
+  }) {
+    return unAuthenticated();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? cancelledByUser,
+    TResult Function()? serverError,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
+  }) {
+    return unAuthenticated?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? cancelledByUser,
+    TResult Function()? serverError,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
+    required TResult orElse(),
+  }) {
+    if (unAuthenticated != null) {
+      return unAuthenticated();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CancelledByUser value) cancelledByUser,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(InvalidEmailAndPasswordCombination value)
+        invalidEmailAndPasswordCombination,
+    required TResult Function(UnknownError value) unknown,
+    required TResult Function(UnAuthenticatedError value) unAuthenticated,
+    required TResult Function(Internet value) internet,
+  }) {
+    return unAuthenticated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(InvalidEmailAndPasswordCombination value)?
+        invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
+  }) {
+    return unAuthenticated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(InvalidEmailAndPasswordCombination value)?
+        invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
+    required TResult orElse(),
+  }) {
+    if (unAuthenticated != null) {
+      return unAuthenticated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnAuthenticatedError implements AuthFailure {
+  const factory UnAuthenticatedError() = _$UnAuthenticatedError;
+}
+
+/// @nodoc
+abstract class $InternetCopyWith<$Res> {
+  factory $InternetCopyWith(Internet value, $Res Function(Internet) then) =
+      _$InternetCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$InternetCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+    implements $InternetCopyWith<$Res> {
+  _$InternetCopyWithImpl(Internet _value, $Res Function(Internet) _then)
+      : super(_value, (v) => _then(v as Internet));
+
+  @override
+  Internet get _value => super._value as Internet;
+}
+
+/// @nodoc
+
+class _$Internet implements Internet {
+  const _$Internet();
+
+  @override
+  String toString() {
+    return 'AuthFailure.internet()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is Internet);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() cancelledByUser,
+    required TResult Function() serverError,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() invalidEmailAndPasswordCombination,
+    required TResult Function() unknown,
+    required TResult Function() unAuthenticated,
+    required TResult Function() internet,
+  }) {
+    return internet();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? cancelledByUser,
+    TResult Function()? serverError,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
+  }) {
+    return internet?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? cancelledByUser,
+    TResult Function()? serverError,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? invalidEmailAndPasswordCombination,
+    TResult Function()? unknown,
+    TResult Function()? unAuthenticated,
+    TResult Function()? internet,
+    required TResult orElse(),
+  }) {
+    if (internet != null) {
+      return internet();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CancelledByUser value) cancelledByUser,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(InvalidEmailAndPasswordCombination value)
+        invalidEmailAndPasswordCombination,
+    required TResult Function(UnknownError value) unknown,
+    required TResult Function(UnAuthenticatedError value) unAuthenticated,
+    required TResult Function(Internet value) internet,
+  }) {
+    return internet(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(InvalidEmailAndPasswordCombination value)?
+        invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
+  }) {
+    return internet?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(InvalidEmailAndPasswordCombination value)?
+        invalidEmailAndPasswordCombination,
+    TResult Function(UnknownError value)? unknown,
+    TResult Function(UnAuthenticatedError value)? unAuthenticated,
+    TResult Function(Internet value)? internet,
+    required TResult orElse(),
+  }) {
+    if (internet != null) {
+      return internet(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Internet implements AuthFailure {
+  const factory Internet() = _$Internet;
 }

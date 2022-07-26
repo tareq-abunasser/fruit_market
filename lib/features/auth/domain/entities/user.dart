@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/entities/failures.dart';
-import 'value_objects.dart';
+import '../../../../core/entities/value_objects.dart';
 
 part 'user.freezed.dart';
 

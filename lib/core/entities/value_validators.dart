@@ -7,14 +7,14 @@ import 'failures.dart';
 
 Either<ValueFailure<String>, int> validatePhoneNumber(
   String input, {
-  int maxLength = 10,
+  int phoneLength = 10,
 }) {
   int? phoneNumber = int.tryParse(input);
-  if (input.length <= maxLength && phoneNumber != null) {
+  if (input.length == phoneLength && phoneNumber != null) {
     return right(phoneNumber);
   } else {
     return left(
-      ValueFailure.exceedingLength(failedValue: input, max: maxLength),
+      ValueFailure.invalidPhoneNumber(failedValue: input),
     );
   }
 }
@@ -89,5 +89,23 @@ Either<ValueFailure<String>, String> validateEqualsPassword(
     return right(firstPassword);
   } else {
     return left(ValueFailure.differentPassword(failedValue: firstPassword));
+  }
+}
+
+
+Either<ValueFailure<String>, double> convertRate(Map<String, double>rates){
+  double allRates=0;
+  rates.forEach((key, value) {
+    allRates+=value;
+  });
+  double rate = allRates/rates.length;
+  return right(rate);
+}
+
+Either<ValueFailure<String>, int> validateQuantity(int input) {
+  if (input >= 1) {
+    return right(input);
+  } else {
+    return left(ValueFailure.invalidQuantity(failedValue: input.toString()));
   }
 }

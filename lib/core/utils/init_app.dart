@@ -1,45 +1,13 @@
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fruit_market/features/auth/domain/usecases/get_if_user_time_open_app.dart';
+import 'package:fruit_market/features/auth/domain/usecases/get_signed_in_user.dart';
+import 'package:fruit_market/features/auth/domain/usecases/get_user_info.dart';
+import 'package:fruit_market/injection.dart';
 import '../../firebase_options.dart';
 import 'login_manager.dart';
 import 'preferences_manager.dart';
 
-// import 'package:faker_dart/faker_dart.dart';
-// import 'package:get/get.dart';
-// import 'package:get_it/get_it.dart';
-// import 'package:hive_flutter/hive_flutter.dart';
-// import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../features/splash/presentation/splash_router.dart';
-
-// import 'package:thepos/core/login_manager.dart';
-// import 'package:thepos/core/login_composer/login_use_case_factory.dart';
-// import 'package:thepos/core/navigator/app_navigator_factory.dart';
-// import 'package:thepos/core/preferences_utils.dart';
-// import 'package:thepos/features/customer/data/models/customer.dart';
-// import 'package:thepos/features/customer/data/repositories/customer_repository.dart';
-// import 'package:thepos/features/customer/data/serives/data_sources/api_customer/customer_remote_data_source.dart';
-// import 'package:thepos/features/customer/data/serives/data_sources/local_store_customer.dart';
-// import 'package:thepos/features/customer/data/serives/data_sources/remote_customer.dart';
-// import 'package:thepos/features/customer/presentation/controllers/customer_controller.dart';
-// import 'package:thepos/features/home/data/datasources/home_faker_data_source.dart';
-// import 'package:thepos/features/home/data/datasources/home_local_data_source.dart';
-// import 'package:thepos/features/home/data/datasources/home_remote_data_source.dart';
-// import 'package:thepos/features/home/data/models/category.dart';
-// import 'package:thepos/features/home/data/models/product.dart';
-// import 'package:thepos/features/home/data/repositories/home_repository.dart';
-// import 'package:thepos/features/invoice/data/data_sources/api_invoice/remote_store_invoice.dart';
-// import 'package:thepos/features/invoice/data/data_sources/local_store_invoice.dart';
-// import 'package:thepos/features/invoice/data/data_sources/store_invoice.dart';
-// import 'package:thepos/features/invoice/data/repositories/invoice_repository.dart';
-// import 'package:thepos/features/login/data/login_service/api_login/api_login_service.dart';
-// import 'package:thepos/features/login/data/login_service/login_service.dart';
-// import 'package:thepos/features/login/data/login_use_case/login_use_case.dart';
-// import 'package:thepos/features/login/presentation/controller/login_controller.dart';
-// import 'package:thepos/features/login/presentation/login_router.dart';
-// import 'package:thepos/features/splash/presentation/controllers/splash_controller.dart';
-// import 'package:thepos/features/splash/presentation/splash_router.dart';
 
 // import 'config.dart';
 
@@ -50,17 +18,22 @@ import '../../features/splash/presentation/splash_router.dart';
 // // final GetIt getIt = GetIt.instance;
 // // late Box<Customer> customersBox;
 
-// final AppNavigatorFactory navigatorFactory = AppNavigatorFactory();
 Future<void> init() async {
-  await PreferencesManager.init();
-
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // late bool isAuthenticated;
+  // print("tareq");
+  // getIt<GetSignedInUser>.call().call().then((value) =>
+  //     value.fold(() => isAuthenticated = false, (_) => isAuthenticated = true));
+  //
+  // late bool isFirstTimeOpenApp;
+  // getIt<GetIfUserFirstTimeToOpenApp>.call().call().fold((l) =>
+  // isFirstTimeOpenApp = false, (r) => isFirstTimeOpenApp = true);
   // SplashRouter(
-  //   isAuthenticated: LoginManager.isAuthenticated,
-  //   isFirstTimeOpenApp: LoginManager.isFirstTimeOpenApp,
-  //   isFirstTimeToLogin: LoginManager.isProfileCompleted,
+  //   isAuthenticated: false,
+  //   isFirstTimeOpenApp: true,
+  //   isProfileCompleted: false,
   // );
+
   // await Hive.initFlutter();
   // final AuthManager authManager = AuthManager(sharedPreferences);
   // final Box<String> invoicesBox = await Hive.openBox('invoicesBox');
@@ -156,7 +129,7 @@ Future<void> init() async {
 
 Future<bool> checkInternetConnectivity() async {
   final ConnectivityResult connectivityResult =
-      await Connectivity().checkConnectivity();
+  await Connectivity().checkConnectivity();
   return connectivityResult == ConnectivityResult.mobile ||
       connectivityResult == ConnectivityResult.wifi;
 }

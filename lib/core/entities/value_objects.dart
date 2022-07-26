@@ -17,6 +17,12 @@ abstract class ValueObject<F, T> {
     return value.fold((f) => throw UnexpectedValueError(f), id);
   }
 
+  Either<ValueFailure<dynamic>, Unit> get failureOrUnit {
+    return value.fold(
+          (l) => left(l),
+          (r) => right(unit),
+    );
+  }
   Option<ValueFailure<dynamic>> get failureOption {
     return value.fold((f) => some(f), (_) => none());
     // return value.fold(
@@ -39,4 +45,28 @@ abstract class ValueObject<F, T> {
 
   @override
   String toString() => 'Value($value)';
+}
+
+
+class UniqueId extends ValueObject<String, String> {
+  @override
+  final Either<ValueFailure<String>, String> value;
+
+  factory UniqueId() {
+    /// this used when you want to create local unique id
+    /// like when you create new mission you will give him the id
+    return UniqueId._(
+      right(const Uuid().v1()),
+    );
+  }
+
+  factory UniqueId.fromUniqueString(String uniqueId) {
+    /// in this factory we must trust in the uniqueId string because we will not check it's uniqnesses
+    /// this UniqueId always come from firebase , when you create new user in firebase , the firebase give it's the id not you
+    return UniqueId._(
+      right(uniqueId),
+    );
+  }
+
+  const UniqueId._(this.value);
 }

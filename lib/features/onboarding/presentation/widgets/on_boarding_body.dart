@@ -48,14 +48,18 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
           child: Positioned(
             top: SizeConfig.defaultSize! * 10,
             right: 32,
-            child: const Text(
-              'Skip',
-              style: TextStyle(
-                fontSize: 14,
-                color:  Color(0xff898989),
-              ),
-              textAlign: TextAlign.left,
-            ),
+            child: TextButton(
+                onPressed: () {
+                  Get.offAndToNamed(MobileRoutes.LOGIN);
+                },
+                child: const Text(
+                  'Skip',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xff898989),
+                  ),
+                  textAlign: TextAlign.left,
+                )),
           ),
         ),
         Positioned(
@@ -69,7 +73,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeIn);
                 } else {
-                  Get.to(MobileRoutes.LOGIN);
+                  Get.offAndToNamed(MobileRoutes.LOGIN);
                 }
               },
               text: pageController!.hasClients

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_market/routes/mobile_app_pages.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utils/size_config.dart';
-import '../splash_router.dart';
+import '../../../../injection.dart';
+import '../../domain/splash_router.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({Key? key}) : super(key: key);
@@ -20,7 +22,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void initState() {
     super.initState();
     animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
     fadingAnimation =
         Tween<double>(begin: .2, end: 1).animate(animationController!);
 
@@ -38,7 +40,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Container(
+    return Center(
       child: Column(
         children: [
           const Spacer(),
@@ -55,15 +57,13 @@ class _SplashViewBodyState extends State<SplashViewBody>
             ),
           ),
           Image.asset('assets/images/splash_view_image.webp'),
-          // Adobe XD layer: 'mix_fruit_png_11' (shape)
         ],
       ),
     );
   }
-
-  void goToNextView() {
-    Future.delayed(const Duration(seconds: 3), () {
-      Get.to(SplashRouter.call());
-    });
+  void goToNextView() async{
+   String page =await Future(()=>getIt<SplashRouter>().call());
+   Get.offAndToNamed(page);
   }
+
 }

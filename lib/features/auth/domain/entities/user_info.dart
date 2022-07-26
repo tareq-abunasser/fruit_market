@@ -4,6 +4,7 @@ import '../../../../core/entities/failures.dart';
 import 'value_objects.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../../../core/entities/value_objects.dart';
 
 part 'user_info.freezed.dart';
 
@@ -31,13 +32,13 @@ abstract class UserInfo implements _$UserInfo {
   // value.fold((f) => some(f), (_) => none())
   Option<ValueFailure<dynamic>> get failureOption {
     /// we will not validate the User because the user contains only UniqueId and UniqueId always return right() and not return left()
-    return fullName.failureOption
-        .andThen(phoneNumber.failureOption)
-        .andThen(address.failureOption)
-        .fold(() => none(), (f) => some(f));
+    return fullName.failureOrUnit
+        .andThen(phoneNumber.failureOrUnit)
+        .andThen(address.failureOrUnit)
+        .fold((f) => some(f), (_) => none());
   }
 }
 
-/// to add a custome method tp frezzed ypu will replace the "with" mixin to implements
+/// to add a custom method tp frezzed ypu will replace the "with" mixin to implements
 /// and add an empty constructor
 /// then add the method

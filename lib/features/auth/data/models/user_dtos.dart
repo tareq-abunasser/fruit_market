@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../core/entities/value_objects.dart';
 import '../../domain/entities/user.dart';
-import '../../domain/entities/value_objects.dart';
 
 part 'user_dtos.freezed.dart';
 
@@ -20,6 +20,11 @@ abstract class UserDTO implements _$UserDTO {
       id: user.uniqueId.getOrCrash(),
     );
   }
+  factory UserDTO.empty() {
+    return UserDTO(
+      id: "",
+    );
+  }
 
   User toDomain() {
     return User(
@@ -29,4 +34,6 @@ abstract class UserDTO implements _$UserDTO {
 
   factory UserDTO.fromJson(Map<String, dynamic> json) =>
       _$UserDTOFromJson(json);
+
+
 }

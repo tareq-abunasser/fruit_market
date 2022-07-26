@@ -1,5 +1,8 @@
-import 'preferences_manager.dart';
+import 'package:fruit_market/core/utils/preferences_manager.dart';
+import 'package:injectable/injectable.dart';
 
+
+// @lazySingleton
 class LoginManager {
   final PreferencesManager preferencesManager;
   LoginManager({required this.preferencesManager});

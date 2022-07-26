@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:fruit_market/core/entities/failures.dart';
 
 part 'auth_failure.freezed.dart';
 
@@ -17,5 +18,9 @@ abstract class AuthFailure with _$AuthFailure {
   // User enters an invalid combination of email and password
   const factory AuthFailure.invalidEmailAndPasswordCombination() =
       InvalidEmailAndPasswordCombination;
+  //Unknown
+  const factory AuthFailure.unknown() = UnknownError;
 
+  const factory AuthFailure.unAuthenticated() = UnAuthenticatedError;
+  const factory AuthFailure.internet() = Internet;
 }

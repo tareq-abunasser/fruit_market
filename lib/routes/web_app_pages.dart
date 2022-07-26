@@ -10,14 +10,6 @@ final List<GetPage<Widget>> webRoutes = <GetPage<Widget>>[
     name: WebRoutes.LOGIN,
     page: () => SplashView(),
   ),
-  GetPage<SplashView>(
-    name: WebRoutes.SPLASH,
-    page: () => SplashView(),
-  ),
-  GetPage<SplashView>(
-    name: WebRoutes.HOME,
-    page: () => SplashView(),
-  ),
 ];
 
 abstract class WebRoutes {

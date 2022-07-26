@@ -23,12 +23,12 @@ class _$UserInfoDTOTearOff {
   const _$UserInfoDTOTearOff();
 
   _UserInfoDTO call(
-      {required UserDTO user,
-      required String fullName,
-      required int phoneNumber,
-      required String address}) {
+      {required String id,
+      @JsonKey(name: 'name') required String fullName,
+      @JsonKey(name: 'phone') required int phoneNumber,
+      @JsonKey(name: 'address') required String address}) {
     return _UserInfoDTO(
-      user: user,
+      id: id,
       fullName: fullName,
       phoneNumber: phoneNumber,
       address: address,
@@ -45,9 +45,12 @@ const $UserInfoDTO = _$UserInfoDTOTearOff();
 
 /// @nodoc
 mixin _$UserInfoDTO {
-  UserDTO get user => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
   String get fullName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone')
   int get phoneNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'address')
   String get address => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -61,9 +64,11 @@ abstract class $UserInfoDTOCopyWith<$Res> {
   factory $UserInfoDTOCopyWith(
           UserInfoDTO value, $Res Function(UserInfoDTO) then) =
       _$UserInfoDTOCopyWithImpl<$Res>;
-  $Res call({UserDTO user, String fullName, int phoneNumber, String address});
-
-  $UserDTOCopyWith<$Res> get user;
+  $Res call(
+      {String id,
+      @JsonKey(name: 'name') String fullName,
+      @JsonKey(name: 'phone') int phoneNumber,
+      @JsonKey(name: 'address') String address});
 }
 
 /// @nodoc
@@ -76,16 +81,16 @@ class _$UserInfoDTOCopyWithImpl<$Res> implements $UserInfoDTOCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? user = freezed,
+    Object? id = freezed,
     Object? fullName = freezed,
     Object? phoneNumber = freezed,
     Object? address = freezed,
   }) {
     return _then(_value.copyWith(
-      user: user == freezed
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserDTO,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       fullName: fullName == freezed
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
@@ -100,13 +105,6 @@ class _$UserInfoDTOCopyWithImpl<$Res> implements $UserInfoDTOCopyWith<$Res> {
               as String,
     ));
   }
-
-  @override
-  $UserDTOCopyWith<$Res> get user {
-    return $UserDTOCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -116,10 +114,11 @@ abstract class _$UserInfoDTOCopyWith<$Res>
           _UserInfoDTO value, $Res Function(_UserInfoDTO) then) =
       __$UserInfoDTOCopyWithImpl<$Res>;
   @override
-  $Res call({UserDTO user, String fullName, int phoneNumber, String address});
-
-  @override
-  $UserDTOCopyWith<$Res> get user;
+  $Res call(
+      {String id,
+      @JsonKey(name: 'name') String fullName,
+      @JsonKey(name: 'phone') int phoneNumber,
+      @JsonKey(name: 'address') String address});
 }
 
 /// @nodoc
@@ -134,16 +133,16 @@ class __$UserInfoDTOCopyWithImpl<$Res> extends _$UserInfoDTOCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? user = freezed,
+    Object? id = freezed,
     Object? fullName = freezed,
     Object? phoneNumber = freezed,
     Object? address = freezed,
   }) {
     return _then(_UserInfoDTO(
-      user: user == freezed
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserDTO,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       fullName: fullName == freezed
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
@@ -164,27 +163,30 @@ class __$UserInfoDTOCopyWithImpl<$Res> extends _$UserInfoDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserInfoDTO extends _UserInfoDTO {
   const _$_UserInfoDTO(
-      {required this.user,
-      required this.fullName,
-      required this.phoneNumber,
-      required this.address})
+      {required this.id,
+      @JsonKey(name: 'name') required this.fullName,
+      @JsonKey(name: 'phone') required this.phoneNumber,
+      @JsonKey(name: 'address') required this.address})
       : super._();
 
   factory _$_UserInfoDTO.fromJson(Map<String, dynamic> json) =>
       _$$_UserInfoDTOFromJson(json);
 
   @override
-  final UserDTO user;
+  final String id;
   @override
+  @JsonKey(name: 'name')
   final String fullName;
   @override
+  @JsonKey(name: 'phone')
   final int phoneNumber;
   @override
+  @JsonKey(name: 'address')
   final String address;
 
   @override
   String toString() {
-    return 'UserInfoDTO(user: $user, fullName: $fullName, phoneNumber: $phoneNumber, address: $address)';
+    return 'UserInfoDTO(id: $id, fullName: $fullName, phoneNumber: $phoneNumber, address: $address)';
   }
 
   @override
@@ -192,7 +194,7 @@ class _$_UserInfoDTO extends _UserInfoDTO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserInfoDTO &&
-            const DeepCollectionEquality().equals(other.user, user) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.fullName, fullName) &&
             const DeepCollectionEquality()
                 .equals(other.phoneNumber, phoneNumber) &&
@@ -202,7 +204,7 @@ class _$_UserInfoDTO extends _UserInfoDTO {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(user),
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(fullName),
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(address));
@@ -220,22 +222,25 @@ class _$_UserInfoDTO extends _UserInfoDTO {
 
 abstract class _UserInfoDTO extends UserInfoDTO {
   const factory _UserInfoDTO(
-      {required UserDTO user,
-      required String fullName,
-      required int phoneNumber,
-      required String address}) = _$_UserInfoDTO;
+      {required String id,
+      @JsonKey(name: 'name') required String fullName,
+      @JsonKey(name: 'phone') required int phoneNumber,
+      @JsonKey(name: 'address') required String address}) = _$_UserInfoDTO;
   const _UserInfoDTO._() : super._();
 
   factory _UserInfoDTO.fromJson(Map<String, dynamic> json) =
       _$_UserInfoDTO.fromJson;
 
   @override
-  UserDTO get user;
+  String get id;
   @override
+  @JsonKey(name: 'name')
   String get fullName;
   @override
+  @JsonKey(name: 'phone')
   int get phoneNumber;
   @override
+  @JsonKey(name: 'address')
   String get address;
   @override
   @JsonKey(ignore: true)
