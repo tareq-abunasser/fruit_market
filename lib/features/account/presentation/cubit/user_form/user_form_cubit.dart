@@ -1,13 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:fruit_market/features/auth/domain/entities/user_info.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../../core/entities/failures.dart';
 import '../../../../../core/entities/value_objects.dart';
 import '../../../domain/entities/user.dart';
 import '../../../domain/entities/value_objects.dart';
-import '../../../domain/faliures/auth_failure.dart';
-import '../../../domain/repositories/i_auth_repository.dart';
+import '../../../domain/repositories/i_account_repository.dart';
 
 part 'complete_info_form_state.dart';
 
@@ -15,9 +14,9 @@ part 'complete_info_form_cubit.freezed.dart';
 
 @injectable
 class CompleteInfoFormCubit extends Cubit<CompleteInfoFormState> {
-  final IAuthRepository _authRepository;
+  final IAccountRepository _repository;
 
-  CompleteInfoFormCubit(this._authRepository)
+  CompleteInfoFormCubit(this._repository)
       : super(CompleteInfoFormState.initial());
 
   static CompleteInfoFormCubit getInstance(context) {
@@ -68,7 +67,7 @@ class CompleteInfoFormCubit extends Cubit<CompleteInfoFormState> {
   }
 
   loginPressed() async {
-    Either<AuthFailure, Unit>? failureOrSuccess;
+    Either<Failure, Unit>? failureOrSuccess;
     emit(state.copyWith(
       isSubmitting: true,
       authFailureOrSuccessOption: none(),

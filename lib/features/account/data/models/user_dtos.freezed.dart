@@ -26,12 +26,16 @@ class _$UserDTOTearOff {
       {@HiveField(0) @JsonKey(ignore: true) String? id,
       @HiveField(1) @JsonKey(name: 'name') required String fullName,
       @HiveField(2) @JsonKey(name: 'photo_url') required String photoURL,
-      @HiveField(3) @JsonKey(name: 'email') required String email}) {
+      @HiveField(3) @JsonKey(name: 'email') required String email,
+      @HiveField(4) @JsonKey(name: 'phone') required int phoneNumber,
+      @HiveField(5) @JsonKey(name: 'address') required String address}) {
     return _UserDTO(
       id: id,
       fullName: fullName,
       photoURL: photoURL,
       email: email,
+      phoneNumber: phoneNumber,
+      address: address,
     );
   }
 
@@ -57,6 +61,12 @@ mixin _$UserDTO {
   @HiveField(3)
   @JsonKey(name: 'email')
   String get email => throw _privateConstructorUsedError;
+  @HiveField(4)
+  @JsonKey(name: 'phone')
+  int get phoneNumber => throw _privateConstructorUsedError;
+  @HiveField(5)
+  @JsonKey(name: 'address')
+  String get address => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,7 +81,9 @@ abstract class $UserDTOCopyWith<$Res> {
       {@HiveField(0) @JsonKey(ignore: true) String? id,
       @HiveField(1) @JsonKey(name: 'name') String fullName,
       @HiveField(2) @JsonKey(name: 'photo_url') String photoURL,
-      @HiveField(3) @JsonKey(name: 'email') String email});
+      @HiveField(3) @JsonKey(name: 'email') String email,
+      @HiveField(4) @JsonKey(name: 'phone') int phoneNumber,
+      @HiveField(5) @JsonKey(name: 'address') String address});
 }
 
 /// @nodoc
@@ -88,6 +100,8 @@ class _$UserDTOCopyWithImpl<$Res> implements $UserDTOCopyWith<$Res> {
     Object? fullName = freezed,
     Object? photoURL = freezed,
     Object? email = freezed,
+    Object? phoneNumber = freezed,
+    Object? address = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -106,6 +120,14 @@ class _$UserDTOCopyWithImpl<$Res> implements $UserDTOCopyWith<$Res> {
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneNumber: phoneNumber == freezed
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      address: address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -119,7 +141,9 @@ abstract class _$UserDTOCopyWith<$Res> implements $UserDTOCopyWith<$Res> {
       {@HiveField(0) @JsonKey(ignore: true) String? id,
       @HiveField(1) @JsonKey(name: 'name') String fullName,
       @HiveField(2) @JsonKey(name: 'photo_url') String photoURL,
-      @HiveField(3) @JsonKey(name: 'email') String email});
+      @HiveField(3) @JsonKey(name: 'email') String email,
+      @HiveField(4) @JsonKey(name: 'phone') int phoneNumber,
+      @HiveField(5) @JsonKey(name: 'address') String address});
 }
 
 /// @nodoc
@@ -137,6 +161,8 @@ class __$UserDTOCopyWithImpl<$Res> extends _$UserDTOCopyWithImpl<$Res>
     Object? fullName = freezed,
     Object? photoURL = freezed,
     Object? email = freezed,
+    Object? phoneNumber = freezed,
+    Object? address = freezed,
   }) {
     return _then(_UserDTO(
       id: id == freezed
@@ -155,6 +181,14 @@ class __$UserDTOCopyWithImpl<$Res> extends _$UserDTOCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneNumber: phoneNumber == freezed
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      address: address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -167,7 +201,9 @@ class _$_UserDTO extends _UserDTO {
       {@HiveField(0) @JsonKey(ignore: true) this.id,
       @HiveField(1) @JsonKey(name: 'name') required this.fullName,
       @HiveField(2) @JsonKey(name: 'photo_url') required this.photoURL,
-      @HiveField(3) @JsonKey(name: 'email') required this.email})
+      @HiveField(3) @JsonKey(name: 'email') required this.email,
+      @HiveField(4) @JsonKey(name: 'phone') required this.phoneNumber,
+      @HiveField(5) @JsonKey(name: 'address') required this.address})
       : super._();
 
   factory _$_UserDTO.fromJson(Map<String, dynamic> json) =>
@@ -189,10 +225,18 @@ class _$_UserDTO extends _UserDTO {
   @HiveField(3)
   @JsonKey(name: 'email')
   final String email;
+  @override
+  @HiveField(4)
+  @JsonKey(name: 'phone')
+  final int phoneNumber;
+  @override
+  @HiveField(5)
+  @JsonKey(name: 'address')
+  final String address;
 
   @override
   String toString() {
-    return 'UserDTO(id: $id, fullName: $fullName, photoURL: $photoURL, email: $email)';
+    return 'UserDTO(id: $id, fullName: $fullName, photoURL: $photoURL, email: $email, phoneNumber: $phoneNumber, address: $address)';
   }
 
   @override
@@ -203,7 +247,10 @@ class _$_UserDTO extends _UserDTO {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.fullName, fullName) &&
             const DeepCollectionEquality().equals(other.photoURL, photoURL) &&
-            const DeepCollectionEquality().equals(other.email, email));
+            const DeepCollectionEquality().equals(other.email, email) &&
+            const DeepCollectionEquality()
+                .equals(other.phoneNumber, phoneNumber) &&
+            const DeepCollectionEquality().equals(other.address, address));
   }
 
   @override
@@ -212,7 +259,9 @@ class _$_UserDTO extends _UserDTO {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(fullName),
       const DeepCollectionEquality().hash(photoURL),
-      const DeepCollectionEquality().hash(email));
+      const DeepCollectionEquality().hash(email),
+      const DeepCollectionEquality().hash(phoneNumber),
+      const DeepCollectionEquality().hash(address));
 
   @JsonKey(ignore: true)
   @override
@@ -230,7 +279,9 @@ abstract class _UserDTO extends UserDTO {
           {@HiveField(0) @JsonKey(ignore: true) String? id,
           @HiveField(1) @JsonKey(name: 'name') required String fullName,
           @HiveField(2) @JsonKey(name: 'photo_url') required String photoURL,
-          @HiveField(3) @JsonKey(name: 'email') required String email}) =
+          @HiveField(3) @JsonKey(name: 'email') required String email,
+          @HiveField(4) @JsonKey(name: 'phone') required int phoneNumber,
+          @HiveField(5) @JsonKey(name: 'address') required String address}) =
       _$_UserDTO;
   _UserDTO._() : super._();
 
@@ -252,6 +303,14 @@ abstract class _UserDTO extends UserDTO {
   @HiveField(3)
   @JsonKey(name: 'email')
   String get email;
+  @override
+  @HiveField(4)
+  @JsonKey(name: 'phone')
+  int get phoneNumber;
+  @override
+  @HiveField(5)
+  @JsonKey(name: 'address')
+  String get address;
   @override
   @JsonKey(ignore: true)
   _$UserDTOCopyWith<_UserDTO> get copyWith =>

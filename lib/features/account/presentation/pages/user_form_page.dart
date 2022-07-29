@@ -5,7 +5,6 @@ import 'package:fruit_market/injection.dart';
 import 'package:get/get.dart';
 
 import '../../../../routes/mobile_app_pages.dart';
-import '../cubit/auth_cubit.dart';
 import '../cubit/complete_information_form/complete_info_form_cubit.dart';
 import '../widgets/complete_information_body.dart';
 

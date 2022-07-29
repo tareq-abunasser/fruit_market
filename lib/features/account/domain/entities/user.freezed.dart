@@ -19,15 +19,19 @@ class _$UserTearOff {
   const _$UserTearOff();
 
   _User call(
-      {required UniqueId id,
+      {required UniqueId uniqueId,
+      required FullName fullName,
+      required PhoneNumber phoneNumber,
+      required Address address,
       required EmailAddress email,
-      required ImageURL imageURL,
-      required FullName name}) {
+      required ImageURL imageURL}) {
     return _User(
-      id: id,
+      uniqueId: uniqueId,
+      fullName: fullName,
+      phoneNumber: phoneNumber,
+      address: address,
       email: email,
       imageURL: imageURL,
-      name: name,
     );
   }
 }
@@ -37,10 +41,12 @@ const $User = _$UserTearOff();
 
 /// @nodoc
 mixin _$User {
-  UniqueId get id => throw _privateConstructorUsedError;
+  UniqueId get uniqueId => throw _privateConstructorUsedError;
+  FullName get fullName => throw _privateConstructorUsedError;
+  PhoneNumber get phoneNumber => throw _privateConstructorUsedError;
+  Address get address => throw _privateConstructorUsedError;
   EmailAddress get email => throw _privateConstructorUsedError;
   ImageURL get imageURL => throw _privateConstructorUsedError;
-  FullName get name => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -51,7 +57,12 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
   $Res call(
-      {UniqueId id, EmailAddress email, ImageURL imageURL, FullName name});
+      {UniqueId uniqueId,
+      FullName fullName,
+      PhoneNumber phoneNumber,
+      Address address,
+      EmailAddress email,
+      ImageURL imageURL});
 }
 
 /// @nodoc
@@ -64,16 +75,30 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? uniqueId = freezed,
+    Object? fullName = freezed,
+    Object? phoneNumber = freezed,
+    Object? address = freezed,
     Object? email = freezed,
     Object? imageURL = freezed,
-    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      uniqueId: uniqueId == freezed
+          ? _value.uniqueId
+          : uniqueId // ignore: cast_nullable_to_non_nullable
               as UniqueId,
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as FullName,
+      phoneNumber: phoneNumber == freezed
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as PhoneNumber,
+      address: address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -82,10 +107,6 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
               as ImageURL,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as FullName,
     ));
   }
 }
@@ -96,7 +117,12 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$UserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {UniqueId id, EmailAddress email, ImageURL imageURL, FullName name});
+      {UniqueId uniqueId,
+      FullName fullName,
+      PhoneNumber phoneNumber,
+      Address address,
+      EmailAddress email,
+      ImageURL imageURL});
 }
 
 /// @nodoc
@@ -110,16 +136,30 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? uniqueId = freezed,
+    Object? fullName = freezed,
+    Object? phoneNumber = freezed,
+    Object? address = freezed,
     Object? email = freezed,
     Object? imageURL = freezed,
-    Object? name = freezed,
   }) {
     return _then(_User(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      uniqueId: uniqueId == freezed
+          ? _value.uniqueId
+          : uniqueId // ignore: cast_nullable_to_non_nullable
               as UniqueId,
+      fullName: fullName == freezed
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as FullName,
+      phoneNumber: phoneNumber == freezed
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as PhoneNumber,
+      address: address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -128,10 +168,6 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
               as ImageURL,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as FullName,
     ));
   }
 }
@@ -140,24 +176,30 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 
 class _$_User extends _User {
   const _$_User(
-      {required this.id,
+      {required this.uniqueId,
+      required this.fullName,
+      required this.phoneNumber,
+      required this.address,
       required this.email,
-      required this.imageURL,
-      required this.name})
+      required this.imageURL})
       : super._();
 
   @override
-  final UniqueId id;
+  final UniqueId uniqueId;
+  @override
+  final FullName fullName;
+  @override
+  final PhoneNumber phoneNumber;
+  @override
+  final Address address;
   @override
   final EmailAddress email;
   @override
   final ImageURL imageURL;
-  @override
-  final FullName name;
 
   @override
   String toString() {
-    return 'User(id: $id, email: $email, imageURL: $imageURL, name: $name)';
+    return 'User(uniqueId: $uniqueId, fullName: $fullName, phoneNumber: $phoneNumber, address: $address, email: $email, imageURL: $imageURL)';
   }
 
   @override
@@ -165,19 +207,24 @@ class _$_User extends _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _User &&
-            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.uniqueId, uniqueId) &&
+            const DeepCollectionEquality().equals(other.fullName, fullName) &&
+            const DeepCollectionEquality()
+                .equals(other.phoneNumber, phoneNumber) &&
+            const DeepCollectionEquality().equals(other.address, address) &&
             const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.imageURL, imageURL) &&
-            const DeepCollectionEquality().equals(other.name, name));
+            const DeepCollectionEquality().equals(other.imageURL, imageURL));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(uniqueId),
+      const DeepCollectionEquality().hash(fullName),
+      const DeepCollectionEquality().hash(phoneNumber),
+      const DeepCollectionEquality().hash(address),
       const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(imageURL),
-      const DeepCollectionEquality().hash(name));
+      const DeepCollectionEquality().hash(imageURL));
 
   @JsonKey(ignore: true)
   @override
@@ -187,20 +234,26 @@ class _$_User extends _User {
 
 abstract class _User extends User {
   const factory _User(
-      {required UniqueId id,
+      {required UniqueId uniqueId,
+      required FullName fullName,
+      required PhoneNumber phoneNumber,
+      required Address address,
       required EmailAddress email,
-      required ImageURL imageURL,
-      required FullName name}) = _$_User;
+      required ImageURL imageURL}) = _$_User;
   const _User._() : super._();
 
   @override
-  UniqueId get id;
+  UniqueId get uniqueId;
+  @override
+  FullName get fullName;
+  @override
+  PhoneNumber get phoneNumber;
+  @override
+  Address get address;
   @override
   EmailAddress get email;
   @override
   ImageURL get imageURL;
-  @override
-  FullName get name;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;

@@ -1,52 +1,53 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:fruit_market/features/auth/domain/entities/value_objects.dart';
-import 'package:hive/hive.dart';
 
+import 'package:fruit_market/features/auth/data/models/user_dtos.dart';
+import 'package:fruit_market/features/auth/domain/entities/user.dart';
 import '../../../../core/entities/value_objects.dart';
-import '../../../home/domain/entities/value_objects.dart';
+
 import '../../domain/entities/user.dart';
 import '../../domain/entities/value_objects.dart';
+// import 'package:json_annotation/json_annotation.dart';
 
-part 'user_dtos.freezed.dart';
+part 'user_info_dtos.freezed.dart';
 
-part 'user_dtos.g.dart';
+part 'user_info_dtos.g.dart';
 
+// @JsonSerializable()
 @freezed
-abstract class UserDTO extends HiveObject implements _$UserDTO {
-  UserDTO._();
+abstract class UserInfoDTO implements _$UserInfoDTO {
+  const UserInfoDTO._();
 
-  @HiveType(typeId: 4, adapterName: 'UserDTOAdapter')
-  factory UserDTO({
-    @HiveField(0) @JsonKey(ignore: true) String? id,
-    @HiveField(1) @JsonKey(name: 'name') required String fullName,
-    @HiveField(2) @JsonKey(name: 'photo_url') required String photoURL,
-    @HiveField(3) @JsonKey(name: 'email') required String email,
-  }) = _UserDTO;
+  const factory UserInfoDTO({
+     required String id,
+    @JsonKey(name: 'name') required String fullName,
+    @JsonKey(name: 'phone') required int phoneNumber,
+    @JsonKey(name: 'address') required String address,
+  }) = _UserInfoDTO;
 
-  factory UserDTO.fromDomain(User user) {
-    return UserDTO(
-      id: user.id.getOrCrash(),
-      fullName: user.name.getOrCrash(),
-      photoURL: user.imageURL.getOrCrash(),
-      email: user.email.getOrCrash(),
+  factory UserInfoDTO.fromDomain(UserInfo userInfo) {
+    return UserInfoDTO(
+      id: userInfo.user.uniqueId.getOrCrash(),
+      fullName: userInfo.fullName.getOrCrash(),
+      phoneNumber: userInfo.phoneNumber.getOrCrash(),
+      address: userInfo.address.getOrCrash(),
     );
   }
 
-  User toDomain() {
-    return User(
-      id: UniqueId.fromUniqueString(id!),
-      name: FullName(fullName),
-      imageURL: ImageURL(photoURL),
-      email: EmailAddress(email),
+  UserInfo toDomain() {
+    return UserInfo(
+      user: User(uniqueId: UniqueId.fromUniqueString(id)),
+      fullName: FullName(fullName),
+      phoneNumber: PhoneNumber(phoneNumber.toString()),
+      address: Address(address),
     );
   }
 
-  factory UserDTO.fromJson(Map<String, dynamic> json) =>
-      _$UserDTOFromJson(json);
+  factory UserInfoDTO.fromJson(Map<String, dynamic> json) =>
+      _$UserInfoDTOFromJson(json);
 
-  factory UserDTO.fromFirestore(DocumentSnapshot doc) {
+  factory UserInfoDTO.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data()! as Map<String, dynamic>;
-    return UserDTO.fromJson(data).copyWith(id: doc.id);
+    return UserInfoDTO.fromJson(data).copyWith(id: doc.id);
   }
 }

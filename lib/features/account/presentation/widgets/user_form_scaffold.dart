@@ -8,12 +8,11 @@ import '../../../../../../core/widgets/custom_buttons.dart';
 import '../../../../../../core/widgets/space_widget.dart';
 import '../../../../../../routes/mobile_app_pages.dart';
 import '../../../../core/widgets/saving_in_progress_overlay.dart';
-import '../cubit/auth_cubit.dart';
-import '../cubit/complete_information_form/complete_info_form_cubit.dart';
+import '../cubit/user_form/user_form_cubit.dart';
 import 'complete_information_item.dart';
 
-class CompleteInformationBody extends StatelessWidget {
-  CompleteInformationBody({Key? key}) : super(key: key);
+class UserFormBody extends StatelessWidget {
+  UserFormBody({Key? key}) : super(key: key);
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
@@ -23,7 +22,7 @@ class CompleteInformationBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CompleteInfoFormCubit, CompleteInfoFormState>(
+    return BlocConsumer<UserFormCubit, UserFormState>(
       listenWhen: (p, c) =>
           p.authFailureOrSuccessOption != c.authFailureOrSuccessOption,
       listener: (context, state) {
@@ -33,7 +32,7 @@ class CompleteInformationBody extends StatelessWidget {
             (failure) {
               FlushbarHelper.createError(
                   message: failure.maybeMap(
-                      cancelledByUser: (_) => 'Cancelled',
+                      // cancelledByUser: (_) => 'Cancelled',
                       serverError: (_) => 'Server error',
                       orElse: () => 'Unknown error')).show(context);
             },
@@ -60,12 +59,12 @@ class CompleteInformationBody extends StatelessWidget {
                       CompleteInfoItem(
                         controller: nameController,
                         onChanged: (name) =>
-                            CompleteInfoFormCubit.getInstance(context)
-                                .nameChanged(name),
+                            context.read<UserFormCubit>().nameChanged(name),
                         validator: (_) {
-                          return CompleteInfoFormCubit.getInstance(context)
+                          return context
+                              .watch<UserFormCubit>()
                               .state
-                              .userInfo
+                              .user
                               .fullName
                               .value
                               .fold(
@@ -82,12 +81,12 @@ class CompleteInformationBody extends StatelessWidget {
                       CompleteInfoItem(
                         controller: phoneController,
                         onChanged: (phone) =>
-                            CompleteInfoFormCubit.getInstance(context)
-                                .phoneChanged(phone),
+                            context.read<UserFormCubit>().phoneChanged(phone),
                         validator: (_) {
-                          return CompleteInfoFormCubit.getInstance(context)
+                          return context
+                              .watch<UserFormCubit>()
                               .state
-                              .userInfo
+                              .user
                               .phoneNumber
                               .value
                               .fold(
@@ -104,13 +103,14 @@ class CompleteInformationBody extends StatelessWidget {
                       const VerticalSpace(value: 2),
                       CompleteInfoItem(
                         controller: addressController,
-                        onChanged: (address) =>
-                            CompleteInfoFormCubit.getInstance(context)
-                                .addressChanged(address),
+                        onChanged: (address) => context
+                            .read<UserFormCubit>()
+                            .addressChanged(address),
                         validator: (_) {
-                          return CompleteInfoFormCubit.getInstance(context)
+                          return context
+                              .watch<UserFormCubit>()
                               .state
-                              .userInfo
+                              .user
                               .address
                               .value
                               .fold(
@@ -129,11 +129,9 @@ class CompleteInformationBody extends StatelessWidget {
                         text: 'Login',
                         onTap: () {
                           if (formKey.currentState!.validate()) {
-                            CompleteInfoFormCubit.getInstance(context)
-                                .loginPressed();
+                            context.read<UserFormCubit>().loginPressed();
                           } else {
-                            CompleteInfoFormCubit.getInstance(context)
-                                .showErrorMessages();
+                            context.read<UserFormCubit>().showErrorMessages();
                           }
                         },
                       )
@@ -143,9 +141,7 @@ class CompleteInformationBody extends StatelessWidget {
               ),
             ),
             SavingInProgressOverlay(
-                isSaving: CompleteInfoFormCubit.getInstance(context)
-                    .state
-                    .isSubmitting)
+                isSaving: context.watch<UserFormCubit>().state.isSubmitting)
           ],
         );
       },

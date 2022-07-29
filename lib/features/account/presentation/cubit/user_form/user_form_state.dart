@@ -3,14 +3,14 @@ part of 'complete_info_form_cubit.dart';
 @freezed
 class CompleteInfoFormState with _$CompleteInfoFormState {
   const factory CompleteInfoFormState({
-    required UserInfo userInfo,
+    required User user,
     required bool showErrorMessages,
     required bool isSubmitting,
-    required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption,
+    required Option<Either<Failure, Unit>> authFailureOrSuccessOption,
   }) = _CompleteInfoFormState;
 
   factory CompleteInfoFormState.initial() => CompleteInfoFormState(
-        userInfo: UserInfo.empty(),
+        user: User.empty(),
         showErrorMessages: false,
         isSubmitting: false,
         authFailureOrSuccessOption: none(),

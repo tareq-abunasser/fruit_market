@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'complete_info_form_cubit.dart';
+part of 'user_form_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,17 +15,19 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$CompleteInfoFormStateTearOff {
-  const _$CompleteInfoFormStateTearOff();
+class _$UserFormStateTearOff {
+  const _$UserFormStateTearOff();
 
-  _CompleteInfoFormState call(
-      {required UserInfo userInfo,
+  _UserState call(
+      {required User user,
       required bool showErrorMessages,
+      required bool isEditing,
       required bool isSubmitting,
-      required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption}) {
-    return _CompleteInfoFormState(
-      userInfo: userInfo,
+      required Option<Either<Failure, Unit>> authFailureOrSuccessOption}) {
+    return _UserState(
+      user: user,
       showErrorMessages: showErrorMessages,
+      isEditing: isEditing,
       isSubmitting: isSubmitting,
       authFailureOrSuccessOption: authFailureOrSuccessOption,
     );
@@ -33,59 +35,66 @@ class _$CompleteInfoFormStateTearOff {
 }
 
 /// @nodoc
-const $CompleteInfoFormState = _$CompleteInfoFormStateTearOff();
+const $UserFormState = _$UserFormStateTearOff();
 
 /// @nodoc
-mixin _$CompleteInfoFormState {
-  UserInfo get userInfo => throw _privateConstructorUsedError;
+mixin _$UserFormState {
+  User get user => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
+  bool get isEditing => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption =>
+  Option<Either<Failure, Unit>> get authFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $CompleteInfoFormStateCopyWith<CompleteInfoFormState> get copyWith =>
+  $UserFormStateCopyWith<UserFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CompleteInfoFormStateCopyWith<$Res> {
-  factory $CompleteInfoFormStateCopyWith(CompleteInfoFormState value,
-          $Res Function(CompleteInfoFormState) then) =
-      _$CompleteInfoFormStateCopyWithImpl<$Res>;
+abstract class $UserFormStateCopyWith<$Res> {
+  factory $UserFormStateCopyWith(
+          UserFormState value, $Res Function(UserFormState) then) =
+      _$UserFormStateCopyWithImpl<$Res>;
   $Res call(
-      {UserInfo userInfo,
+      {User user,
       bool showErrorMessages,
+      bool isEditing,
       bool isSubmitting,
-      Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
+      Option<Either<Failure, Unit>> authFailureOrSuccessOption});
 
-  $UserInfoCopyWith<$Res> get userInfo;
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
-class _$CompleteInfoFormStateCopyWithImpl<$Res>
-    implements $CompleteInfoFormStateCopyWith<$Res> {
-  _$CompleteInfoFormStateCopyWithImpl(this._value, this._then);
+class _$UserFormStateCopyWithImpl<$Res>
+    implements $UserFormStateCopyWith<$Res> {
+  _$UserFormStateCopyWithImpl(this._value, this._then);
 
-  final CompleteInfoFormState _value;
+  final UserFormState _value;
   // ignore: unused_field
-  final $Res Function(CompleteInfoFormState) _then;
+  final $Res Function(UserFormState) _then;
 
   @override
   $Res call({
-    Object? userInfo = freezed,
+    Object? user = freezed,
     Object? showErrorMessages = freezed,
+    Object? isEditing = freezed,
     Object? isSubmitting = freezed,
     Object? authFailureOrSuccessOption = freezed,
   }) {
     return _then(_value.copyWith(
-      userInfo: userInfo == freezed
-          ? _value.userInfo
-          : userInfo // ignore: cast_nullable_to_non_nullable
-              as UserInfo,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEditing: isEditing == freezed
+          ? _value.isEditing
+          : isEditing // ignore: cast_nullable_to_non_nullable
               as bool,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
@@ -94,61 +103,65 @@ class _$CompleteInfoFormStateCopyWithImpl<$Res>
       authFailureOrSuccessOption: authFailureOrSuccessOption == freezed
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, Unit>>,
+              as Option<Either<Failure, Unit>>,
     ));
   }
 
   @override
-  $UserInfoCopyWith<$Res> get userInfo {
-    return $UserInfoCopyWith<$Res>(_value.userInfo, (value) {
-      return _then(_value.copyWith(userInfo: value));
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$CompleteInfoFormStateCopyWith<$Res>
-    implements $CompleteInfoFormStateCopyWith<$Res> {
-  factory _$CompleteInfoFormStateCopyWith(_CompleteInfoFormState value,
-          $Res Function(_CompleteInfoFormState) then) =
-      __$CompleteInfoFormStateCopyWithImpl<$Res>;
+abstract class _$UserStateCopyWith<$Res>
+    implements $UserFormStateCopyWith<$Res> {
+  factory _$UserStateCopyWith(
+          _UserState value, $Res Function(_UserState) then) =
+      __$UserStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {UserInfo userInfo,
+      {User user,
       bool showErrorMessages,
+      bool isEditing,
       bool isSubmitting,
-      Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
+      Option<Either<Failure, Unit>> authFailureOrSuccessOption});
 
   @override
-  $UserInfoCopyWith<$Res> get userInfo;
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
-class __$CompleteInfoFormStateCopyWithImpl<$Res>
-    extends _$CompleteInfoFormStateCopyWithImpl<$Res>
-    implements _$CompleteInfoFormStateCopyWith<$Res> {
-  __$CompleteInfoFormStateCopyWithImpl(_CompleteInfoFormState _value,
-      $Res Function(_CompleteInfoFormState) _then)
-      : super(_value, (v) => _then(v as _CompleteInfoFormState));
+class __$UserStateCopyWithImpl<$Res> extends _$UserFormStateCopyWithImpl<$Res>
+    implements _$UserStateCopyWith<$Res> {
+  __$UserStateCopyWithImpl(_UserState _value, $Res Function(_UserState) _then)
+      : super(_value, (v) => _then(v as _UserState));
 
   @override
-  _CompleteInfoFormState get _value => super._value as _CompleteInfoFormState;
+  _UserState get _value => super._value as _UserState;
 
   @override
   $Res call({
-    Object? userInfo = freezed,
+    Object? user = freezed,
     Object? showErrorMessages = freezed,
+    Object? isEditing = freezed,
     Object? isSubmitting = freezed,
     Object? authFailureOrSuccessOption = freezed,
   }) {
-    return _then(_CompleteInfoFormState(
-      userInfo: userInfo == freezed
-          ? _value.userInfo
-          : userInfo // ignore: cast_nullable_to_non_nullable
-              as UserInfo,
+    return _then(_UserState(
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEditing: isEditing == freezed
+          ? _value.isEditing
+          : isEditing // ignore: cast_nullable_to_non_nullable
               as bool,
       isSubmitting: isSubmitting == freezed
           ? _value.isSubmitting
@@ -157,42 +170,46 @@ class __$CompleteInfoFormStateCopyWithImpl<$Res>
       authFailureOrSuccessOption: authFailureOrSuccessOption == freezed
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, Unit>>,
+              as Option<Either<Failure, Unit>>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_CompleteInfoFormState implements _CompleteInfoFormState {
-  const _$_CompleteInfoFormState(
-      {required this.userInfo,
+class _$_UserState implements _UserState {
+  const _$_UserState(
+      {required this.user,
       required this.showErrorMessages,
+      required this.isEditing,
       required this.isSubmitting,
       required this.authFailureOrSuccessOption});
 
   @override
-  final UserInfo userInfo;
+  final User user;
   @override
   final bool showErrorMessages;
   @override
+  final bool isEditing;
+  @override
   final bool isSubmitting;
   @override
-  final Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption;
+  final Option<Either<Failure, Unit>> authFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'CompleteInfoFormState(userInfo: $userInfo, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'UserFormState(user: $user, showErrorMessages: $showErrorMessages, isEditing: $isEditing, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CompleteInfoFormState &&
-            const DeepCollectionEquality().equals(other.userInfo, userInfo) &&
+            other is _UserState &&
+            const DeepCollectionEquality().equals(other.user, user) &&
             const DeepCollectionEquality()
                 .equals(other.showErrorMessages, showErrorMessages) &&
+            const DeepCollectionEquality().equals(other.isEditing, isEditing) &&
             const DeepCollectionEquality()
                 .equals(other.isSubmitting, isSubmitting) &&
             const DeepCollectionEquality().equals(
@@ -202,36 +219,39 @@ class _$_CompleteInfoFormState implements _CompleteInfoFormState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(userInfo),
+      const DeepCollectionEquality().hash(user),
       const DeepCollectionEquality().hash(showErrorMessages),
+      const DeepCollectionEquality().hash(isEditing),
       const DeepCollectionEquality().hash(isSubmitting),
       const DeepCollectionEquality().hash(authFailureOrSuccessOption));
 
   @JsonKey(ignore: true)
   @override
-  _$CompleteInfoFormStateCopyWith<_CompleteInfoFormState> get copyWith =>
-      __$CompleteInfoFormStateCopyWithImpl<_CompleteInfoFormState>(
-          this, _$identity);
+  _$UserStateCopyWith<_UserState> get copyWith =>
+      __$UserStateCopyWithImpl<_UserState>(this, _$identity);
 }
 
-abstract class _CompleteInfoFormState implements CompleteInfoFormState {
-  const factory _CompleteInfoFormState(
-      {required UserInfo userInfo,
-      required bool showErrorMessages,
-      required bool isSubmitting,
-      required Option<Either<AuthFailure, Unit>>
-          authFailureOrSuccessOption}) = _$_CompleteInfoFormState;
+abstract class _UserState implements UserFormState {
+  const factory _UserState(
+          {required User user,
+          required bool showErrorMessages,
+          required bool isEditing,
+          required bool isSubmitting,
+          required Option<Either<Failure, Unit>> authFailureOrSuccessOption}) =
+      _$_UserState;
 
   @override
-  UserInfo get userInfo;
+  User get user;
   @override
   bool get showErrorMessages;
   @override
+  bool get isEditing;
+  @override
   bool get isSubmitting;
   @override
-  Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption;
+  Option<Either<Failure, Unit>> get authFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
-  _$CompleteInfoFormStateCopyWith<_CompleteInfoFormState> get copyWith =>
+  _$UserStateCopyWith<_UserState> get copyWith =>
       throw _privateConstructorUsedError;
 }
