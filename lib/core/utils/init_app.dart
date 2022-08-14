@@ -1,8 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fruit_market/features/auth/domain/usecases/get_if_user_time_open_app.dart';
 import 'package:fruit_market/features/auth/domain/usecases/get_signed_in_user.dart';
-import 'package:fruit_market/features/auth/domain/usecases/get_user_info.dart';
 import 'package:fruit_market/injection.dart';
 import '../../firebase_options.dart';
 import 'login_manager.dart';

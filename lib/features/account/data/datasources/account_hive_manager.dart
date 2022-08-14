@@ -2,52 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
-
-import '../models/product_dtos.dart';
-import '../models/product_main_class_dtos.dart';
-import '../models/product_subclass_dtos.dart';
-import 'home_local_data_source.dart';
+import '../models/user_dtos.dart';
 
 @Singleton()
-class HomeHiveManager {
-  late Box<ProductDTO> _productBox;
-  late Box<ProductMainClassDTO> _productMainClassBox;
-  late Box<ProductSubclassDTO> _productSubclassBox;
-  late Box<ProductDTO> _favoriteProductBox;
-  late Box<ProductDTO> _shoppingCartBox;
+class AccountHiveManager {
+  late Box<UserDTO> _userBox;
+  static const String hiveUser = 'user_info';
 
-  // var adapters = <TypeAdapter<dynamic>>[
-  //   ProductDTOAdapter(),
-  //   ProductMainClassDTOAdapter(),
-  //   ProductSubclassDTOAdapter()
-  // ];
   Future<void> init() async {
-    // for (var adapter in adapters){
-    //   Hive.registerAdapter(adapter);
-    // }
-
-    Hive.registerAdapter(ProductMainClassDTOAdapter());
-    _productMainClassBox = await Hive.openBox<ProductMainClassDTO>(
-        HomeLocalDataSourceImpl.hiveProductMainClasses);
-    Hive.registerAdapter(ProductSubclassDTOAdapter());
-    _productSubclassBox = await Hive.openBox<ProductSubclassDTO>(
-        HomeLocalDataSourceImpl.hiveProductSubclasses);
-    Hive.registerAdapter(ProductDTOAdapter());
-    _productBox =
-        await Hive.openBox<ProductDTO>(HomeLocalDataSourceImpl.hiveProducts);
-    _favoriteProductBox = await Hive.openBox<ProductDTO>(
-        HomeLocalDataSourceImpl.hiveFavoriteProducts);
-    _shoppingCartBox = await Hive.openBox<ProductDTO>(
-        HomeLocalDataSourceImpl.hiveFavoriteProducts);
+    Hive.registerAdapter(UserDTOAdapter());
+    _userBox = await Hive.openBox<UserDTO>(hiveUser);
   }
 
-  Box<ProductDTO>? get productBox => _productBox;
+  Box<UserDTO>? get userBox => _userBox;
 
-  Box<ProductMainClassDTO>? get productMainClassBox => _productMainClassBox;
+  Future<void> close() async {
+    await _userBox.close();
+  }
 
-  Box<ProductSubclassDTO>? get productSubclassBox => _productSubclassBox;
-
-  Box<ProductDTO>? get favoriteProductBox => _favoriteProductBox;
-
-  Box<ProductDTO>? get shoppingCartBox => _shoppingCartBox;
+  Future<void> clear() async {
+    await _userBox.clear();
+  }
 }

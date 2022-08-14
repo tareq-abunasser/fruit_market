@@ -19,14 +19,14 @@ class _$UserTearOff {
   const _$UserTearOff();
 
   _User call(
-      {required UniqueId uniqueId,
+      {required UniqueId id,
       required FullName fullName,
       required PhoneNumber phoneNumber,
       required Address address,
       required EmailAddress email,
       required ImageURL imageURL}) {
     return _User(
-      uniqueId: uniqueId,
+      id: id,
       fullName: fullName,
       phoneNumber: phoneNumber,
       address: address,
@@ -41,7 +41,7 @@ const $User = _$UserTearOff();
 
 /// @nodoc
 mixin _$User {
-  UniqueId get uniqueId => throw _privateConstructorUsedError;
+  UniqueId get id => throw _privateConstructorUsedError;
   FullName get fullName => throw _privateConstructorUsedError;
   PhoneNumber get phoneNumber => throw _privateConstructorUsedError;
   Address get address => throw _privateConstructorUsedError;
@@ -57,7 +57,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
   $Res call(
-      {UniqueId uniqueId,
+      {UniqueId id,
       FullName fullName,
       PhoneNumber phoneNumber,
       Address address,
@@ -75,7 +75,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? uniqueId = freezed,
+    Object? id = freezed,
     Object? fullName = freezed,
     Object? phoneNumber = freezed,
     Object? address = freezed,
@@ -83,9 +83,9 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? imageURL = freezed,
   }) {
     return _then(_value.copyWith(
-      uniqueId: uniqueId == freezed
-          ? _value.uniqueId
-          : uniqueId // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as UniqueId,
       fullName: fullName == freezed
           ? _value.fullName
@@ -117,7 +117,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$UserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {UniqueId uniqueId,
+      {UniqueId id,
       FullName fullName,
       PhoneNumber phoneNumber,
       Address address,
@@ -136,7 +136,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? uniqueId = freezed,
+    Object? id = freezed,
     Object? fullName = freezed,
     Object? phoneNumber = freezed,
     Object? address = freezed,
@@ -144,9 +144,9 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? imageURL = freezed,
   }) {
     return _then(_User(
-      uniqueId: uniqueId == freezed
-          ? _value.uniqueId
-          : uniqueId // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as UniqueId,
       fullName: fullName == freezed
           ? _value.fullName
@@ -176,7 +176,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 
 class _$_User extends _User {
   const _$_User(
-      {required this.uniqueId,
+      {required this.id,
       required this.fullName,
       required this.phoneNumber,
       required this.address,
@@ -185,7 +185,7 @@ class _$_User extends _User {
       : super._();
 
   @override
-  final UniqueId uniqueId;
+  final UniqueId id;
   @override
   final FullName fullName;
   @override
@@ -199,7 +199,7 @@ class _$_User extends _User {
 
   @override
   String toString() {
-    return 'User(uniqueId: $uniqueId, fullName: $fullName, phoneNumber: $phoneNumber, address: $address, email: $email, imageURL: $imageURL)';
+    return 'User(id: $id, fullName: $fullName, phoneNumber: $phoneNumber, address: $address, email: $email, imageURL: $imageURL)';
   }
 
   @override
@@ -207,7 +207,7 @@ class _$_User extends _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _User &&
-            const DeepCollectionEquality().equals(other.uniqueId, uniqueId) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.fullName, fullName) &&
             const DeepCollectionEquality()
                 .equals(other.phoneNumber, phoneNumber) &&
@@ -219,7 +219,7 @@ class _$_User extends _User {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(uniqueId),
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(fullName),
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(address),
@@ -234,7 +234,7 @@ class _$_User extends _User {
 
 abstract class _User extends User {
   const factory _User(
-      {required UniqueId uniqueId,
+      {required UniqueId id,
       required FullName fullName,
       required PhoneNumber phoneNumber,
       required Address address,
@@ -243,7 +243,7 @@ abstract class _User extends User {
   const _User._() : super._();
 
   @override
-  UniqueId get uniqueId;
+  UniqueId get id;
   @override
   FullName get fullName;
   @override

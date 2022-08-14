@@ -3,26 +3,30 @@ import 'package:kt_dart/kt.dart';
 
 import 'failures.dart';
 
-
-
 Either<ValueFailure<String>, int> validatePhoneNumber(
   String input, {
-  int phoneLength = 10,
+  int phoneLength = 9,
 }) {
   int? phoneNumber = int.tryParse(input);
-  if (input.length == phoneLength && phoneNumber != null) {
-    return right(phoneNumber);
-  } else {
-    return left(
-      ValueFailure.invalidPhoneNumber(failedValue: input),
-    );
+  print('input : ${input}');
+  if(phoneNumber == null) {
+    return left(ValueFailure.invalidPhoneNumber(failedValue: input));
   }
+  return right(phoneNumber);
+
+  // if (input.bitLength == phoneLength) {
+  //   return right(input);
+  // } else {
+  //   return left(
+  //     ValueFailure.invalidPhoneNumber(failedValue: input.toString()),
+  //   );
+  // }
 }
 
 Either<ValueFailure<String>, String> validateMaxStringLength(
-    String input,
-    int maxLength,
-    ) {
+  String input,
+  int maxLength,
+) {
   if (input.length <= maxLength) {
     return right(input);
   } else {
@@ -92,13 +96,12 @@ Either<ValueFailure<String>, String> validateEqualsPassword(
   }
 }
 
-
-Either<ValueFailure<String>, double> convertRate(Map<String, double>rates){
-  double allRates=0;
+Either<ValueFailure<String>, double> convertRate(Map<String, double> rates) {
+  double allRates = 0;
   rates.forEach((key, value) {
-    allRates+=value;
+    allRates += value;
   });
-  double rate = allRates/rates.length;
+  double rate = allRates / rates.length;
   return right(rate);
 }
 

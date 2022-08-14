@@ -7,19 +7,12 @@ import 'package:fruit_market/features/auth/data/models/user_dtos.dart';
 import 'package:fruit_market/features/auth/domain/entities/user.dart' as _user;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../domain/faliures/auth_failure.dart';
-import '../models/user_info_dtos.dart';
 import '../../../../core/firebase/firebase_user_mapper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../core/firebase/firestore_helper.dart';
 
 abstract class AuthRemoteDataSource {
   UserDTO getSignedInUser();
-
-  Future<UserInfoDTO?> getUserInfo();
-
-  Future<void> completeUserInfo(UserInfoDTO userInfo);
 
   Future<void> signInWithGoogle();
 
@@ -43,48 +36,12 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   );
 
   @override
-  Future<void> completeUserInfo(UserInfoDTO userInfo) async {
-    final docUser = _firestore.collection('users').doc(userInfo.id);
-    docUser
-        .set(userInfo.toJson())
-        .then((value) => null)
-        .catchError((error) => throw ServerException());
-
-    // try {
-    //   final userDoc = await _firestore.userDocument();
-    //   final noteDto = NoteDto.fromDomain(note);
-    //
-    //   await userDoc.noteCollection.doc(noteDto.id).set(noteDto.toJson());
-    //
-    //   return right(unit);
-    // } on FirebaseException catch (e) {
-    //   if (e.message.contains('PERMISSION_DENIED')) {
-    //     return left(const NoteFailure.insufficientPermission());
-    //   } else {
-    //     return left(const NoteFailure.unexpected());
-    //   }
-    // }
-  }
-
-  @override
   UserDTO getSignedInUser() {
     UserDTO? userDTO = _firebaseAuth.currentUser?.toDomain();
     if (userDTO == null) {
       throw UnAuthenticatedException();
     }
     return userDTO;
-  }
-
-  @override
-  Future<UserInfoDTO?> getUserInfo() async {
-    final docUser = await _firestore.userDocument();
-    var snapshot = docUser.get();
-    var user = await snapshot
-        .then((value) => value.data())
-        .catchError((error) => throw ServerException());
-    return user == null
-        ? null
-        : UserInfoDTO.fromJson(user as Map<String, dynamic>);
   }
 
   @override
@@ -123,4 +80,6 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         _googleSignIn.signOut(),
         _firebaseAuth.signOut(),
       ]);
+
+
 }

@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:fruit_market/features/auth/domain/entities/user_info.dart';
-
 import '../entities/user.dart';
-import '../faliures/auth_failure.dart';
+import '../failures/auth_failure.dart';
 
 //The naive way would be to return  Future<AuthFailure> from the methods.
 // This, however, would force us to use null whenever a failure doesn't occur
@@ -23,9 +21,4 @@ abstract class IAuthRepository {
 
   Future<void> signOut();
 
-  Future<Either<AuthFailure, Unit>> completeUserInfo(UserInfo userInfo);
-
-  Future<Option<Either<AuthFailure, UserInfo>>> getUserInfo();
-
-  bool isFirstTimeOpenApp();
 }

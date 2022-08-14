@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:fruit_market/features/home/domain/entities/product.dart';
 
 import '../../../../core/entities/value_objects.dart';
-import '../../../auth/domain/entities/value_objects.dart';
 import 'value_objects.dart';
 
 part 'product_subclass.freezed.dart';

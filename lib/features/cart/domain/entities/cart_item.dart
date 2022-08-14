@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/entities/failures.dart';
 import '../../../../core/entities/value_objects.dart';
-import '../../../auth/domain/entities/value_objects.dart';
 import '../../../home/domain/entities/value_objects.dart';
 import 'value_objects.dart';
 // import 'value_objects.dart';

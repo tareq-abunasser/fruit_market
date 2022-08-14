@@ -2,9 +2,9 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_market/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:fruit_market/features/auth/presentation/cubit/get_user_info/get_user_info_cubit.dart';
 import 'package:fruit_market/features/auth/presentation/cubit/sign_in/sign_in_cubit.dart';
 import 'package:get/get.dart';
+import '../../../../core/utils/size_config.dart';
 import '../../../../injection.dart';
 import '../../../../routes/mobile_app_pages.dart';
 import '../widgets/login_view_body.dart';
@@ -17,7 +17,7 @@ class LoginView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => getIt<SignInCubit>()),
-        BlocProvider(create: (context) => getIt<GetUserInfoCubit>()),
+        // BlocProvider(create: (context) => getIt<GetUserInfoCubit>()),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -41,39 +41,42 @@ class LoginView extends StatelessWidget {
           ),
           BlocListener<AuthCubit, AuthState>(
             listener: (context, state) {
+              print("auth state : BlocListener<AuthCubit, AuthState>");
               state.map(
                 initial: (_) {},
                 authenticated: (_) {
                   print("listent to state");
-                  GetUserInfoCubit.getInstance(context).getProfileUserInfoInfo();
+                  Get.offAndToNamed(MobileRoutes.AccountInitial);
                 },
                 unauthenticated: (_) {
-                  Get.offAndToNamed(MobileRoutes.Main);
+                  Get.offAndToNamed(MobileRoutes.LOGIN);
                 },
               );
             },
           ),
-          BlocListener<GetUserInfoCubit, GetUserInfoState>(
-            listener: (context, state) {
-              state.map(
-                initial: (_) {},
-                getInfoSuccess: (infoSuccess) {
-                  print("user info : ");
-                  print(infoSuccess.userInfo);
-                  Get.offAndToNamed(MobileRoutes.Main);
-                },
-                getInfoFailure: (infoFailure) {
-                  print("user info : ");
-                  print(infoFailure.failure);
-                  FlushbarHelper.createError(
-                      message: infoFailure.failure.maybeMap(
-                          internet: (_) => 'check your network',
-                          serverError: (_) => 'Server error',
-                          orElse: () => 'Unknown error')).show(context);
-                }, noInfo: (_) =>Get.offAndToNamed(MobileRoutes.COMPLETE_PROFILE),
-              );
-            },
-          ),
+
+
+          // BlocListener<GetUserInfoCubit, GetUserInfoState>(
+          //   listener: (context, state) {
+          //     state.map(
+          //       initial: (_) {},
+          //       getInfoSuccess: (infoSuccess) {
+          //         print("user info : ");
+          //         print(infoSuccess.userInfo);
+          //         Get.offAndToNamed(MobileRoutes.Main);
+          //       },
+          //       getInfoFailure: (infoFailure) {
+          //         print("user info : ");
+          //         print(infoFailure.failure);
+          //         FlushbarHelper.createError(
+          //             message: infoFailure.failure.maybeMap(
+          //                 internet: (_) => 'check your network',
+          //                 serverError: (_) => 'Server error',
+          //                 orElse: () => 'Unknown error')).show(context);
+          //       }, noInfo: (_) =>Get.offAndToNamed(MobileRoutes.UserForm),
+          //     );
+          //   },
+          // ),
         ],
         child: const Scaffold(
           body: LoginViewBody(),

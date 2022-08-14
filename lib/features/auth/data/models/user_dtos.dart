@@ -21,7 +21,7 @@ abstract class UserDTO implements _$UserDTO {
     );
   }
   factory UserDTO.empty() {
-    return UserDTO(
+    return const UserDTO(
       id: "",
     );
   }

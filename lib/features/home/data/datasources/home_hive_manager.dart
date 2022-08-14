@@ -10,6 +10,11 @@ import 'home_local_data_source.dart';
 
 @Singleton()
 class HomeHiveManager {
+  static const String hiveFavoriteProducts = 'favorite_products';
+  static const String hiveProducts = 'products';
+  static const String hiveProductMainClasses = 'product_main_classes';
+  static const String hiveProductSubclasses = "product_subclasses";
+
   late Box<ProductDTO> _productBox;
   late Box<ProductMainClassDTO> _productMainClassBox;
   late Box<ProductSubclassDTO> _productSubclassBox;
@@ -27,18 +32,15 @@ class HomeHiveManager {
     // }
 
     Hive.registerAdapter(ProductMainClassDTOAdapter());
-    _productMainClassBox = await Hive.openBox<ProductMainClassDTO>(
-        HomeLocalDataSourceImpl.hiveProductMainClasses);
+    _productMainClassBox =
+        await Hive.openBox<ProductMainClassDTO>(hiveProductMainClasses);
     Hive.registerAdapter(ProductSubclassDTOAdapter());
-    _productSubclassBox = await Hive.openBox<ProductSubclassDTO>(
-        HomeLocalDataSourceImpl.hiveProductSubclasses);
+    _productSubclassBox =
+        await Hive.openBox<ProductSubclassDTO>(hiveProductSubclasses);
     Hive.registerAdapter(ProductDTOAdapter());
-    _productBox =
-        await Hive.openBox<ProductDTO>(HomeLocalDataSourceImpl.hiveProducts);
-    _favoriteProductBox = await Hive.openBox<ProductDTO>(
-        HomeLocalDataSourceImpl.hiveFavoriteProducts);
-    _shoppingCartBox = await Hive.openBox<ProductDTO>(
-        HomeLocalDataSourceImpl.hiveFavoriteProducts);
+    _productBox = await Hive.openBox<ProductDTO>(hiveProducts);
+    _favoriteProductBox = await Hive.openBox<ProductDTO>(hiveFavoriteProducts);
+    _shoppingCartBox = await Hive.openBox<ProductDTO>(hiveFavoriteProducts);
   }
 
   Box<ProductDTO>? get productBox => _productBox;
@@ -50,4 +52,20 @@ class HomeHiveManager {
   Box<ProductDTO>? get favoriteProductBox => _favoriteProductBox;
 
   Box<ProductDTO>? get shoppingCartBox => _shoppingCartBox;
+
+  Future<void> close() async {
+    await _productBox.close();
+    await _productMainClassBox.close();
+    await _productSubclassBox.close();
+    await _favoriteProductBox.close();
+    await _shoppingCartBox.close();
+  }
+
+  Future<void> clear() async {
+    await _productBox.clear();
+    await _productMainClassBox.clear();
+    await _productSubclassBox.clear();
+    await _favoriteProductBox.clear();
+    await _shoppingCartBox.clear();
+  }
 }

@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:fruit_market/injection.dart';
+import '../../features/splash/domain/splash_router.dart';
+import '../../features/splash/presentation/pages/splash_view.dart';
 import '../constants.dart';
 import '../../localization/localization_service.dart';
 import '../../routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import '../../../../injection.dart';
 
 class AppWidget extends StatelessWidget {
   AppWidget({Key? key}) : super(key: key);
@@ -47,7 +51,7 @@ class AppWidget extends StatelessWidget {
               // accentColor: const Color.fromRGBO(7, 0, 0, 1.0),
               tabBarTheme: const TabBarTheme(
                  labelColor: kDividerColor,
-                unselectedLabelColor: const Color.fromRGBO(52, 50, 50, 1.0),
+                unselectedLabelColor:  Color.fromRGBO(52, 50, 50, 1.0),
                 labelStyle: TextStyle(
                   fontSize: 18,
 
@@ -65,21 +69,22 @@ class AppWidget extends StatelessWidget {
                   minHeight: 80,
                 ),
               ),
-              inputDecorationTheme: InputDecorationTheme(
+              inputDecorationTheme: const InputDecorationTheme(
                 // labelStyle: GoogleFonts.cairo(
                 //     textStyle: const TextStyle(
                 //         color: Color.fromRGBO(23, 143, 73, 1),
                 //         fontSize: 12,
                 //         fontWeight: FontWeight.normal)),
-                enabledBorder: const UnderlineInputBorder(
+                enabledBorder:  UnderlineInputBorder(
                   borderSide: BorderSide(color: kMainColor),
                 ),
-                focusedBorder: const UnderlineInputBorder(
+                focusedBorder:  UnderlineInputBorder(
                   borderSide: BorderSide(color: kMainColor),
                 ),
               ),
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
+          // home: const SplashView(),
           ),
         );
   }

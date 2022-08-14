@@ -8,7 +8,7 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLines;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
-
+  final String? hint;
   const CustomTextFormField({
     Key? key,
     @required this.inputType,
@@ -18,6 +18,7 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLines,
     @required this.controller,
     @required this.validator,
+    this.hint,
   }) : super(key: key);
 
   @override
@@ -29,9 +30,13 @@ class CustomTextFormField extends StatelessWidget {
       maxLines: maxLines,
       controller: controller,
       validator: validator,
+      textDirection: TextDirection.ltr,
+      onEditingComplete: () => FocusScope.of(context).nextFocus(),
       decoration: InputDecoration(
+        // floatingLabelBehavior: FloatingLabelBehavior.always,
         filled: true,
-        fillColor: Colors.transparent,
+        hintText: hint,
+        // fillColor: Colors.transparent,
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(

@@ -6,27 +6,31 @@ import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../core/entities/value_objects.dart';
 
-part 'user_info.freezed.dart';
+part 'user.freezed.dart';
 
 /// this is entity not value object
 /// entity comprise of many value objects
 
 @freezed
-abstract class UserInfo implements _$UserInfo {
-  const UserInfo._();
+abstract class User implements _$User {
+  const User._();
 
-  const factory UserInfo({
-    required UniqueId uniqueId,
+  const factory User({
+    required UniqueId id,
     required FullName fullName,
     required PhoneNumber phoneNumber,
     required Address address,
-  }) = _UserInfo;
+    required EmailAddress email,
+    required ImageURL imageURL,
+  }) = _User;
 
-  factory UserInfo.empty() => UserInfo(
-        uniqueId: UniqueId(),
-        fullName: FullName("username"),
-        phoneNumber: PhoneNumber("0000000000"),
-        address: Address("country"),
+  factory User.empty() => User(
+       id: UniqueId(),
+        fullName: FullName(""),
+        phoneNumber: PhoneNumber(""),
+        address: Address(""),
+        email: EmailAddress(""),
+        imageURL: ImageURL("https://firebasestorage.googleapis.com/v0/b/fruit-market-project.appspot.com/o/users%2Fdefault_profile.png?alt=media&token=068a1902-7115-4c52-8360-098ce30202dc"),
       );
 
   // value.fold((f) => some(f), (_) => none())

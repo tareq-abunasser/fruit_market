@@ -12,6 +12,8 @@ class CompleteInfoItem extends StatelessWidget {
     @required this.validator,
     @required this.controller,
     @required this.onChanged,
+    this.onSaved,
+
   }) : super(key: key);
   final String text;
   final TextInputType? inputType;
@@ -19,6 +21,7 @@ class CompleteInfoItem extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final ValueSetter? onChanged;
+  final ValueSetter? onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +41,14 @@ class CompleteInfoItem extends StatelessWidget {
               const TextHeightBehavior(applyHeightToFirstAscent: false),
           textAlign: TextAlign.center,
         ),
-        const VerticalSpace(value: 2),
+        const VerticalSpace(value: 1),
         CustomTextFormField(
           maxLines: maxLines,
           inputType: inputType,
           validator: validator,
           controller: controller,
           onChanged: onChanged,
+          onSaved: onSaved,
         )
       ],
     );

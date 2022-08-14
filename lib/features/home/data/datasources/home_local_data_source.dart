@@ -41,11 +41,6 @@ abstract class HomeLocalDataSource {
 @LazySingleton(as: HomeLocalDataSource)
 class HomeLocalDataSourceImpl extends HomeLocalDataSource {
   final HomeHiveManager _hiveManager;
-  static const String hiveFavoriteProducts = 'favorite_products';
-  static const String hiveProducts = 'products';
-  static const String hiveProductMainClasses = 'product_main_classes';
-  static const String hiveProductSubclasses = "product_subclasses";
-
   HomeLocalDataSourceImpl(this._hiveManager);
 
   @override

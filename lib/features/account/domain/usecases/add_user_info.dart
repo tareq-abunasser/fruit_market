@@ -1,17 +1,16 @@
 import 'package:dartz/dartz.dart';
-import 'package:fruit_market/features/auth/domain/faliures/auth_failure.dart';
 import 'package:injectable/injectable.dart';
-
+import '../../../../core/entities/failures.dart';
 import '../entities/user.dart';
-import '../repositories/i_auth_repository.dart';
+import '../repositories/i_account_repository.dart';
 
 @LazySingleton()
-class CompleteUserInfo  {
-  final IAuthRepository repository;
+class AddUserInfo  {
+  final IAccountRepository _repository;
 
-  CompleteUserInfo(this.repository);
+  AddUserInfo(this._repository);
 
-  Future<Either<AuthFailure, Unit>> call(UserInfo userInfo) async {
-    return await repository.completeUserInfo(userInfo);
+  Future<Either<Failure, Unit>> call(User user) async {
+    return await _repository.addAccountData(user);
   }
 }

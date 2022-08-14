@@ -14,7 +14,7 @@ class CartEmpty extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "No Products",
+            "Cart empty",
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 25,

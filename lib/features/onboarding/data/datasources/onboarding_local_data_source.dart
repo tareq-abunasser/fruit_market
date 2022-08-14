@@ -1,40 +1,27 @@
 import 'dart:convert';
 
+import 'package:injectable/injectable.dart';
 
-abstract class OnOboardingLocalDataSource {
+import '../../../../core/utils/preferences_manager.dart';
+
+abstract class OnBoardingLocalDataSource {
   bool isFirstTimeToOpenApp();
 }
 
-@LazySingleton(as: AccountLocalDataSource)
-class AuthLocalDataSourceImpl extends AccountLocalDataSource {
+@LazySingleton(as: OnBoardingLocalDataSource)
+class OnBoardingLocalDataSourceImpl extends OnBoardingLocalDataSource {
   final PreferencesManager _preferencesManager;
-  static const String PREF_USER_INFO = 'userInfo';
-  static const String PREF_IS_FIRST_TIME_OPEN_APP = "firstTimeOpenApp";
+  static const String prefIsFirstTimeToOpenApp = "firstTimeOpenApp";
 
-  AuthLocalDataSourceImpl(this._preferencesManager);
-
-  @override
-  Future<void> cacheUserInfo(UserInfoDTO userInfoCache) async {
-    await _preferencesManager.saveData(
-        key: PREF_USER_INFO, data: json.encode(userInfoCache.toJson()));
-  }
-
-  @override
-  UserInfoDTO getUserInfo() {
-    final userInfo = _preferencesManager.getData(key: PREF_USER_INFO);
-    if (userInfo == null) {
-      throw CacheException();
-    }
-    return UserInfoDTO.fromJson(json.decode(userInfo));
-  }
+  OnBoardingLocalDataSourceImpl(this._preferencesManager);
 
   @override
   bool isFirstTimeToOpenApp() {
     final isFirstTimeOpenApp =
-        _preferencesManager.getData(key: PREF_IS_FIRST_TIME_OPEN_APP);
+        _preferencesManager.getData(key: prefIsFirstTimeToOpenApp);
     if (isFirstTimeOpenApp == null) {
       _preferencesManager.saveData(
-          key: PREF_IS_FIRST_TIME_OPEN_APP, data: false);
+          key: prefIsFirstTimeToOpenApp, data: false);
       return true;
     }
     return false;

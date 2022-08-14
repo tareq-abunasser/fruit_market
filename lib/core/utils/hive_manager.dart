@@ -6,6 +6,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../features/account/data/datasources/account_hive_manager.dart';
+import '../../features/cart/data/datasources/cart_hive_manager.dart';
 import '../../features/home/data/datasources/home_local_data_source.dart';
 import '../../features/home/data/models/product_subclass_dtos.dart';
 import '../../injection.dart';
@@ -16,5 +18,22 @@ class HiveManager {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     await Hive.initFlutter((appDocumentDirectory.path));
     await getIt<HomeHiveManager>().init();
+    await getIt<AccountHiveManager>().init();
+    await getIt<CartHiveManager>().init();
+
+  }
+
+  Future<void> close() async {
+    // await getIt<HomeHiveManager>().close();
+    // await getIt<AccountHiveManager>().close();
+    // await getIt<CartHiveManager>().close();
+
+    await Hive.close();
+  }
+  Future<void> clear() async {
+    await getIt<HomeHiveManager>().clear();
+    await getIt<AccountHiveManager>().clear();
+    await getIt<CartHiveManager>().clear();
+    // await Hive.deleteFromDisk();
   }
 }

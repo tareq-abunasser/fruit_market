@@ -1,21 +1,14 @@
 import 'dart:convert';
-import 'package:dartz/dartz.dart';
-import 'package:fruit_market/features/auth/data/models/user_dtos.dart';
-import 'package:fruit_market/features/auth/data/models/user_info_dtos.dart';
-import 'package:fruit_market/features/auth/domain/entities/user_info.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/exceptions.dart';
-import '../../../../core/entities/failures.dart';
-import '../../../../core/utils/preferences_manager.dart';
-import '../../domain/entities/cart_item.dart';
 import '../models/cart_item_dtos.dart';
 import 'cart_hive_manager.dart';
 
 abstract class CartLocalDataSource {
   List<CartItemDTO> getCart();
 
-  void addToCart(CartItemDTO product);
+  void cacheCart(List<CartItemDTO> items);
 
   void removeFromCart(CartItemDTO product);
 
@@ -25,13 +18,14 @@ abstract class CartLocalDataSource {
 @LazySingleton(as: CartLocalDataSource)
 class CartLocalDataSourceImpl extends CartLocalDataSource {
   final CartHiveManager _hiveManager;
-  static const String hiveShoppingCart = 'shopping_cart';
 
   CartLocalDataSourceImpl(this._hiveManager);
 
   @override
-  void addToCart(CartItemDTO product) {
-    // TODO: implement addToCart
+  void cacheCart(List<CartItemDTO> items) {
+    Map<dynamic, CartItemDTO> itemsAsMap = {};
+    items.forEach((p) => itemsAsMap[p.id] = p);
+    _hiveManager.shoppingCartBox!.putAll(itemsAsMap);
   }
 
   @override

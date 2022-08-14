@@ -5,6 +5,8 @@ import 'package:fruit_market/features/cart/presentation/widgets/error_cart_card.
 import '../../../../core/utils/size_config.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../injection.dart';
+import '../../../account/presentation/widgets/address_widget.dart';
+import '../../domain/entities/cart_item.dart';
 import '../cubit/cart_actor/cart_actor_cubit.dart';
 import '../cubit/cart_watcher/cart_watcher_cubit.dart';
 import '../widgets/cart_empty.dart';
@@ -28,23 +30,24 @@ class ShoppingCartPage extends StatelessWidget {
                   backgroundColor: Theme.of(context).primaryColor),
               body: Column(
                 children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.location_on),
-                      const Text(
-                        "Deliver to Palestine Gaza  32222",
-                        overflow: TextOverflow.clip,
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {},
-                        child: const CustomText(
-                          text: "Change Your Info",
-                          color: Color(0xff7089F0),
-                        ),
-                      )
-                    ],
-                  ),
+                  const AddressWidget(),
+                  // Row(
+                  //   children: [
+                  //     const Icon(Icons.location_on),
+                  //     const Text(
+                  //       "Deliver to Palestine Gaza  32222",
+                  //       overflow: TextOverflow.clip,
+                  //     ),
+                  //     const Spacer(),
+                  //     TextButton(
+                  //       onPressed: () {},
+                  //       child: const CustomText(
+                  //         text: "Change Your Info",
+                  //         color: Color(0xff7089F0),
+                  //       ),
+                  //     )
+                  //   ],
+                  // ),
                   state.map(
                     initial: (_) => Container(),
                     cartItemLoadInProgress: (_) => const Center(
@@ -52,27 +55,55 @@ class ShoppingCartPage extends StatelessWidget {
                     ),
                     cartItemLoadSuccess: (state) {
                       return state.cartItems.isEmpty
-                          ? const CartEmpty()
+                          ? const Expanded(child: CartEmpty())
                           : Expanded(
-                              child: ListView.separated(
-                                key: const PageStorageKey<String>("cart"),
-                                itemBuilder: (context, index) {
-                                  final cartItem = state.cartItems[index];
-                                  if (cartItem.failureOption.isSome()) {
-                                    return ErrorCartCard(cartItem);
-                                  } else {
-                                    return CartItemCard(cartItem);
-                                  }
-                                },
-                                separatorBuilder:
-                                    (BuildContext context, int index) {
-                                  return const Divider(
-                                    color: Color(0xFFD1D1D1),
-                                    thickness: 1,
-                                    height: 3,
-                                  );
-                                },
-                                itemCount: state.cartItems.length,
+                              child: Column(
+                                children: [
+                                  // Expanded(
+                                  //   child: Align(
+                                  //     alignment: FractionalOffset.bottomCenter,
+                                  //     child:
+                                  SizedBox(
+                                    height: 80,
+                                    child: Row(
+                                      children: [
+                                        CustomText(
+                                          text:
+                                              " ${getTotalPrice(state.cartItems)} Per/ kg",
+                                        ),
+                                        MaterialButton(
+                                            child: const Text("Buy Now"),
+                                            onPressed: () {})
+                                      ],
+                                    ),
+                                    //   ),
+                                    // ),
+                                  ),
+
+                                  Expanded(
+                                    child: ListView.separated(
+                                      key: const PageStorageKey<String>("cart"),
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        final cartItem = state.cartItems[index];
+                                        if (cartItem.failureOption.isSome()) {
+                                          return ErrorCartCard(cartItem);
+                                        } else {
+                                          return CartItemCard(cartItem);
+                                        }
+                                      },
+                                      separatorBuilder:
+                                          (BuildContext context, int index) {
+                                        return const Divider(
+                                          color: Color(0xFFD1D1D1),
+                                          thickness: 1,
+                                          height: 3,
+                                        );
+                                      },
+                                      itemCount: state.cartItems.length,
+                                    ),
+                                  ),
+                                ],
                               ),
                             );
                     },
@@ -87,6 +118,16 @@ class ShoppingCartPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  double getTotalPrice(List<CartItem> cartItems) {
+    double totalPrice = 0;
+    cartItems.forEach((element) {
+      if (element.currentPrice.isValid()) {
+        totalPrice += element.currentPrice.getOrCrash();
+      }
+    });
+    return totalPrice;
   }
 }
 

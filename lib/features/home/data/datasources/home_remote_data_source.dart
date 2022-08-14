@@ -165,15 +165,24 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   Future<List<ProductDTO>> getFavoriteProducts() async {
     try {
       late List<ProductDTO> products = [];
+      print("ggggggg01");
+
       final favoriteProductsId = await _firestore
           .collection('favourite_products')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
+      print("ggggggg11");
       for (var productId in favoriteProductsId.data()?['likes']) {
+        print("ggggggg21");
+
         final product =
             await _firestore.collection('products').doc(productId).get();
+        print("ggggggg31");
+
         products
             .add(ProductDTO.fromFirestore(product).copyWith(id: product.id));
+        print("ggggggg41");
+
       }
       return products;
     } catch (error) {

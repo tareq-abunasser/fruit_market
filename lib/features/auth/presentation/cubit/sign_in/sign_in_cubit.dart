@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../domain/faliures/auth_failure.dart';
+import '../../../domain/failures/auth_failure.dart';
 import '../../../domain/repositories/i_auth_repository.dart';
 
 part 'sign_in_state.dart';

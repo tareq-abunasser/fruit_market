@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:fruit_market/features/auth/domain/repositories/i_auth_repository.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/faliures/auth_failure.dart';
+import '../../domain/failures/auth_failure.dart';
 
 part 'auth_state.dart';
 
@@ -25,7 +25,7 @@ class AuthCubit extends Cubit<AuthState> {
   authCheckRequested() {
     var userOrFailure = _authRepository.getSignedInUser();
     userOrFailure.fold((_) => emit(const AuthState.unauthenticated()),
-            (_) => emit(const AuthState.authenticated()));
+        (_) => emit(const AuthState.authenticated()));
   }
 
   signedOut() async {

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
@@ -20,6 +21,8 @@ abstract class FirebaseInjectableModule {
   // @lazySingleton
   FacebookAuth get facebookAuth => FacebookAuth.instance;
 
+  FirebaseStorage get storage => FirebaseStorage.instance;
+
   @preResolve
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
@@ -31,5 +34,6 @@ abstract class FirebaseInjectableModule {
   //   return sharedPreferences;
   // }
 
-  InternetConnectionChecker get connectionChecker => InternetConnectionChecker();
+  InternetConnectionChecker get connectionChecker =>
+      InternetConnectionChecker();
 }

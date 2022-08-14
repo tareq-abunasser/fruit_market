@@ -6,11 +6,12 @@ import 'package:fruit_market/features/home/presentation/pages/home_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
+import '../features/account/presentation/pages/aacount_initial_page.dart';
 import '../features/account/presentation/pages/account_page.dart';
 import '../features/account/presentation/pages/account_settings_page.dart';
 import '../features/account/presentation/pages/help_page.dart';
 import '../features/account/presentation/pages/language_settings_page.dart';
-import '../features/auth/presentation/pages/complete_information_view.dart';
+import '../features/account/presentation/pages/user_form_page.dart';
 import '../features/bottom_nav_bar/presentation/pages/main_page.dart';
 import '../features/cart/presentation/pages/shopping_cart_page.dart';
 import '../features/home/presentation/pages/favourite_page.dart';
@@ -39,9 +40,9 @@ final List<GetPage<Widget>> mobileRoutes = <GetPage<Widget>>[
       name: MobileRoutes.LOGIN,
       page: () => const LoginView(),
       middlewares: [MyMiddleware()]),
-  GetPage<CompleteInformationView>(
-      name: MobileRoutes.COMPLETE_PROFILE,
-      page: () => const CompleteInformationView(),
+  GetPage<UserFormPage>(
+      name: MobileRoutes.UserForm,
+      page: () => UserFormPage(),
       middlewares: [MyMiddleware()]),
   GetPage<AccountPage>(
       name: MobileRoutes.Account,
@@ -88,6 +89,11 @@ final List<GetPage<Widget>> mobileRoutes = <GetPage<Widget>>[
     page: () => const LanguageSettingsPage(),
     middlewares: [MyMiddleware()],
   ),
+  GetPage<AccountInitialPage>(
+    name: MobileRoutes.AccountInitial,
+    page: () => const AccountInitialPage(),
+    middlewares: [MyMiddleware()],
+  ),
 ];
 
 abstract class MobileRoutes {
@@ -96,7 +102,7 @@ abstract class MobileRoutes {
   static const String HOME = '/mobile-home';
   static const String Cart = '/mobile-cart';
   static const String ON_BOARDING = '/mobile-on-boarding';
-  static const String COMPLETE_PROFILE = '/mobile-complete-profile';
+  static const String UserForm = '/mobile-user-form';
   static const String Account = '/mobil-account';
   static const String Orders = '/mobile-orders';
   static const String Main = '/mobile-main';
@@ -106,7 +112,7 @@ abstract class MobileRoutes {
   static const String Search = '/mobile-search';
   static const String Product = '/mobile-product-details';
   static const String Language = '/mobile-language';
-
+  static const String AccountInitial = '/mobile-account-initial';
 }
 
 class MyMiddleware extends GetMiddleware {
@@ -115,6 +121,7 @@ class MyMiddleware extends GetMiddleware {
     print(page?.name);
     return super.onPageCalled(page);
   }
+
   @override
   Widget onPageBuilt(Widget page) {
     print('Widget ${page.toStringShort()} will be showed');
@@ -139,7 +146,6 @@ class GlobalMiddleware extends GetMiddleware {
     print('PageDisposed');
   }
 }
-
 
 //
 // class EnsureAuthMiddleware extends GetMiddleware {
@@ -170,4 +176,3 @@ class GlobalMiddleware extends GetMiddleware {
 //     return await super.redirectDelegate(route);
 //   }
 // }
-

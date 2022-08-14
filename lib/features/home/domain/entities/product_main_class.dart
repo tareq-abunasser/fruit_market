@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:fruit_market/features/auth/domain/entities/value_objects.dart';
 import 'package:fruit_market/features/home/domain/entities/value_objects.dart';
 
 import '../../../../core/entities/value_objects.dart';

@@ -8,7 +8,6 @@ import '../../../../core/constants.dart';
 import '../../../../core/utils/size_config.dart';
 import '../../../../core/widgets/custom_buttons.dart';
 import '../../../../core/widgets/space_widget.dart';
-import '../pages/complete_information_view.dart';
 
 class LoginViewBody extends StatelessWidget {
   const LoginViewBody({Key? key}) : super(key: key);

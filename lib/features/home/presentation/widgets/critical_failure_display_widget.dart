@@ -48,14 +48,14 @@ class CriticalFailureDisplay extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Get.offAndToNamed(MobileRoutes.HOME);
+              Get.offAndToNamed(MobileRoutes.Main);
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: const <Widget>[
                 Icon(Icons.refresh_sharp),
                 SizedBox(width: 4),
-                Text('reupload page'),
+                Text('reload page'),
               ],
             ),
           )

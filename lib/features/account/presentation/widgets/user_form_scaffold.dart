@@ -10,141 +10,206 @@ import '../../../../../../routes/mobile_app_pages.dart';
 import '../../../../core/widgets/saving_in_progress_overlay.dart';
 import '../cubit/user_form/user_form_cubit.dart';
 import 'complete_information_item.dart';
+import 'profile_image_widget.dart';
 
-class UserFormBody extends StatelessWidget {
-  UserFormBody({Key? key}) : super(key: key);
+class UserFormScaffold extends StatelessWidget {
+  UserFormScaffold({Key? key}) : super(key: key);
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final formKey = GlobalKey<FormState>();
+  static final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<UserFormCubit, UserFormState>(
-      listenWhen: (p, c) =>
-          p.authFailureOrSuccessOption != c.authFailureOrSuccessOption,
-      listener: (context, state) {
-        state.authFailureOrSuccessOption.fold(
-          () {},
-          (either) => either.fold(
-            (failure) {
-              FlushbarHelper.createError(
-                  message: failure.maybeMap(
-                      // cancelledByUser: (_) => 'Cancelled',
-                      serverError: (_) => 'Server error',
-                      orElse: () => 'Unknown error')).show(context);
-            },
-            (_) {
-              Get.offAndToNamed(MobileRoutes.Main);
+    return BlocBuilder<UserFormCubit, UserFormState>(
+      buildWhen: (p, c) => (p.isEditing != c.isEditing),
+      builder: (context, state) {
+        print("state is isEditing ${state.isEditing}");
+        if (state.isEditing) {
+          // if (nameController.text != state.user.fullName.getOrCrash()) {
+          //   nameController.text = state.user.fullName.getOrCrash();
+          // }
+          // if (phoneController.text !=
+          //     state.user.phoneNumber.getOrCrash().toString()) {
+          //   phoneController.text =
+          //       state.user.phoneNumber.getOrCrash().toString();
+          // }
+          // if (addressController.text != state.user.address.getOrCrash()) {
+          //   addressController.text = state.user.address.getOrCrash();
+          // }
+          if (state.user.fullName.isValid()) {
+            nameController.text = state.user.fullName.getOrCrash();
+            nameController.selection = TextSelection.fromPosition(
+                TextPosition(offset: state.user.fullName.getOrCrash().length));
+          }
+          if (state.user.phoneNumber.isValid()) {
+            phoneController.text =
+                state.user.phoneNumber.getOrCrash().toString();
+            phoneController.selection = TextSelection.fromPosition(TextPosition(
+                offset: state.user.phoneNumber.getOrCrash().toString().length));
+          }
+          if (state.user.address.isValid()) {
+            addressController.text = state.user.address.getOrCrash();
+            addressController.selection = TextSelection.fromPosition(
+                TextPosition(offset: state.user.address.getOrCrash().length));
+          }
+        }
+        return Scaffold(
+          key: scaffoldKey,
+          body: BlocBuilder<UserFormCubit, UserFormState>(
+            buildWhen: (p, c) => p.showErrorMessages != c.showErrorMessages,
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.all(16),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        const VerticalSpace(value: 5),
+                        BlocBuilder<UserFormCubit, UserFormState>(
+                          buildWhen: (p, c) => (p.imageFile != c.imageFile),
+                          builder: (context, state) {
+                            return ProfileImageWidget(
+                              imageFile: state.imageFile,
+                              imageURL: UserFormCubit.getInstance(context)
+                                  .state
+                                  .user
+                                  .imageURL
+                                  .getOrCrash(),
+                              icon: Icons.add_a_photo,
+                              onTap: () {
+                                UserFormCubit.getInstance(context)
+                                    .imageChanged();
+                              },
+                            );
+                          },
+                        ),
+                        // state.imageFile == null
+                        //     ? ProfileImageWidget(
+                        //         imageURL: UserFormCubit.getInstance(context)
+                        //             .state
+                        //             .user
+                        //             .imageURL
+                        //             .getOrCrash(),
+                        //
+                        //         icon: Icons.add_a_photo,
+                        //         onTap: () {
+                        //           UserFormCubit.getInstance(context).imageChanged();
+                        //         },
+                        //       )
+                        //     : Container(
+                        //         child: Image.file(
+                        //           state.imageFile!,
+                        //           fit: BoxFit.cover,
+                        //         ),
+                        //       ),
+                        const VerticalSpace(value: 5),
+                        CompleteInfoItem(
+                          inputType: TextInputType.text,
+                          controller: nameController,
+                          onChanged: (value) {
+                            UserFormCubit.getInstance(context)
+                                .nameChanged(value);
+                          },
+                          validator: (_) {
+                            return UserFormCubit.getInstance(context)
+                                .state
+                                .user
+                                .fullName
+                                .value
+                                .fold(
+                                  (f) => f.maybeMap(
+                                    empty: (_) => 'empty name',
+                                    orElse: () => null,
+                                  ),
+                                  (_) => null,
+                                );
+                          },
+                          text: 'Full Name',
+                        ),
+                        const VerticalSpace(value: 3),
+                        CompleteInfoItem(
+                          inputType: TextInputType.number,
+                          controller: phoneController,
+                          onChanged: (phone) {
+                            UserFormCubit.getInstance(context)
+                                .phoneChanged(phone);
+                          },
+                          validator: (_) {
+                            return UserFormCubit.getInstance(context)
+                                .state
+                                .user
+                                .phoneNumber
+                                .value
+                                .fold(
+                                  (f) => f.maybeMap(
+                                    invalidPhoneNumber: (_) =>
+                                        'this is not a phone number',
+                                    orElse: () => null,
+                                  ),
+                                  (_) => null,
+                                );
+                          },
+                          text: 'Phone Number',
+                        ),
+                        const VerticalSpace(value: 3),
+                        CompleteInfoItem(
+                          inputType: TextInputType.text,
+                          controller: addressController,
+                          onChanged: (address) {
+                            UserFormCubit.getInstance(context)
+                                .addressChanged(address);
+                          },
+                          validator: (_) {
+                            return UserFormCubit.getInstance(context)
+                                .state
+                                .user
+                                .address
+                                .value
+                                .fold(
+                                  (f) => f.maybeMap(
+                                    empty: (_) => 'empty address',
+                                    orElse: () => null,
+                                  ),
+                                  (_) => null,
+                                );
+                          },
+                          maxLines: 5,
+                          text: 'Address',
+                        ),
+                        const VerticalSpace(value: 5),
+                        CustomGeneralButton(
+                          text: 'Save',
+                          onTap: () {
+                            // formKey.currentState?.save();
+                            if (formKey.currentState!.validate()) {
+                              UserFormCubit.getInstance(context).savedPressed();
+                            } else {
+                              UserFormCubit.getInstance(context)
+                                  .showErrorMessages();
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
             },
           ),
         );
       },
-      buildWhen: (p, c) =>
-          p.isSubmitting != c.isSubmitting ||
-          p.showErrorMessages != c.showErrorMessages,
-      builder: (context, state) {
-        return Stack(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      const VerticalSpace(value: 10),
-                      CompleteInfoItem(
-                        controller: nameController,
-                        onChanged: (name) =>
-                            context.read<UserFormCubit>().nameChanged(name),
-                        validator: (_) {
-                          return context
-                              .watch<UserFormCubit>()
-                              .state
-                              .user
-                              .fullName
-                              .value
-                              .fold(
-                                (f) => f.maybeMap(
-                                  empty: (_) => 'empty name',
-                                  orElse: () => null,
-                                ),
-                                (_) => null,
-                              );
-                        },
-                        text: 'Enter your name',
-                      ),
-                      const VerticalSpace(value: 2),
-                      CompleteInfoItem(
-                        controller: phoneController,
-                        onChanged: (phone) =>
-                            context.read<UserFormCubit>().phoneChanged(phone),
-                        validator: (_) {
-                          return context
-                              .watch<UserFormCubit>()
-                              .state
-                              .user
-                              .phoneNumber
-                              .value
-                              .fold(
-                                (f) => f.maybeMap(
-                                  invalidPhoneNumber: (_) =>
-                                      'this is not a phone number',
-                                  orElse: () => null,
-                                ),
-                                (_) => null,
-                              );
-                        },
-                        text: 'Enter your phone number',
-                      ),
-                      const VerticalSpace(value: 2),
-                      CompleteInfoItem(
-                        controller: addressController,
-                        onChanged: (address) => context
-                            .read<UserFormCubit>()
-                            .addressChanged(address),
-                        validator: (_) {
-                          return context
-                              .watch<UserFormCubit>()
-                              .state
-                              .user
-                              .address
-                              .value
-                              .fold(
-                                (f) => f.maybeMap(
-                                  empty: (_) => 'empty address',
-                                  orElse: () => null,
-                                ),
-                                (_) => null,
-                              );
-                        },
-                        maxLines: 5,
-                        text: 'Enter your address',
-                      ),
-                      const VerticalSpace(value: 5),
-                      CustomGeneralButton(
-                        text: 'Login',
-                        onTap: () {
-                          if (formKey.currentState!.validate()) {
-                            context.read<UserFormCubit>().loginPressed();
-                          } else {
-                            context.read<UserFormCubit>().showErrorMessages();
-                          }
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SavingInProgressOverlay(
-                isSaving: context.watch<UserFormCubit>().state.isSubmitting)
-          ],
-        );
-      },
     );
   }
+// @override
+// void dispose() {
+//   // Clean up the controller when the widget is removed from the widget tree.
+//   // This also removes the _printLatestValue listener.
+//   myController.dispose();
+//   super.dispose();
+// }
 }

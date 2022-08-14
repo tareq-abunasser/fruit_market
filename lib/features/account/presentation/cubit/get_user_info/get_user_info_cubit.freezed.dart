@@ -22,15 +22,19 @@ class _$GetUserInfoStateTearOff {
     return const _Initial();
   }
 
-  _GetInfoFailure getInfoFailure(AuthFailure failure) {
+  _GetInfoLoadInProgress getInfoLoadInProgress() {
+    return const _GetInfoLoadInProgress();
+  }
+
+  _GetInfoFailure getInfoFailure(Failure failure) {
     return _GetInfoFailure(
       failure,
     );
   }
 
-  _GetInfoSuccess getInfoSuccess(UserInfo userInfo) {
+  _GetInfoSuccess getInfoSuccess(User user) {
     return _GetInfoSuccess(
-      userInfo,
+      user,
     );
   }
 
@@ -47,24 +51,27 @@ mixin _$GetUserInfoState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(AuthFailure failure) getInfoFailure,
-    required TResult Function(UserInfo userInfo) getInfoSuccess,
+    required TResult Function() getInfoLoadInProgress,
+    required TResult Function(Failure failure) getInfoFailure,
+    required TResult Function(User user) getInfoSuccess,
     required TResult Function() noInfo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(AuthFailure failure)? getInfoFailure,
-    TResult Function(UserInfo userInfo)? getInfoSuccess,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
     TResult Function()? noInfo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(AuthFailure failure)? getInfoFailure,
-    TResult Function(UserInfo userInfo)? getInfoSuccess,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
     TResult Function()? noInfo,
     required TResult orElse(),
   }) =>
@@ -72,6 +79,8 @@ mixin _$GetUserInfoState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_GetInfoLoadInProgress value)
+        getInfoLoadInProgress,
     required TResult Function(_GetInfoFailure value) getInfoFailure,
     required TResult Function(_GetInfoSuccess value) getInfoSuccess,
     required TResult Function(_NoInfo value) noInfo,
@@ -80,6 +89,7 @@ mixin _$GetUserInfoState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
     TResult Function(_GetInfoFailure value)? getInfoFailure,
     TResult Function(_GetInfoSuccess value)? getInfoSuccess,
     TResult Function(_NoInfo value)? noInfo,
@@ -88,6 +98,7 @@ mixin _$GetUserInfoState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
     TResult Function(_GetInfoFailure value)? getInfoFailure,
     TResult Function(_GetInfoSuccess value)? getInfoSuccess,
     TResult Function(_NoInfo value)? noInfo,
@@ -152,8 +163,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(AuthFailure failure) getInfoFailure,
-    required TResult Function(UserInfo userInfo) getInfoSuccess,
+    required TResult Function() getInfoLoadInProgress,
+    required TResult Function(Failure failure) getInfoFailure,
+    required TResult Function(User user) getInfoSuccess,
     required TResult Function() noInfo,
   }) {
     return initial();
@@ -163,8 +175,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(AuthFailure failure)? getInfoFailure,
-    TResult Function(UserInfo userInfo)? getInfoSuccess,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
     TResult Function()? noInfo,
   }) {
     return initial?.call();
@@ -174,8 +187,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(AuthFailure failure)? getInfoFailure,
-    TResult Function(UserInfo userInfo)? getInfoSuccess,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
     TResult Function()? noInfo,
     required TResult orElse(),
   }) {
@@ -189,6 +203,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_GetInfoLoadInProgress value)
+        getInfoLoadInProgress,
     required TResult Function(_GetInfoFailure value) getInfoFailure,
     required TResult Function(_GetInfoSuccess value) getInfoSuccess,
     required TResult Function(_NoInfo value) noInfo,
@@ -200,6 +216,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
     TResult Function(_GetInfoFailure value)? getInfoFailure,
     TResult Function(_GetInfoSuccess value)? getInfoSuccess,
     TResult Function(_NoInfo value)? noInfo,
@@ -211,6 +228,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
     TResult Function(_GetInfoFailure value)? getInfoFailure,
     TResult Function(_GetInfoSuccess value)? getInfoSuccess,
     TResult Function(_NoInfo value)? noInfo,
@@ -228,13 +246,137 @@ abstract class _Initial implements GetUserInfoState {
 }
 
 /// @nodoc
+abstract class _$GetInfoLoadInProgressCopyWith<$Res> {
+  factory _$GetInfoLoadInProgressCopyWith(_GetInfoLoadInProgress value,
+          $Res Function(_GetInfoLoadInProgress) then) =
+      __$GetInfoLoadInProgressCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$GetInfoLoadInProgressCopyWithImpl<$Res>
+    extends _$GetUserInfoStateCopyWithImpl<$Res>
+    implements _$GetInfoLoadInProgressCopyWith<$Res> {
+  __$GetInfoLoadInProgressCopyWithImpl(_GetInfoLoadInProgress _value,
+      $Res Function(_GetInfoLoadInProgress) _then)
+      : super(_value, (v) => _then(v as _GetInfoLoadInProgress));
+
+  @override
+  _GetInfoLoadInProgress get _value => super._value as _GetInfoLoadInProgress;
+}
+
+/// @nodoc
+
+class _$_GetInfoLoadInProgress implements _GetInfoLoadInProgress {
+  const _$_GetInfoLoadInProgress();
+
+  @override
+  String toString() {
+    return 'GetUserInfoState.getInfoLoadInProgress()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _GetInfoLoadInProgress);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getInfoLoadInProgress,
+    required TResult Function(Failure failure) getInfoFailure,
+    required TResult Function(User user) getInfoSuccess,
+    required TResult Function() noInfo,
+  }) {
+    return getInfoLoadInProgress();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
+    TResult Function()? noInfo,
+  }) {
+    return getInfoLoadInProgress?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
+    TResult Function()? noInfo,
+    required TResult orElse(),
+  }) {
+    if (getInfoLoadInProgress != null) {
+      return getInfoLoadInProgress();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetInfoLoadInProgress value)
+        getInfoLoadInProgress,
+    required TResult Function(_GetInfoFailure value) getInfoFailure,
+    required TResult Function(_GetInfoSuccess value) getInfoSuccess,
+    required TResult Function(_NoInfo value) noInfo,
+  }) {
+    return getInfoLoadInProgress(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
+    TResult Function(_GetInfoFailure value)? getInfoFailure,
+    TResult Function(_GetInfoSuccess value)? getInfoSuccess,
+    TResult Function(_NoInfo value)? noInfo,
+  }) {
+    return getInfoLoadInProgress?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
+    TResult Function(_GetInfoFailure value)? getInfoFailure,
+    TResult Function(_GetInfoSuccess value)? getInfoSuccess,
+    TResult Function(_NoInfo value)? noInfo,
+    required TResult orElse(),
+  }) {
+    if (getInfoLoadInProgress != null) {
+      return getInfoLoadInProgress(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetInfoLoadInProgress implements GetUserInfoState {
+  const factory _GetInfoLoadInProgress() = _$_GetInfoLoadInProgress;
+}
+
+/// @nodoc
 abstract class _$GetInfoFailureCopyWith<$Res> {
   factory _$GetInfoFailureCopyWith(
           _GetInfoFailure value, $Res Function(_GetInfoFailure) then) =
       __$GetInfoFailureCopyWithImpl<$Res>;
-  $Res call({AuthFailure failure});
+  $Res call({Failure failure});
 
-  $AuthFailureCopyWith<$Res> get failure;
+  $FailureCopyWith<$Res> get failure;
 }
 
 /// @nodoc
@@ -256,13 +398,13 @@ class __$GetInfoFailureCopyWithImpl<$Res>
       failure == freezed
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
-              as AuthFailure,
+              as Failure,
     ));
   }
 
   @override
-  $AuthFailureCopyWith<$Res> get failure {
-    return $AuthFailureCopyWith<$Res>(_value.failure, (value) {
+  $FailureCopyWith<$Res> get failure {
+    return $FailureCopyWith<$Res>(_value.failure, (value) {
       return _then(_value.copyWith(failure: value));
     });
   }
@@ -274,7 +416,7 @@ class _$_GetInfoFailure implements _GetInfoFailure {
   const _$_GetInfoFailure(this.failure);
 
   @override
-  final AuthFailure failure;
+  final Failure failure;
 
   @override
   String toString() {
@@ -302,8 +444,9 @@ class _$_GetInfoFailure implements _GetInfoFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(AuthFailure failure) getInfoFailure,
-    required TResult Function(UserInfo userInfo) getInfoSuccess,
+    required TResult Function() getInfoLoadInProgress,
+    required TResult Function(Failure failure) getInfoFailure,
+    required TResult Function(User user) getInfoSuccess,
     required TResult Function() noInfo,
   }) {
     return getInfoFailure(failure);
@@ -313,8 +456,9 @@ class _$_GetInfoFailure implements _GetInfoFailure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(AuthFailure failure)? getInfoFailure,
-    TResult Function(UserInfo userInfo)? getInfoSuccess,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
     TResult Function()? noInfo,
   }) {
     return getInfoFailure?.call(failure);
@@ -324,8 +468,9 @@ class _$_GetInfoFailure implements _GetInfoFailure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(AuthFailure failure)? getInfoFailure,
-    TResult Function(UserInfo userInfo)? getInfoSuccess,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
     TResult Function()? noInfo,
     required TResult orElse(),
   }) {
@@ -339,6 +484,8 @@ class _$_GetInfoFailure implements _GetInfoFailure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_GetInfoLoadInProgress value)
+        getInfoLoadInProgress,
     required TResult Function(_GetInfoFailure value) getInfoFailure,
     required TResult Function(_GetInfoSuccess value) getInfoSuccess,
     required TResult Function(_NoInfo value) noInfo,
@@ -350,6 +497,7 @@ class _$_GetInfoFailure implements _GetInfoFailure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
     TResult Function(_GetInfoFailure value)? getInfoFailure,
     TResult Function(_GetInfoSuccess value)? getInfoSuccess,
     TResult Function(_NoInfo value)? noInfo,
@@ -361,6 +509,7 @@ class _$_GetInfoFailure implements _GetInfoFailure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
     TResult Function(_GetInfoFailure value)? getInfoFailure,
     TResult Function(_GetInfoSuccess value)? getInfoSuccess,
     TResult Function(_NoInfo value)? noInfo,
@@ -374,9 +523,9 @@ class _$_GetInfoFailure implements _GetInfoFailure {
 }
 
 abstract class _GetInfoFailure implements GetUserInfoState {
-  const factory _GetInfoFailure(AuthFailure failure) = _$_GetInfoFailure;
+  const factory _GetInfoFailure(Failure failure) = _$_GetInfoFailure;
 
-  AuthFailure get failure;
+  Failure get failure;
   @JsonKey(ignore: true)
   _$GetInfoFailureCopyWith<_GetInfoFailure> get copyWith =>
       throw _privateConstructorUsedError;
@@ -387,9 +536,9 @@ abstract class _$GetInfoSuccessCopyWith<$Res> {
   factory _$GetInfoSuccessCopyWith(
           _GetInfoSuccess value, $Res Function(_GetInfoSuccess) then) =
       __$GetInfoSuccessCopyWithImpl<$Res>;
-  $Res call({UserInfo userInfo});
+  $Res call({User user});
 
-  $UserInfoCopyWith<$Res> get userInfo;
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -405,20 +554,20 @@ class __$GetInfoSuccessCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? userInfo = freezed,
+    Object? user = freezed,
   }) {
     return _then(_GetInfoSuccess(
-      userInfo == freezed
-          ? _value.userInfo
-          : userInfo // ignore: cast_nullable_to_non_nullable
-              as UserInfo,
+      user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
     ));
   }
 
   @override
-  $UserInfoCopyWith<$Res> get userInfo {
-    return $UserInfoCopyWith<$Res>(_value.userInfo, (value) {
-      return _then(_value.copyWith(userInfo: value));
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
     });
   }
 }
@@ -426,14 +575,14 @@ class __$GetInfoSuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetInfoSuccess implements _GetInfoSuccess {
-  const _$_GetInfoSuccess(this.userInfo);
+  const _$_GetInfoSuccess(this.user);
 
   @override
-  final UserInfo userInfo;
+  final User user;
 
   @override
   String toString() {
-    return 'GetUserInfoState.getInfoSuccess(userInfo: $userInfo)';
+    return 'GetUserInfoState.getInfoSuccess(user: $user)';
   }
 
   @override
@@ -441,12 +590,12 @@ class _$_GetInfoSuccess implements _GetInfoSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GetInfoSuccess &&
-            const DeepCollectionEquality().equals(other.userInfo, userInfo));
+            const DeepCollectionEquality().equals(other.user, user));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(userInfo));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
 
   @JsonKey(ignore: true)
   @override
@@ -457,35 +606,38 @@ class _$_GetInfoSuccess implements _GetInfoSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(AuthFailure failure) getInfoFailure,
-    required TResult Function(UserInfo userInfo) getInfoSuccess,
+    required TResult Function() getInfoLoadInProgress,
+    required TResult Function(Failure failure) getInfoFailure,
+    required TResult Function(User user) getInfoSuccess,
     required TResult Function() noInfo,
   }) {
-    return getInfoSuccess(userInfo);
+    return getInfoSuccess(user);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(AuthFailure failure)? getInfoFailure,
-    TResult Function(UserInfo userInfo)? getInfoSuccess,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
     TResult Function()? noInfo,
   }) {
-    return getInfoSuccess?.call(userInfo);
+    return getInfoSuccess?.call(user);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(AuthFailure failure)? getInfoFailure,
-    TResult Function(UserInfo userInfo)? getInfoSuccess,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
     TResult Function()? noInfo,
     required TResult orElse(),
   }) {
     if (getInfoSuccess != null) {
-      return getInfoSuccess(userInfo);
+      return getInfoSuccess(user);
     }
     return orElse();
   }
@@ -494,6 +646,8 @@ class _$_GetInfoSuccess implements _GetInfoSuccess {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_GetInfoLoadInProgress value)
+        getInfoLoadInProgress,
     required TResult Function(_GetInfoFailure value) getInfoFailure,
     required TResult Function(_GetInfoSuccess value) getInfoSuccess,
     required TResult Function(_NoInfo value) noInfo,
@@ -505,6 +659,7 @@ class _$_GetInfoSuccess implements _GetInfoSuccess {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
     TResult Function(_GetInfoFailure value)? getInfoFailure,
     TResult Function(_GetInfoSuccess value)? getInfoSuccess,
     TResult Function(_NoInfo value)? noInfo,
@@ -516,6 +671,7 @@ class _$_GetInfoSuccess implements _GetInfoSuccess {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
     TResult Function(_GetInfoFailure value)? getInfoFailure,
     TResult Function(_GetInfoSuccess value)? getInfoSuccess,
     TResult Function(_NoInfo value)? noInfo,
@@ -529,9 +685,9 @@ class _$_GetInfoSuccess implements _GetInfoSuccess {
 }
 
 abstract class _GetInfoSuccess implements GetUserInfoState {
-  const factory _GetInfoSuccess(UserInfo userInfo) = _$_GetInfoSuccess;
+  const factory _GetInfoSuccess(User user) = _$_GetInfoSuccess;
 
-  UserInfo get userInfo;
+  User get user;
   @JsonKey(ignore: true)
   _$GetInfoSuccessCopyWith<_GetInfoSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -576,8 +732,9 @@ class _$_NoInfo implements _NoInfo {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(AuthFailure failure) getInfoFailure,
-    required TResult Function(UserInfo userInfo) getInfoSuccess,
+    required TResult Function() getInfoLoadInProgress,
+    required TResult Function(Failure failure) getInfoFailure,
+    required TResult Function(User user) getInfoSuccess,
     required TResult Function() noInfo,
   }) {
     return noInfo();
@@ -587,8 +744,9 @@ class _$_NoInfo implements _NoInfo {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(AuthFailure failure)? getInfoFailure,
-    TResult Function(UserInfo userInfo)? getInfoSuccess,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
     TResult Function()? noInfo,
   }) {
     return noInfo?.call();
@@ -598,8 +756,9 @@ class _$_NoInfo implements _NoInfo {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(AuthFailure failure)? getInfoFailure,
-    TResult Function(UserInfo userInfo)? getInfoSuccess,
+    TResult Function()? getInfoLoadInProgress,
+    TResult Function(Failure failure)? getInfoFailure,
+    TResult Function(User user)? getInfoSuccess,
     TResult Function()? noInfo,
     required TResult orElse(),
   }) {
@@ -613,6 +772,8 @@ class _$_NoInfo implements _NoInfo {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_GetInfoLoadInProgress value)
+        getInfoLoadInProgress,
     required TResult Function(_GetInfoFailure value) getInfoFailure,
     required TResult Function(_GetInfoSuccess value) getInfoSuccess,
     required TResult Function(_NoInfo value) noInfo,
@@ -624,6 +785,7 @@ class _$_NoInfo implements _NoInfo {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
     TResult Function(_GetInfoFailure value)? getInfoFailure,
     TResult Function(_GetInfoSuccess value)? getInfoSuccess,
     TResult Function(_NoInfo value)? noInfo,
@@ -635,6 +797,7 @@ class _$_NoInfo implements _NoInfo {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_GetInfoLoadInProgress value)? getInfoLoadInProgress,
     TResult Function(_GetInfoFailure value)? getInfoFailure,
     TResult Function(_GetInfoSuccess value)? getInfoSuccess,
     TResult Function(_NoInfo value)? noInfo,

@@ -8,10 +8,7 @@ import 'package:fruit_market/core/entities/failures.dart';
 import 'package:fruit_market/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:fruit_market/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:fruit_market/features/auth/data/models/user_dtos.dart';
-import 'package:fruit_market/features/auth/data/models/user_info_dtos.dart';
-import 'package:fruit_market/features/auth/domain/entities/user_info.dart'
-    as _userInfo;
-import 'package:fruit_market/features/auth/domain/faliures/auth_failure.dart';
+import 'package:fruit_market/features/auth/domain/failures/auth_failure.dart';
 import 'package:fruit_market/features/auth/domain/repositories/i_auth_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
@@ -35,6 +32,8 @@ class AuthRepository implements IAuthRepository {
   Either<AuthFailure, _user.User> getSignedInUser() {
     try {
       _user.User user = _authRemoteDataSourceImpl.getSignedInUser().toDomain();
+      print("5555555");
+      print('user: $user');
       return right(user);
     } on UnAuthenticatedException {
       return left(const AuthFailure.unAuthenticated());
@@ -95,49 +94,4 @@ class AuthRepository implements IAuthRepository {
         _authRemoteDataSourceImpl.signOut(),
         _authLocalDataSourceImpl.signOut(),
       ]);
-
-  @override
-  Future<Option<Either<AuthFailure, _userInfo.UserInfo>>> getUserInfo() async {
-    UserInfoDTO userInfoDto;
-
-    try {
-      userInfoDto = _authLocalDataSourceImpl.getUserInfo();
-      print(userInfoDto.toString());
-      return optionOf(right(userInfoDto.toDomain()));
-    } on CacheException {
-      try {
-        if (await _networkInfo.isConnected) {
-          UserInfoDTO? userInfoDto =
-              await _authRemoteDataSourceImpl.getUserInfo();
-          if (userInfoDto != null) {
-            _authLocalDataSourceImpl.cacheUserInfo(userInfoDto);
-            return optionOf(right(userInfoDto.toDomain()));
-          }
-          return none();
-        } else {
-          return optionOf(left(const AuthFailure.internet()));
-        }
-      } on ServerException {
-        return optionOf(left(const AuthFailure.serverError()));
-      }
-    }
-  }
-
-  @override
-  bool isFirstTimeOpenApp() {
-    return _authLocalDataSourceImpl.isFirstTimeToOpenApp();
-  }
-
-  @override
-  Future<Either<AuthFailure, Unit>> completeUserInfo(
-      _userInfo.UserInfo userInfo) async {
-    UserInfoDTO userInfoDTO = UserInfoDTO.fromDomain(userInfo);
-    try {
-      _authRemoteDataSourceImpl.completeUserInfo(userInfoDTO);
-      _authLocalDataSourceImpl.cacheUserInfo(userInfoDTO);
-      return right(unit);
-    } on ServerException {
-      return left(const AuthFailure.serverError());
-    }
-  }
 }

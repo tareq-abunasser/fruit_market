@@ -1,21 +1,24 @@
-part of 'complete_info_form_cubit.dart';
+part of 'user_form_cubit.dart';
 
 @freezed
-class CompleteInfoFormState with _$CompleteInfoFormState {
-  const factory CompleteInfoFormState({
+class UserFormState with _$UserFormState {
+  const factory UserFormState({
     required User user,
     required bool showErrorMessages,
+    required bool isEditing,
     required bool isSubmitting,
-    required Option<Either<Failure, Unit>> authFailureOrSuccessOption,
-  }) = _CompleteInfoFormState;
+    File? imageFile,
+    required Option<Either<Failure, dynamic>> authFailureOrSuccessOption,
+  }) = _UserState;
 
-  factory CompleteInfoFormState.initial() => CompleteInfoFormState(
+  factory UserFormState.initial() => UserFormState(
         user: User.empty(),
         showErrorMessages: false,
+        isEditing: false,
         isSubmitting: false,
+        imageFile: null,
         authFailureOrSuccessOption: none(),
       );
-
 }
 
 ///What do we need to communicate back to the UI of the sign-in form?

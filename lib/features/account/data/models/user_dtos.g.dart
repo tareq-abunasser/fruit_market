@@ -20,7 +20,6 @@ class UserDTOAdapter extends TypeAdapter<_$_UserDTO> {
       id: fields[0] as String?,
       fullName: fields[1] as String,
       photoURL: fields[2] as String,
-      email: fields[3] as String,
       phoneNumber: fields[4] as int,
       address: fields[5] as String,
     );
@@ -29,15 +28,13 @@ class UserDTOAdapter extends TypeAdapter<_$_UserDTO> {
   @override
   void write(BinaryWriter writer, _$_UserDTO obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.fullName)
       ..writeByte(2)
       ..write(obj.photoURL)
-      ..writeByte(3)
-      ..write(obj.email)
       ..writeByte(4)
       ..write(obj.phoneNumber)
       ..writeByte(5)
@@ -62,7 +59,6 @@ class UserDTOAdapter extends TypeAdapter<_$_UserDTO> {
 _$_UserDTO _$$_UserDTOFromJson(Map<String, dynamic> json) => _$_UserDTO(
       fullName: json['name'] as String,
       photoURL: json['photo_url'] as String,
-      email: json['email'] as String,
       phoneNumber: json['phone'] as int,
       address: json['address'] as String,
     );
@@ -71,7 +67,6 @@ Map<String, dynamic> _$$_UserDTOToJson(_$_UserDTO instance) =>
     <String, dynamic>{
       'name': instance.fullName,
       'photo_url': instance.photoURL,
-      'email': instance.email,
       'phone': instance.phoneNumber,
       'address': instance.address,
     };
