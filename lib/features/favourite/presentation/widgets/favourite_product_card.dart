@@ -1,19 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fruit_market/core/widgets/custom_text_field.dart';
 
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/custom_images.dart';
 import '../../../../core/widgets/custom_rating_bar.dart';
 import '../../../cart/presentation/widgets/add_cart_item_button.dart';
 import '../../domain/entities/favourite_item.dart';
+import '../cubit/favourite_actor/favourite_actor_cubit.dart';
 
 class FavouriteProductCard extends StatefulWidget {
   final FavouriteItem _item;
+  final int index;
 
   const FavouriteProductCard(
-    this._item, {
+    this._item,
+    this.index, {
     Key? key,
   }) : super(key: key);
 
@@ -33,14 +37,11 @@ class _FavouriteProductCardState extends State<FavouriteProductCard> {
         children: [
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
-            child: CachedNetworkImage(
-              fit: BoxFit.cover,
+            child: CustomNetworkImage(
               imageUrl: widget._item.imageURL.getOrCrash(),
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  CircularProgressIndicator(value: downloadProgress.progress),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
               width: SizeConfig.defaultSize! * 12,
               height: SizeConfig.defaultSize! * 12,
+              imageKey: widget._item.id.getOrCrash(),
             ),
           ),
           Flexible(
@@ -120,8 +121,14 @@ class _FavouriteProductCardState extends State<FavouriteProductCard> {
                             side: const BorderSide(color: Colors.black),
                             borderRadius: BorderRadius.circular(12))),
                     const Spacer(),
-                    AddCartItemButton(onPressed: () {
-                    }, cartItem: widget._item.toCartItem(_productNo),)
+                    AddCartItemButton(
+                      onPressed: () {
+                        context
+                            .read<FavouriteActorCubit>()
+                            .deleteFavoriteItem(widget._item, widget.index);
+                      },
+                      cartItem: widget._item.toCartItem(_productNo),
+                    )
                   ],
                 ),
               ],

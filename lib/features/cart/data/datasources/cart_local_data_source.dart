@@ -13,6 +13,9 @@ abstract class CartLocalDataSource {
   void removeFromCart(CartItemDTO product);
 
   void clearCart();
+
+  void updateCartItem(CartItemDTO cartItem);
+  void updateCart(List<CartItemDTO> cartItems);
 }
 
 @LazySingleton(as: CartLocalDataSource)
@@ -24,8 +27,14 @@ class CartLocalDataSourceImpl extends CartLocalDataSource {
   @override
   void cacheCart(List<CartItemDTO> items) {
     Map<dynamic, CartItemDTO> itemsAsMap = {};
-    items.forEach((p) => itemsAsMap[p.id] = p);
-    _hiveManager.shoppingCartBox!.putAll(itemsAsMap);
+    for (var p in items) {
+      itemsAsMap[p.id] = p;
+    }
+    try {
+      _hiveManager.shoppingCartBox!.putAll(itemsAsMap);
+    } catch (e) {
+      throw CacheException();
+    }
   }
 
   @override
@@ -48,6 +57,32 @@ class CartLocalDataSourceImpl extends CartLocalDataSource {
 
   @override
   void removeFromCart(CartItemDTO product) {
-    _hiveManager.shoppingCartBox!.delete(product.id);
+    try {
+      _hiveManager.shoppingCartBox!.delete(product.id);
+    } catch (_) {
+      throw CacheException();
+    }
+  }
+
+  @override
+  void updateCart(List<CartItemDTO> cartItems) {
+    Map<dynamic, CartItemDTO> itemsAsMap = {};
+    for (var p in cartItems) {
+      itemsAsMap[p.id] = p;
+    }
+    try {
+      _hiveManager.shoppingCartBox!.putAll(itemsAsMap);
+    } catch (_) {
+      throw CacheException();
+    }
+  }
+
+  @override
+  void updateCartItem(CartItemDTO cartItem) {
+    try {
+      _hiveManager.shoppingCartBox!.put(cartItem.id, cartItem);
+    } catch (_) {
+      throw CacheException();
+    }
   }
 }

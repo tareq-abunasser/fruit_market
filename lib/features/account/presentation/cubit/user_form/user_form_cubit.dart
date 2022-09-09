@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../core/entities/failures.dart';
 import '../../../../../core/entities/value_objects.dart';
@@ -42,6 +43,7 @@ class UserFormCubit extends Cubit<UserFormState> {
   }
 
   initialized({User? initialUser}) {
+    printInfo(info: 'function initialized');
     if (initialUser != null) {
       emit(state.copyWith(
         user: initialUser,
@@ -51,22 +53,25 @@ class UserFormCubit extends Cubit<UserFormState> {
   }
 
   nameChanged(String name) {
+    printInfo(info: 'function nameChanged');
+
     /// if name has error then we will can't able to pressed in login button
     /// this happen will the user write his name
     /// onChange method , any change in textFormField will emit the state
     emit(state.copyWith(
       user: state.user.copyWith(fullName: FullName(name)),
 
-      /// We have to reset the authFailureOrSuccessOption field whenever we emit a new state.
+      /// We have to reset the userFailureOrSuccessOption field whenever we emit a new state.
       /// This field holds a "response" from the previous call to login using usecase.
       /// Surely, when the name changes, it's not correct to associate the old "auth response" with the updated name.
-      authFailureOrSuccessOption: none(),
+      userFailureOrSuccessOption: none(),
       showErrorMessages: false,
-
     ));
   }
 
   phoneChanged(String phone) {
+    printInfo(info: 'function phoneChanged');
+
     /// if password has error then we will can't able to pressed in sign in or register button
 
     /// this happen will the user write his password
@@ -74,130 +79,120 @@ class UserFormCubit extends Cubit<UserFormState> {
 
     emit(state.copyWith(
       user: state.user.copyWith(phoneNumber: PhoneNumber(phone)),
-      authFailureOrSuccessOption: none(),
+      userFailureOrSuccessOption: none(),
       showErrorMessages: false,
     ));
   }
 
   addressChanged(String address) {
+    printInfo(info: 'function addressChanged');
+
     /// if password has error then we will can't able to pressed in sign in or register button
 
     /// this happen will the user write his password
     /// onChange method , any change in textFormField will emit the state
     emit(state.copyWith(
       user: state.user.copyWith(address: Address(address)),
-      authFailureOrSuccessOption: none(),
+      userFailureOrSuccessOption: none(),
       showErrorMessages: false,
     ));
   }
 
   showErrorMessages() {
+    printInfo(info: 'function showErrorMessages');
     emit(state.copyWith(
       showErrorMessages: true,
-      authFailureOrSuccessOption: none(),
+      userFailureOrSuccessOption: none(),
     ));
   }
 
   hideErrorMessages() {
+    printInfo(info: 'function hideErrorMessages');
     emit(state.copyWith(
       showErrorMessages: false,
-      authFailureOrSuccessOption: none(),
+      userFailureOrSuccessOption: none(),
     ));
   }
 
   savedPressed() async {
+    printInfo(info: 'function savedPressed');
     Either<Failure, Unit>? failureOrSuccess;
     emit(state.copyWith(
       isSubmitting: true,
-      authFailureOrSuccessOption: none(),
+      userFailureOrSuccessOption: none(),
     ));
+
     if (state.imageFile != null) {
-      Either<Failure, Unit> failureOrSuccessUpload = await _uploadImageFile(
-        state.imageFile!,
-      );
-      print("failureOrSuccessUpload: $failureOrSuccessUpload");
-      if(failureOrSuccessUpload.isLeft()) {
-        emit(state.copyWith(
-          authFailureOrSuccessOption: optionOf(failureOrSuccessUpload),
-        ));
-      }
-
-      if (failureOrSuccessUpload.isRight()) {
-        Either<Failure, String> failureOrSuccessGet = await _profileImageURL();
-        print("failureOrSuccessGet: $failureOrSuccessUpload");
-
-        if(failureOrSuccessGet.isLeft()) {
-          emit(state.copyWith(
-            authFailureOrSuccessOption: optionOf(failureOrSuccessGet),
-          ));
-        }
-
-        if (failureOrSuccessGet.isRight()) {
-          final imageURL = failureOrSuccessGet.getOrElse(() => '');
-          emit(state.copyWith(
-            // showErrorMessages: true,
-            user: state.user.copyWith(imageURL: ImageURL(imageURL)),
-          ));
-        }
-      }
+      await uploadImage();
     }
-    print("ffffffff");
 
-    print("state.user.failureOption: ${state.user.failureOption}");
     if (state.user.failureOption.isNone()) {
       UniqueId id = _signedInUser().fold((l) => UniqueId(), (r) => r.uniqueId);
-      print("8777909709");
-      print("id: $id");
       User _user = state.user.copyWith(id: id);
-      print("_user: $_user");
       failureOrSuccess = state.isEditing
           ? await _updateUserInfo(_user)
           : await _addUserInfo(_user);
-      print("failureOrSuccess: $failureOrSuccess");
-
+      printInfo(
+          info: 'function savedPressed failureOrSuccess $failureOrSuccess');
       emit(state.copyWith(
         isSubmitting: false,
+
         /// failureOrSuccess may be null because it's value determinate in if statement
         /// if the condition not satisfied it will not enter if statement this will make it null
         /// optionOf is equivalent to:
         /// failureOrSuccess == null ? none() : some(failureOrSuccess)
-        authFailureOrSuccessOption: optionOf(failureOrSuccess),
-        // showErrorMessages: true,
+        userFailureOrSuccessOption: optionOf(failureOrSuccess),
       ));
+    } else {
+      printError(info: "user model has error");
     }
-
   }
 
   Future<void> uploadImage() async {
-    if (state.imageFile != null) {
-      Either<Failure, Unit> failureOrSuccessUpload = await _uploadImageFile(
-        state.imageFile!,
-      );
-      // emit(state.copyWith(
-      //   showErrorMessages: true,
-      //   authFailureOrSuccessOption: optionOf(failureOrSuccessUpload),
-      // ));
+    printInfo(info: 'function uploadImage');
+    Either<Failure, Unit> failureOrSuccessUpload = await _uploadImageFile(
+      state.imageFile!,
+    );
+    printInfo(
+        info:
+            'function uploadImage failureOrSuccessUpload $failureOrSuccessUpload');
+    if (failureOrSuccessUpload.isLeft()) {
+      emit(state.copyWith(
+        userFailureOrSuccessOption: optionOf(failureOrSuccessUpload),
+      ));
+    }
 
-      if (failureOrSuccessUpload.isRight()) {
-        Either<Failure, String> failureOrSuccessGet = await _profileImageURL();
-        if (failureOrSuccessGet.isRight()) {
-          final imageURL = failureOrSuccessGet.getOrElse(() => '');
-          emit(state.copyWith(
-            // showErrorMessages: true,
-            user: state.user.copyWith(imageURL: ImageURL(imageURL)),
-            // authFailureOrSuccessOption: optionOf(failureOrSuccessGet),
-          ));
-        }
-      }
+    if (failureOrSuccessUpload.isRight()) {
+      await getImageURL();
+    }
+  }
+
+  Future<void> getImageURL() async {
+    printInfo(info: 'function getImageURL');
+    Either<Failure, String> failureOrSuccessGet = await _profileImageURL();
+    printInfo(
+        info: 'function getImageURL failureOrSuccessGet $failureOrSuccessGet');
+    if (failureOrSuccessGet.isLeft()) {
+      emit(state.copyWith(
+        userFailureOrSuccessOption: optionOf(failureOrSuccessGet),
+      ));
+    }
+
+    if (failureOrSuccessGet.isRight()) {
+      final imageURL = failureOrSuccessGet.getOrElse(() => '');
+      emit(state.copyWith(
+        user: state.user.copyWith(imageURL: ImageURL(imageURL)),
+      ));
     }
   }
 
   void reset() {
+    printInfo(info: 'function reset');
     emit(UserFormState.initial());
   }
 
   imageChanged() async {
-    // String imageUrl;
+    printInfo(info: 'function imageChanged');
     final ImagePicker _picker = ImagePicker();
     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
@@ -205,58 +200,6 @@ class UserFormCubit extends Cubit<UserFormState> {
       emit(state.copyWith(
         imageFile: imageFile,
       ));
-      // String fileName = basename(imageFile.path);
     }
-
-
   }
 }
-
-
-
-
-
-
-
-
-// _uploadImageFile(imageFile);
-// imageUrl = _getProfileImageURL().fold(
-//   (f) => '',
-//   (url) => url,
-// );
-
-// emit(state.copyWith(
-//   user: state.user.copyWith(profileImageUrl: imageUrl),
-//   authFailureOrSuccessOption: none(),
-// ));
-// FirebaseStorage storage = FirebaseStorage.instance;
-// Reference ref =
-// storage.ref().child("Image-" + productname.text);
-
-// UploadTask uploadTask = ref.putFile(imageFile);
-// await uploadTask.whenComplete(() async {
-//   var url = await ref.getDownloadURL();
-//   image_url = url.toString();
-// }).catchError((onError) {
-//   print(onError);
-// });
-
-
-// save() async {
-//   Either<NoteFailure, Unit>? failureOrSuccess;
-//
-//   emit(state.copyWith(
-//     isSubmitting: true,
-//     saveFailureOrSuccessOption: none(),
-//   ));
-//   // await Future.delayed(Duration(seconds: 5));
-//   if (state.note.failureOption.isNone()) {
-//     failureOrSuccess = state.isEditing
-//         ? await _iNoteRepository.update(state.note)
-//         : await _iNoteRepository.create(state.note);
-//   }
-//   emit(state.copyWith(
-//       isSubmitting: false,
-//       showErrorMessages: true,
-//       saveFailureOrSuccessOption: optionOf(failureOrSuccess)));
-// }

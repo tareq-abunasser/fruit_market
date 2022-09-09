@@ -1,9 +1,6 @@
-import 'dart:convert';
-import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-// import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../core/entities/exceptions.dart';
 import '../models/user_dtos.dart';
 import 'account_hive_manager.dart';
 
@@ -23,16 +20,19 @@ class AccountLocalDataSourceImpl extends AccountLocalDataSource {
 
   @override
   void cacheAccountData(UserDTO userCache) {
+    printInfo(info:'class AccountLocalDataSourceImpl, function cacheAccountData');
     _hiveManager.userBox!.put(userCache.id, userCache);
   }
 
   @override
   void deleteAccountData() {
+    printInfo(info:'class AccountLocalDataSourceImpl, function deleteAccountData');
     _hiveManager.userBox!.clear();
   }
 
   @override
   UserDTO? getAccountData() {
+    printInfo(info:'class AccountLocalDataSourceImpl, function getAccountData');
     return _hiveManager.userBox!.values.firstOrNull;
   }
 }

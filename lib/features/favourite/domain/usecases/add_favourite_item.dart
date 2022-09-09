@@ -1,22 +1,17 @@
 import 'package:dartz/dartz.dart';
-import 'package:fruit_market/features/home/domain/entities/value_objects.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../../../core/entities/failures.dart';
-import '../../../../core/entities/value_objects.dart';
-import '../../../cart/domain/entities/cart_item.dart';
-import '../../../cart/domain/entities/value_objects.dart';
-import '../../../cart/domain/repositories/i_cart_repository.dart';
-import '../../../home/domain/entities/product.dart';
+import '../entities/favourite_item.dart';
+import '../repositories/i_favourite_repository.dart';
 
 @LazySingleton()
-class AddCartItem {
-  final ICartRepository _repository;
+class AddFavouriteItem {
+  final IFavouriteRepository _repository;
 
-  AddCartItem(this._repository);
+  AddFavouriteItem(this._repository);
 
-  Future<Either<Failure, Unit>> call(CartItem cartItem) async {
-    return await _repository.addToCart(cartItem);
+  Future<Either<Failure, Unit>> call(FavouriteItem item) async {
+    return await _repository.addFavouriteItem(item);
   }
 
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_market/features/favourite/domain/entities/favourite_item.dart';
-import 'package:fruit_market/features/home/domain/entities/product.dart';
 
 class ErrorFavouriteProductCard extends StatelessWidget {
   final FavouriteItem _product;

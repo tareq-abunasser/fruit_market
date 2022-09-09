@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_market/features/account/presentation/cubit/user_form/user_form_cubit.dart';
 import 'package:fruit_market/injection.dart';
 import 'package:get/get.dart';
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/saving_in_progress_overlay.dart';
 import '../../../../routes/mobile_app_pages.dart';
 import '../../domain/entities/user.dart';
@@ -12,7 +12,7 @@ import '../widgets/user_form_scaffold.dart';
 
 class UserFormPage extends StatelessWidget {
   UserFormPage({Key? key}) : super(key: key);
-  User? _user;
+   User? _user;
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +25,14 @@ class UserFormPage extends StatelessWidget {
             getIt<UserFormCubit>()..initialized(initialUser: _user),
         child: BlocConsumer<UserFormCubit, UserFormState>(
           listenWhen: (p, c) =>
-              p.authFailureOrSuccessOption != c.authFailureOrSuccessOption,
+              p.userFailureOrSuccessOption != c.userFailureOrSuccessOption,
           listener: (context, state) {
-            state.authFailureOrSuccessOption.fold(
+            state.userFailureOrSuccessOption.fold(
               () {},
               (either) => either.fold(
                 (failure) {
                   FlushbarHelper.createError(
                       message: failure.maybeMap(
-                          // cancelledByUser: (_) => 'Cancelled',
                           serverError: (_) => 'Server error',
                           orElse: () => 'Unknown error')).show(context);
                 },

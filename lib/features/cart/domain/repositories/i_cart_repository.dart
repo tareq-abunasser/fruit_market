@@ -11,4 +11,6 @@ abstract class ICartRepository {
   Future<Either<Failure, Unit>> removeFromCart(CartItem cartItem);
 
   Future<Either<Failure, Unit>> clearCart();
+  Future<Either<Failure, Unit>> updateCartItem(CartItem cartItem);
+  Future<Either<Failure, Unit>> updateCart(List<CartItem> cartItems);
 }

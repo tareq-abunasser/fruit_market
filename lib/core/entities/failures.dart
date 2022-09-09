@@ -46,5 +46,6 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
 abstract class Failure with _$Failure {
   const factory Failure.internet() = Internet;
   const factory Failure.serverError() = ServerError;
+  const factory Failure.cacheError() = CacheError;
 
 }

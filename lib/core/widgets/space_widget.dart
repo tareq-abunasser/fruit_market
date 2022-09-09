@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../utils/size_config.dart';
+import '../services/size_config.dart';
 
 class HorizontalSpace extends StatelessWidget {
   const HorizontalSpace({Key? key, this.value}) : super(key: key);

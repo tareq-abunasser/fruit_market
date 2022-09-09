@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:fruit_market/core/entities/failures.dart';
 import 'package:fruit_market/features/cart/domain/entities/cart_item.dart';
+import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/entities/exceptions.dart';
-import '../../../../core/utils/network_info.dart';
+import '../../../../core/services/network_info.dart';
 import '../../domain/entities/order_item.dart';
 import '../../domain/repositories/i_order_repository.dart';
 import '../datasources/order_local_data_source.dart';
@@ -24,6 +25,7 @@ class OrderRepository implements IOrderRepository {
 
   @override
   Future<Either<Failure, Unit>> addToOrders(List<OrderItem> items) async {
+    printInfo(info: "function addToOrders");
     try {
       if (await _networkInfo.isConnected) {
         List<OrderItemDTO> itemsDto =
@@ -38,20 +40,23 @@ class OrderRepository implements IOrderRepository {
     }
   }
 
-
   @override
   Future<Either<Failure, List<OrderItem>>> getOrders() async {
+    printInfo(info: "function getOrders");
     List<OrderItem> listOrderItem = [];
+    final List<OrderItemDTO> listOrderItemDTO;
     try {
       if (await _networkInfo.isConnected) {
-        final listOrderItemDTO = await _orderRemoteDataSourceImpl.getOrders();
-        for (var item in listOrderItemDTO) {
-          listOrderItem.add(item.toDomain());
-        }
+        listOrderItemDTO = await _orderRemoteDataSourceImpl.getOrders();
+
         return right(listOrderItem);
       } else {
-        return left(const Failure.internet());
+        listOrderItemDTO = _orderLocalDataSourceImpl.getOrders();
       }
+      for (final item in listOrderItemDTO) {
+        listOrderItem.add(item.toDomain());
+      }
+      return right(listOrderItem);
     } on ServerException {
       return left(const Failure.serverError());
     }
@@ -59,6 +64,7 @@ class OrderRepository implements IOrderRepository {
 
   @override
   Future<Either<Failure, Unit>> updateOrderItem(OrderItem item) async {
+    printInfo(info: "function updateOrderItem");
     try {
       if (await _networkInfo.isConnected) {
         _orderRemoteDataSourceImpl

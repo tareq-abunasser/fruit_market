@@ -16,4 +16,9 @@ class OnBoardingRepository implements IOnBoardingRepository {
   bool isFirstTimeOpenApp() {
     return _onBoardingLocalDataSourceImpl.isFirstTimeToOpenApp();
   }
+
+  @override
+  void setUserOpenAppBefore() {
+    _onBoardingLocalDataSourceImpl.setUserOpenAppBefore();
+  }
 }

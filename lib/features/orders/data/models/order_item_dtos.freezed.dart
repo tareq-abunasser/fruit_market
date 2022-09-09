@@ -34,8 +34,8 @@ class _$OrderItemDTOTearOff {
           required String image,
       @HiveField(3)
       @JsonKey(name: 'delivered_on')
-      @ServerTimestampConverter()
-          required FieldValue deliveredOn,
+      @TimestampConverter()
+          required Timestamp deliveredOn,
       @HiveField(4)
       @JsonKey(name: 'rate')
           required double rate}) {
@@ -69,8 +69,8 @@ mixin _$OrderItemDTO {
   String get image => throw _privateConstructorUsedError;
   @HiveField(3)
   @JsonKey(name: 'delivered_on')
-  @ServerTimestampConverter()
-  FieldValue get deliveredOn => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  Timestamp get deliveredOn => throw _privateConstructorUsedError;
   @HiveField(4)
   @JsonKey(name: 'rate')
   double get rate => throw _privateConstructorUsedError;
@@ -98,8 +98,8 @@ abstract class $OrderItemDTOCopyWith<$Res> {
           String image,
       @HiveField(3)
       @JsonKey(name: 'delivered_on')
-      @ServerTimestampConverter()
-          FieldValue deliveredOn,
+      @TimestampConverter()
+          Timestamp deliveredOn,
       @HiveField(4)
       @JsonKey(name: 'rate')
           double rate});
@@ -137,7 +137,7 @@ class _$OrderItemDTOCopyWithImpl<$Res> implements $OrderItemDTOCopyWith<$Res> {
       deliveredOn: deliveredOn == freezed
           ? _value.deliveredOn
           : deliveredOn // ignore: cast_nullable_to_non_nullable
-              as FieldValue,
+              as Timestamp,
       rate: rate == freezed
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
@@ -165,8 +165,8 @@ abstract class _$OrderItemDTOCopyWith<$Res>
           String image,
       @HiveField(3)
       @JsonKey(name: 'delivered_on')
-      @ServerTimestampConverter()
-          FieldValue deliveredOn,
+      @TimestampConverter()
+          Timestamp deliveredOn,
       @HiveField(4)
       @JsonKey(name: 'rate')
           double rate});
@@ -206,7 +206,7 @@ class __$OrderItemDTOCopyWithImpl<$Res> extends _$OrderItemDTOCopyWithImpl<$Res>
       deliveredOn: deliveredOn == freezed
           ? _value.deliveredOn
           : deliveredOn // ignore: cast_nullable_to_non_nullable
-              as FieldValue,
+              as Timestamp,
       rate: rate == freezed
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
@@ -231,7 +231,7 @@ class _$_OrderItemDTO extends _OrderItemDTO {
           required this.image,
       @HiveField(3)
       @JsonKey(name: 'delivered_on')
-      @ServerTimestampConverter()
+      @TimestampConverter()
           required this.deliveredOn,
       @HiveField(4)
       @JsonKey(name: 'rate')
@@ -256,8 +256,8 @@ class _$_OrderItemDTO extends _OrderItemDTO {
   @override
   @HiveField(3)
   @JsonKey(name: 'delivered_on')
-  @ServerTimestampConverter()
-  final FieldValue deliveredOn;
+  @TimestampConverter()
+  final Timestamp deliveredOn;
   @override
   @HiveField(4)
   @JsonKey(name: 'rate')
@@ -314,8 +314,8 @@ abstract class _OrderItemDTO extends OrderItemDTO {
           required String image,
       @HiveField(3)
       @JsonKey(name: 'delivered_on')
-      @ServerTimestampConverter()
-          required FieldValue deliveredOn,
+      @TimestampConverter()
+          required Timestamp deliveredOn,
       @HiveField(4)
       @JsonKey(name: 'rate')
           required double rate}) = _$_OrderItemDTO;
@@ -339,8 +339,8 @@ abstract class _OrderItemDTO extends OrderItemDTO {
   @override
   @HiveField(3)
   @JsonKey(name: 'delivered_on')
-  @ServerTimestampConverter()
-  FieldValue get deliveredOn;
+  @TimestampConverter()
+  Timestamp get deliveredOn;
   @override
   @HiveField(4)
   @JsonKey(name: 'rate')

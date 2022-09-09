@@ -1,34 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
+import '../../../../core/services/theme_service.dart';
 import '../../../../core/widgets/custom_text_field.dart';
+import '../../../../injection.dart';
+import '../../../../localization/localization_service.dart';
 import '../../../../routes/mobile_app_pages.dart';
 import 'AccountSettingsCategory.dart';
 import 'custom_list_tile_item.dart';
 
 class AccountSettingsListUtils extends StatelessWidget {
   const AccountSettingsListUtils({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      const AccountSettingsCategory(
-        "Preferences",
+      AccountSettingsCategory(
+        "preferences".tr,
       ),
       ListTileItem(
         leadingIcon: Icons.language,
-        text: 'Language',
+        text: 'language'.tr,
         onTap: () {
           Get.toNamed(MobileRoutes.Language);
         },
-        trailing: Row(mainAxisSize: MainAxisSize.min, children: const [
+        trailing: Row(mainAxisSize: MainAxisSize.min, children: [
           CustomText(
-            text: 'English',
+            text: getIt<LocalizationService>().currentLanguage.tr,
             color: Colors.black54,
             fontSize: 16,
           ),
-          SizedBox(width: 10),
-          Icon(
+          const SizedBox(width: 10),
+          const Icon(
             Icons.arrow_forward_ios,
             size: 25,
           ),
@@ -36,42 +40,38 @@ class AccountSettingsListUtils extends StatelessWidget {
       ),
       ListTileItem(
         leadingIcon: Icons.dark_mode_outlined,
-        text: 'Dark Mode',
-        // onTap: () {
-        //   Get.toNamed(MobileRoutes.Language);
-        // },
-        trailing: Switch(
-          value: false,
-          onChanged: (value) {
+        text: 'darkMode'.tr,
+        trailing: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Switch(
+              value: getIt<ThemeService>().isDarkMode,
+              onChanged: (value) {
+                setState(() {
+                  getIt<ThemeService>().switchTheme();
+                });
+              },
+            );
           },
         ),
       ),
-
-      const AccountSettingsCategory(
-        "Account",
+      AccountSettingsCategory(
+        "account".tr,
       ),
       ListTileItem(
         leadingIcon: Icons.security,
-        text: 'Security',
-        onTap: () {
-          // Get.toNamed(MobileRoutes.Orders);
-        },
+        text: 'security'.tr,
+        onTap: () {},
       ),
       ListTileItem(
         leadingIcon: Icons.highlight_remove_rounded,
-        text: 'Deactivate Account',
-        onTap: () {
-          // Get.toNamed(MobileRoutes.Orders);
-        },
+        text: 'deactivateAccount'.tr,
+        onTap: () {},
       ),
       ListTileItem(
         leadingIcon: Icons.delete,
-        text: 'Delete Account',
-        onTap: () {
-          // Get.toNamed(MobileRoutes.Orders);
-        },
+        text: 'deleteAccount'.tr,
+        onTap: () {},
       ),
-
     ]);
   }
 }

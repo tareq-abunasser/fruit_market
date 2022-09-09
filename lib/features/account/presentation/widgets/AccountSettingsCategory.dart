@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 
 class AccountSettingsCategory extends StatelessWidget {
@@ -11,11 +11,11 @@ class AccountSettingsCategory extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: SizeConfig.defaultSize! * 6,
-      color: const Color(0xffE6E6E6),
+      color: Theme.of(context).dividerColor,
       child: Padding(
-        padding: EdgeInsets.only(
+        padding: EdgeInsetsDirectional.only(
             top: SizeConfig.defaultSize! * 2,
-            left: SizeConfig.defaultSize! * 2),
+            start: SizeConfig.defaultSize! * 2),
         child:  CustomText(
           text: categoryName,
           fontWeight: FontWeight.bold,

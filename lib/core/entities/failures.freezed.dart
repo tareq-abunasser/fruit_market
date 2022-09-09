@@ -1865,6 +1865,10 @@ class _$FailureTearOff {
   ServerError serverError() {
     return const ServerError();
   }
+
+  CacheError cacheError() {
+    return const CacheError();
+  }
 }
 
 /// @nodoc
@@ -1876,18 +1880,21 @@ mixin _$Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() internet,
     required TResult Function() serverError,
+    required TResult Function() cacheError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? internet,
     TResult Function()? serverError,
+    TResult Function()? cacheError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? internet,
     TResult Function()? serverError,
+    TResult Function()? cacheError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1895,18 +1902,21 @@ mixin _$Failure {
   TResult map<TResult extends Object?>({
     required TResult Function(Internet value) internet,
     required TResult Function(ServerError value) serverError,
+    required TResult Function(CacheError value) cacheError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Internet value)? internet,
     TResult Function(ServerError value)? serverError,
+    TResult Function(CacheError value)? cacheError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Internet value)? internet,
     TResult Function(ServerError value)? serverError,
+    TResult Function(CacheError value)? cacheError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1967,6 +1977,7 @@ class _$Internet implements Internet {
   TResult when<TResult extends Object?>({
     required TResult Function() internet,
     required TResult Function() serverError,
+    required TResult Function() cacheError,
   }) {
     return internet();
   }
@@ -1976,6 +1987,7 @@ class _$Internet implements Internet {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? internet,
     TResult Function()? serverError,
+    TResult Function()? cacheError,
   }) {
     return internet?.call();
   }
@@ -1985,6 +1997,7 @@ class _$Internet implements Internet {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? internet,
     TResult Function()? serverError,
+    TResult Function()? cacheError,
     required TResult orElse(),
   }) {
     if (internet != null) {
@@ -1998,6 +2011,7 @@ class _$Internet implements Internet {
   TResult map<TResult extends Object?>({
     required TResult Function(Internet value) internet,
     required TResult Function(ServerError value) serverError,
+    required TResult Function(CacheError value) cacheError,
   }) {
     return internet(this);
   }
@@ -2007,6 +2021,7 @@ class _$Internet implements Internet {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Internet value)? internet,
     TResult Function(ServerError value)? serverError,
+    TResult Function(CacheError value)? cacheError,
   }) {
     return internet?.call(this);
   }
@@ -2016,6 +2031,7 @@ class _$Internet implements Internet {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Internet value)? internet,
     TResult Function(ServerError value)? serverError,
+    TResult Function(CacheError value)? cacheError,
     required TResult orElse(),
   }) {
     if (internet != null) {
@@ -2071,6 +2087,7 @@ class _$ServerError implements ServerError {
   TResult when<TResult extends Object?>({
     required TResult Function() internet,
     required TResult Function() serverError,
+    required TResult Function() cacheError,
   }) {
     return serverError();
   }
@@ -2080,6 +2097,7 @@ class _$ServerError implements ServerError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? internet,
     TResult Function()? serverError,
+    TResult Function()? cacheError,
   }) {
     return serverError?.call();
   }
@@ -2089,6 +2107,7 @@ class _$ServerError implements ServerError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? internet,
     TResult Function()? serverError,
+    TResult Function()? cacheError,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -2102,6 +2121,7 @@ class _$ServerError implements ServerError {
   TResult map<TResult extends Object?>({
     required TResult Function(Internet value) internet,
     required TResult Function(ServerError value) serverError,
+    required TResult Function(CacheError value) cacheError,
   }) {
     return serverError(this);
   }
@@ -2111,6 +2131,7 @@ class _$ServerError implements ServerError {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Internet value)? internet,
     TResult Function(ServerError value)? serverError,
+    TResult Function(CacheError value)? cacheError,
   }) {
     return serverError?.call(this);
   }
@@ -2120,6 +2141,7 @@ class _$ServerError implements ServerError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Internet value)? internet,
     TResult Function(ServerError value)? serverError,
+    TResult Function(CacheError value)? cacheError,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -2131,4 +2153,113 @@ class _$ServerError implements ServerError {
 
 abstract class ServerError implements Failure {
   const factory ServerError() = _$ServerError;
+}
+
+/// @nodoc
+abstract class $CacheErrorCopyWith<$Res> {
+  factory $CacheErrorCopyWith(
+          CacheError value, $Res Function(CacheError) then) =
+      _$CacheErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$CacheErrorCopyWithImpl<$Res> extends _$FailureCopyWithImpl<$Res>
+    implements $CacheErrorCopyWith<$Res> {
+  _$CacheErrorCopyWithImpl(CacheError _value, $Res Function(CacheError) _then)
+      : super(_value, (v) => _then(v as CacheError));
+
+  @override
+  CacheError get _value => super._value as CacheError;
+}
+
+/// @nodoc
+
+class _$CacheError implements CacheError {
+  const _$CacheError();
+
+  @override
+  String toString() {
+    return 'Failure.cacheError()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is CacheError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() internet,
+    required TResult Function() serverError,
+    required TResult Function() cacheError,
+  }) {
+    return cacheError();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? internet,
+    TResult Function()? serverError,
+    TResult Function()? cacheError,
+  }) {
+    return cacheError?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? internet,
+    TResult Function()? serverError,
+    TResult Function()? cacheError,
+    required TResult orElse(),
+  }) {
+    if (cacheError != null) {
+      return cacheError();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Internet value) internet,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(CacheError value) cacheError,
+  }) {
+    return cacheError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Internet value)? internet,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(CacheError value)? cacheError,
+  }) {
+    return cacheError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Internet value)? internet,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(CacheError value)? cacheError,
+    required TResult orElse(),
+  }) {
+    if (cacheError != null) {
+      return cacheError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CacheError implements Failure {
+  const factory CacheError() = _$CacheError;
 }

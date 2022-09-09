@@ -25,52 +25,52 @@ class ListUtils extends StatelessWidget {
           children: [
             ListTileItem(
               leadingIcon: Icons.local_grocery_store_rounded,
-              text: 'My Orders',
+              text: 'myOrders'.tr,
               onTap: () {
                 Get.toNamed(MobileRoutes.Orders);
               },
             ),
             ListTileItem(
               leadingIcon: Icons.favorite,
-              text: 'Favourites',
+              text: 'favourites'.tr,
               onTap: () {
                 Get.toNamed(MobileRoutes.Favourite);
               },
             ),
             ListTileItem(
               leadingIcon: Icons.settings,
-              text: 'Settings',
+              text: 'settings'.tr,
               onTap: () {
                 Get.toNamed(MobileRoutes.ACCOUNT_SETTINGS);
               },
             ),
             ListTileItem(
               leadingIcon: Icons.local_grocery_store_rounded,
-              text: 'My Cart',
+              text: 'myCart'.tr,
               onTap: () {
                 Get.toNamed(MobileRoutes.Cart);
               },
             ),
             ListTileItem(
               leadingIcon: Icons.star_rate,
-              text: 'Rate us',
+              text: 'rateUs'.tr,
               onTap: () {},
             ),
             ListTileItem(
               leadingIcon: Icons.share,
-              text: 'Refer a Friend',
+              text: 'referAFriend'.tr,
               onTap: () {},
             ),
             ListTileItem(
               leadingIcon: Icons.help,
-              text: 'Help',
+              text: 'help'.tr,
               onTap: () {
                 Get.toNamed(MobileRoutes.HELP);
               },
             ),
             ListTileItem(
               leadingIcon: Icons.logout,
-              text: 'Log Out',
+              text: 'logout'.tr,
               onTap: () {
                   context.read<AuthCubit>().signedOut();
               },

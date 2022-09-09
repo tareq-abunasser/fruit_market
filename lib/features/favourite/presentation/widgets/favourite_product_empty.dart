@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 
 class FavouriteProductEmpty extends StatelessWidget {
   const FavouriteProductEmpty({Key? key}) : super(key: key);

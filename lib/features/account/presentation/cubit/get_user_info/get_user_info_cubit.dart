@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../core/entities/failures.dart';
@@ -21,7 +22,7 @@ class GetUserInfoCubit extends Cubit<GetUserInfoState> {
   }
 
   getProfileUserInfo()async{
-    print("getProfileUserInfo");
+    printInfo(info: 'function getProfileUserInfo');
     emit(const GetUserInfoState.getInfoLoadInProgress());
     await _getUserInfo().then((authFailureOrSuccessOption) {
       authFailureOrSuccessOption.fold(() => emit(const GetUserInfoState.noInfo()), (failureOrSuccess) {

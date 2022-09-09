@@ -13,40 +13,41 @@ class AddressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) =>
-        getIt<GetUserInfoCubit>()
-          ..getProfileUserInfo(),
+        create: (context) => getIt<GetUserInfoCubit>()..getProfileUserInfo(),
         child: BlocBuilder<GetUserInfoCubit, GetUserInfoState>(
           builder: (context, state) {
             return state.map(
               initial: (_) => Container(),
-              getInfoLoadInProgress: (_) => CircularProgressIndicator(),
-              getInfoFailure: (_) => Text('Error'),
-              noInfo: (value) =>Text('Error'),
-              getInfoSuccess: (success) =>
-                  Row(
-                    children: [
-                      const Icon(Icons.location_on),
-                       Text(
-                        "Deliver to ${success.user.address.getOrCrash()}",
-                        overflow: TextOverflow.clip,
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          Get.toNamed(
-                            MobileRoutes.UserForm,
-                            arguments: [success.user],
-                          );
-                        },
-                        child: const CustomText(
-                          text: "Change Your Info",
-                          color: Color(0xff7089F0),
-                        ),
-                      )
-                    ],
+              getInfoLoadInProgress: (_) => const CircularProgressIndicator(),
+              getInfoFailure: (f) {
+                return f.failure.maybeMap(
+                  serverError: (_) => Text('serverFailure'.tr),
+                  orElse: () => Text('unknownFailure'.tr),
+                );
+              },
+              noInfo: (value) => Text('error'.tr),
+              getInfoSuccess: (success) => Row(
+                children: [
+                  const Icon(Icons.location_on),
+                  Text(
+                    "Deliver to ${success.user.address.getOrCrash()}",
+                    overflow: TextOverflow.clip,
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () {
+                      Get.toNamed(
+                        MobileRoutes.UserForm,
+                        arguments: [success.user],
+                      );
+                    },
+                    child: CustomText(
+                      text: "changeYourInfo".tr,
+                      color: const Color(0xff7089F0),
+                    ),
                   )
-              ,
+                ],
+              ),
             );
           },
         ));

@@ -3,41 +3,40 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../core/entities/value_objects.dart';
-import '../../domain/entities/product_main_class.dart';
-import '../../domain/entities/value_objects.dart';
+import '../../domain/entities/category.dart';
 
-part 'product_main_class_dtos.freezed.dart';
-part 'product_main_class_dtos.g.dart';
+part 'category_dtos.freezed.dart';
+part 'category_dtos.g.dart';
 // @JsonSerializable()
 @freezed
-abstract class ProductMainClassDTO extends HiveObject implements _$ProductMainClassDTO {
-   ProductMainClassDTO._();
-   @HiveType(typeId: 1, adapterName: 'ProductMainClassDTOAdapter')
-   factory ProductMainClassDTO({
+abstract class CategoryDTO extends HiveObject implements _$CategoryDTO {
+  CategoryDTO._();
+   @HiveType(typeId: 8, adapterName: 'CategoryDTOAdapter')
+   factory CategoryDTO({
      @HiveField(0) @JsonKey(ignore: true) String? id,
      @HiveField(1) @JsonKey(name: 'name') required String name,
-  }) = _ProductMainClassDTO;
+  }) = _CategoryDTO;
 
-  factory ProductMainClassDTO.fromDomain(ProductMainClass productMainClass) {
-    return ProductMainClassDTO(
-      id: productMainClass.id.getOrCrash(),
-      name: productMainClass.name.getOrCrash(),
+  factory CategoryDTO.fromDomain(Category category) {
+    return CategoryDTO(
+      id: category.id.getOrCrash(),
+      name: category.name.getOrCrash(),
 
     );
   }
 
-  ProductMainClass toDomain() {
-    return ProductMainClass(
+  Category toDomain() {
+    return Category(
       id:UniqueId.fromUniqueString(id!),
       name:ItemName(name),
     );
   }
 
-  factory ProductMainClassDTO.fromJson(Map<String, dynamic> json) =>
-      _$ProductMainClassDTOFromJson(json);
+  factory CategoryDTO.fromJson(Map<String, dynamic> json) =>
+      _$CategoryDTOFromJson(json);
 
-  factory ProductMainClassDTO.fromFirestore(DocumentSnapshot doc) {
+  factory CategoryDTO.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data()! as Map<String, dynamic>;
-    return ProductMainClassDTO.fromJson(data).copyWith(id: doc.id);
+    return CategoryDTO.fromJson(data).copyWith(id: doc.id);
   }
 }

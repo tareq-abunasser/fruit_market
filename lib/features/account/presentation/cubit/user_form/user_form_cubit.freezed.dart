@@ -24,14 +24,14 @@ class _$UserFormStateTearOff {
       required bool isEditing,
       required bool isSubmitting,
       File? imageFile,
-      required Option<Either<Failure, dynamic>> authFailureOrSuccessOption}) {
+      required Option<Either<Failure, dynamic>> userFailureOrSuccessOption}) {
     return _UserState(
       user: user,
       showErrorMessages: showErrorMessages,
       isEditing: isEditing,
       isSubmitting: isSubmitting,
       imageFile: imageFile,
-      authFailureOrSuccessOption: authFailureOrSuccessOption,
+      userFailureOrSuccessOption: userFailureOrSuccessOption,
     );
   }
 }
@@ -46,7 +46,7 @@ mixin _$UserFormState {
   bool get isEditing => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   File? get imageFile => throw _privateConstructorUsedError;
-  Option<Either<Failure, dynamic>> get authFailureOrSuccessOption =>
+  Option<Either<Failure, dynamic>> get userFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -65,7 +65,7 @@ abstract class $UserFormStateCopyWith<$Res> {
       bool isEditing,
       bool isSubmitting,
       File? imageFile,
-      Option<Either<Failure, dynamic>> authFailureOrSuccessOption});
+      Option<Either<Failure, dynamic>> userFailureOrSuccessOption});
 
   $UserCopyWith<$Res> get user;
 }
@@ -86,7 +86,7 @@ class _$UserFormStateCopyWithImpl<$Res>
     Object? isEditing = freezed,
     Object? isSubmitting = freezed,
     Object? imageFile = freezed,
-    Object? authFailureOrSuccessOption = freezed,
+    Object? userFailureOrSuccessOption = freezed,
   }) {
     return _then(_value.copyWith(
       user: user == freezed
@@ -109,9 +109,9 @@ class _$UserFormStateCopyWithImpl<$Res>
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
               as File?,
-      authFailureOrSuccessOption: authFailureOrSuccessOption == freezed
-          ? _value.authFailureOrSuccessOption
-          : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+      userFailureOrSuccessOption: userFailureOrSuccessOption == freezed
+          ? _value.userFailureOrSuccessOption
+          : userFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<Failure, dynamic>>,
     ));
   }
@@ -137,7 +137,7 @@ abstract class _$UserStateCopyWith<$Res>
       bool isEditing,
       bool isSubmitting,
       File? imageFile,
-      Option<Either<Failure, dynamic>> authFailureOrSuccessOption});
+      Option<Either<Failure, dynamic>> userFailureOrSuccessOption});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -159,7 +159,7 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserFormStateCopyWithImpl<$Res>
     Object? isEditing = freezed,
     Object? isSubmitting = freezed,
     Object? imageFile = freezed,
-    Object? authFailureOrSuccessOption = freezed,
+    Object? userFailureOrSuccessOption = freezed,
   }) {
     return _then(_UserState(
       user: user == freezed
@@ -182,9 +182,9 @@ class __$UserStateCopyWithImpl<$Res> extends _$UserFormStateCopyWithImpl<$Res>
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
               as File?,
-      authFailureOrSuccessOption: authFailureOrSuccessOption == freezed
-          ? _value.authFailureOrSuccessOption
-          : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+      userFailureOrSuccessOption: userFailureOrSuccessOption == freezed
+          ? _value.userFailureOrSuccessOption
+          : userFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<Failure, dynamic>>,
     ));
   }
@@ -199,7 +199,7 @@ class _$_UserState implements _UserState {
       required this.isEditing,
       required this.isSubmitting,
       this.imageFile,
-      required this.authFailureOrSuccessOption});
+      required this.userFailureOrSuccessOption});
 
   @override
   final User user;
@@ -212,11 +212,11 @@ class _$_UserState implements _UserState {
   @override
   final File? imageFile;
   @override
-  final Option<Either<Failure, dynamic>> authFailureOrSuccessOption;
+  final Option<Either<Failure, dynamic>> userFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'UserFormState(user: $user, showErrorMessages: $showErrorMessages, isEditing: $isEditing, isSubmitting: $isSubmitting, imageFile: $imageFile, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'UserFormState(user: $user, showErrorMessages: $showErrorMessages, isEditing: $isEditing, isSubmitting: $isSubmitting, imageFile: $imageFile, userFailureOrSuccessOption: $userFailureOrSuccessOption)';
   }
 
   @override
@@ -232,7 +232,7 @@ class _$_UserState implements _UserState {
                 .equals(other.isSubmitting, isSubmitting) &&
             const DeepCollectionEquality().equals(other.imageFile, imageFile) &&
             const DeepCollectionEquality().equals(
-                other.authFailureOrSuccessOption, authFailureOrSuccessOption));
+                other.userFailureOrSuccessOption, userFailureOrSuccessOption));
   }
 
   @override
@@ -243,7 +243,7 @@ class _$_UserState implements _UserState {
       const DeepCollectionEquality().hash(isEditing),
       const DeepCollectionEquality().hash(isSubmitting),
       const DeepCollectionEquality().hash(imageFile),
-      const DeepCollectionEquality().hash(authFailureOrSuccessOption));
+      const DeepCollectionEquality().hash(userFailureOrSuccessOption));
 
   @JsonKey(ignore: true)
   @override
@@ -259,7 +259,7 @@ abstract class _UserState implements UserFormState {
       required bool isSubmitting,
       File? imageFile,
       required Option<Either<Failure, dynamic>>
-          authFailureOrSuccessOption}) = _$_UserState;
+          userFailureOrSuccessOption}) = _$_UserState;
 
   @override
   User get user;
@@ -272,7 +272,7 @@ abstract class _UserState implements UserFormState {
   @override
   File? get imageFile;
   @override
-  Option<Either<Failure, dynamic>> get authFailureOrSuccessOption;
+  Option<Either<Failure, dynamic>> get userFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
   _$UserStateCopyWith<_UserState> get copyWith =>

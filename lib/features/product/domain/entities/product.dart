@@ -5,7 +5,6 @@ import '../../../../core/entities/failures.dart';
 import '../../../../core/entities/value_objects.dart';
 import '../../../cart/domain/entities/cart_item.dart';
 import '../../../cart/domain/entities/value_objects.dart';
-import 'value_objects.dart';
 
 part 'product.freezed.dart';
 

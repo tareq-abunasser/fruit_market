@@ -4,20 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:fruit_market/features/auth/presentation/cubit/sign_in/sign_in_cubit.dart';
 import 'package:get/get.dart';
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 import '../../../../injection.dart';
 import '../../../../routes/mobile_app_pages.dart';
+import '../../../splash/domain/splash_router.dart';
 import '../widgets/login_view_body.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => getIt<SignInCubit>()),
-        // BlocProvider(create: (context) => getIt<GetUserInfoCubit>()),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -25,87 +25,27 @@ class LoginView extends StatelessWidget {
             listener: (context, state) {
               state.map(
                 initial: (_) {},
-                loginSuccess: (_) {
-                  print("login success");
-                  AuthCubit.getInstance(context).authCheckRequested();
+                loginSuccess: (_) async {
+                  printInfo(info: "login success");
+                  await getIt<SplashRouter>().call();
+                  String page = SplashRouter.initialRoute;
+                  Get.offAndToNamed(page);
                 },
                 loginFailure: (loginFailure) {
                   FlushbarHelper.createError(
                       message: loginFailure.failure.maybeMap(
-                          internet: (_) => 'check your network',
-                          serverError: (_) => 'Server error',
-                          orElse: () => 'Unknown error')).show(context);
+                          internet: (_) => 'checkInternetConnectivity'.tr,
+                          serverError: (_) => 'serverError'.tr,
+                          orElse: () => "unknownError".tr)).show(context);
                 },
               );
             },
           ),
-          BlocListener<AuthCubit, AuthState>(
-            listener: (context, state) {
-              print("auth state : BlocListener<AuthCubit, AuthState>");
-              state.map(
-                initial: (_) {},
-                authenticated: (_) {
-                  print("listent to state");
-                  Get.offAndToNamed(MobileRoutes.AccountInitial);
-                },
-                unauthenticated: (_) {
-                  Get.offAndToNamed(MobileRoutes.LOGIN);
-                },
-              );
-            },
-          ),
-
-
-          // BlocListener<GetUserInfoCubit, GetUserInfoState>(
-          //   listener: (context, state) {
-          //     state.map(
-          //       initial: (_) {},
-          //       getInfoSuccess: (infoSuccess) {
-          //         print("user info : ");
-          //         print(infoSuccess.userInfo);
-          //         Get.offAndToNamed(MobileRoutes.Main);
-          //       },
-          //       getInfoFailure: (infoFailure) {
-          //         print("user info : ");
-          //         print(infoFailure.failure);
-          //         FlushbarHelper.createError(
-          //             message: infoFailure.failure.maybeMap(
-          //                 internet: (_) => 'check your network',
-          //                 serverError: (_) => 'Server error',
-          //                 orElse: () => 'Unknown error')).show(context);
-          //       }, noInfo: (_) =>Get.offAndToNamed(MobileRoutes.UserForm),
-          //     );
-          //   },
-          // ),
         ],
         child: const Scaffold(
           body: LoginViewBody(),
         ),
       ),
-
-      // child: BlocConsumer<SignInCubit, SignInState>(
-      //   listener: (context, state) {
-      //     state.map(
-      //       initial: (_) {},
-      //       loginSuccess: (_) {
-      //         Get.toNamed(MobileRoutes.COMPLETE_PROFILE);
-      //         AuthCubit.getInstance(context).authCheckRequested();
-      //         },
-      //       loginFailure: (loginFailure) {
-      //         FlushbarHelper.createError(
-      //             message: loginFailure.failure.maybeMap(
-      //                 internet: (_) => 'check your network',
-      //                 serverError: (_) => 'Server error',
-      //                 orElse: () => 'Unknown error')).show(context);
-      //       },
-      //     );
-      //   },
-      //   builder: (context, state) {
-      //     return const Scaffold(
-      //       body: LoginViewBody(),
-      //     );
-      //   },
-      // ),
     );
   }
 }

@@ -13,4 +13,11 @@ class FavouriteHiveManager {
   }
 
   Box<FavouriteItemDTO>? get favoriteItemBox => _favoriteItemBox;
+  Future<void> close() async {
+    await _favoriteItemBox.close();
+  }
+
+  Future<void> clear() async {
+    await _favoriteItemBox.clear();
+  }
 }

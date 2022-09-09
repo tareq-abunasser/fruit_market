@@ -1,162 +1,271 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import '../../../../core/services/size_config.dart';
 import '../../../../injection.dart';
-import '../../domain/entities/product_subclass.dart';
-import '../../domain/repositories/i_home_repository.dart';
-import '../bloc/home_bloc.dart';
-import 'product_subclass_widget.dart';
+import '../../../../routes/mobile_app_pages.dart';
+import '../cubit/category_cubit.dart';
 
-class ProductMainClassWidget extends StatefulWidget {
-  ProductMainClassWidget(this.parentId, {Key? key}) : super(key: key);
-  final String parentId;
-
-  @override
-  State<ProductMainClassWidget> createState() => _ProductMainClassWidgetState();
-}
-
-class _ProductMainClassWidgetState extends State<ProductMainClassWidget> {
-  late ScrollController _scrollController;
-  List<ProductSubclass> productSubclasses = [];
-  bool hasMoreData = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
-  }
+class CategoryPage extends StatelessWidget {
+  const CategoryPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
-      state.mapOrNull(
-          productSubclassesLoadSuccess: (success) =>
-              hasMoreData = success.productSubclasses.isNotEmpty);
-    }, builder: (context, state) {
-      productSubclasses = BlocProvider.of<HomeBloc>(context)
-          .listProductSubclasses
-          .where((p) => p.parentId.getOrCrash() == widget.parentId)
-          .toList();
-      addListenerToScroll(context, state);
-      if (productSubclasses.isEmpty) {
-        return state.maybeMap(
-          productSubclassesLoadInProgress: (_) =>
-              const Center(child: CircularProgressIndicator()),
-          productSubclassesLoadFailure: (failure) =>
-              Center(child: Text(failure.homeFailure.toString())),
-          orElse: () => Container(),
-        );
-      } else {
-        return Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: ListView.separated(
-              scrollDirection: Axis.vertical,
-              controller: _scrollController,
-              itemCount: productSubclasses.length + 1,
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  height: 25,
-                );
-              },
-              itemBuilder: (BuildContext context, int index) {
-                if (index < productSubclasses.length) {
-                  return ProductSubclassWidget(productSubclasses[index]);
-                } else {
-                  return Container();
-                }
-              }),
-        );
-      }
-    });
-  }
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt<CategoryCubit>()..watchCategories(),
+        ),
+      ],
+      child: BlocConsumer<CategoryCubit, CategoryState>(
+        listener: (context, state) {
+          state.mapOrNull(
+            loadFailure: (f) {
+              Get.snackbar(
+                'Error',
+                f.failure.map(
+                  internet: (_) => 'Internet connection problem',
+                  serverError: (_) => 'Server error',
+                  cacheError: (_) => 'Cache error',
+                ),
+                backgroundColor: Colors.red,
+              );
+            },
+          );
+        },
+        builder: (context, state) {
+          return state.map(
+            initial: (_) => Container(),
+            loadInProgress: (_) => Container(
+              child: const Center(child: CircularProgressIndicator()),
+              color: Colors.white,
+            ),
+            loadFailure: (state) =>
+                Center(child: Text(state.failure.toString())),
+            loadSuccess: (state) {
+              if (state.categories.isNotEmpty) {
+                return DefaultTabController(
+                  length: state.categories.length,
+                  child: Scaffold(
+                    body: NestedScrollView(
+                      floatHeaderSlivers: true,
+                      headerSliverBuilder:
+                          (BuildContext context, bool innerBoxIsScrolled) {
+                        return <Widget>[
+                          SliverAppBar(
+                            expandedHeight: SizeConfig.defaultSize! * 21,
+                            snap: false,
+                            title: Transform(
+                              transform: Matrix4.translationValues(
+                                  0.0, -SizeConfig.defaultSize! * 3.5, 0.0),
+                              child: Container(
+                                width: double.infinity,
+                                color: Theme.of(context).primaryColor,
+                                // height: 150,
+                                child: Stack(
+                                    clipBehavior: Clip.none,
+                                    alignment: Alignment.bottomCenter,
+                                    children: [
+                                      Container(
+                                        height: SizeConfig.defaultSize! * 12,
+                                        color: Theme.of(context).primaryColor,
+                                        padding:
+                                            const EdgeInsetsDirectional.only(
+                                                start: 30, end: 30),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "marketName".tr,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .dividerColor,
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            const Spacer(),
+                                            Icon(
+                                              Icons.notifications,
+                                              color: Theme.of(context)
+                                                  .dividerColor,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: -SizeConfig.defaultSize! * 2.6,
+                                        left: SizeConfig.defaultSize! * 3,
+                                        right: SizeConfig.defaultSize! * 3,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Get.toNamed(MobileRoutes.Search);
+                                          },
+                                          child: Container(
+                                              height:
+                                                  SizeConfig.defaultSize! * 5.6,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(15.0),
+                                              ),
+                                              child: TextField(
+                                                enabled: false,
+                                                decoration: InputDecoration(
+                                                  border: OutlineInputBorder(
+                                                    borderSide:
+                                                        const BorderSide(
+                                                            color: Colors.black,
+                                                            width: 1.0),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15.0),
+                                                  ),
+                                                  hintText: 'search'.tr,
+                                                  prefixIcon:
+                                                      Icon(Icons.search),
+                                                ),
+                                              )),
+                                        ),
+                                      ),
+                                    ]),
+                              ),
+                            ),
+                            forceElevated: innerBoxIsScrolled,
+                            floating: true,
+                            pinned: true,
+                            // snap: true,
+                            bottom: TabBar(
+                              isScrollable: true,
+                              indicator: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  // Creates border
+                                  color: const Color(0xFFCC7D00)),
+                              tabs: <Widget>[
+                                ...List.generate(
+                                    state.categories.length,
+                                    (index) => Tab(
+                                          text: state.categories[index].name
+                                              .getOrCrash(),
+                                        )),
+                              ],
+                            ),
+                            systemOverlayStyle: SystemUiOverlayStyle(
+                              // Status bar color
+                              statusBarColor: Theme.of(context).primaryColor,
 
-  void addListenerToScroll(context, HomeState state) {
-    _scrollController.addListener(() {
-      double maxScroll = _scrollController.position.maxScrollExtent;
-      double currentScroll = _scrollController.position.pixels;
-      if (currentScroll >= maxScroll &&
-          hasMoreData &&
-          state.maybeMap(
-              productSubclassesLoadInProgress: (_) => false,
-              orElse: () => true)) {
-        if (productSubclasses.isNotEmpty) {
-          BlocProvider.of<HomeBloc>(context).add(
-              HomeEvent.watchProductSubclasses(
-                  parentId: widget.parentId,
-                  lastProductSubClassId:
-                      productSubclasses.last.id.getOrCrash()));
-        }
-      }
-    });
+                              // Status bar brightness (optional)
+                              statusBarIconBrightness: Brightness.dark,
+                              // For Android (dark icons)
+                              statusBarBrightness:
+                                  Brightness.light, // For iOS (dark icons)
+                            ),
+                            automaticallyImplyLeading: false,
+                            backgroundColor: Theme.of(context).dividerColor,
+                            elevation: 0,
+                            titleSpacing: 0,
+                            toolbarHeight: 150,
+                          ),
+                        ];
+                      },
+                      body: TabBarView(
+                        children: List.generate(
+                          state.categories.length,
+                          (index) => ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: 20,
+                              itemBuilder: (context, i) {
+                                return Container(
+                                  color: Colors.deepOrange,
+                                  height: 100,
+                                  child: Text(state.categories[index].name
+                                      .getOrCrash()),
+                                );
+                              }),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return Container(
+                  color: Colors.white,
+                );
+              }
+            },
+          );
+        },
+      ),
+    );
   }
 }
 
-//
-// class ProductMainClassWidget extends StatelessWidget {
-//   ProductMainClassWidget(this.parentId, {Key? key}) : super(key: key);
-//   final String parentId;
-//   ScrollController _scrollController = ScrollController();
-//   List<ProductSubclass> productSubclasses = [];
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-//       productSubclasses = BlocProvider.of<HomeBloc>(context)
-//           .listProductSubclasses
-//           .where((p) => p.parentId.getOrCrash() == parentId)
-//           .toList();
-//       addListenerToScroll(context);
-//       if (productSubclasses.isEmpty) {
-//         return state.maybeMap(
-//           productSubclassesLoadInProgress: (_) =>
-//               const Center(child: CircularProgressIndicator()),
-//           productSubclassesLoadFailure: (failure) =>
-//               Center(child: Text(failure.homeFailure.toString())),
-//           orElse: () => Container(),
-//         );
-//       } else {
-//         return Padding(
-//           padding: const EdgeInsets.only(left: 15),
-//           child: ListView.separated(
-//               scrollDirection: Axis.vertical,
-//               controller: _scrollController,
-//               itemCount: productSubclasses.length + 1,
-//               separatorBuilder: (context, index) {
-//                 return const SizedBox(
-//                   height: 25,
-//                 );
-//               },
-//               itemBuilder: (BuildContext context, int index) {
-//                 if (index < productSubclasses.length) {
-//                   return ProductSubclassWidget(productSubclasses[index]);
-//                 } else {
-//                   return Container();
-//                 }
-//               }),
-//         );
-//       }
-//     });
-//   }
-//
-//   void addListenerToScroll(context) {
-//     _scrollController.addListener(() {
-//       double maxScroll = _scrollController.position.maxScrollExtent;
-//       double currentScroll = _scrollController.position.pixels;
-//       if (currentScroll >= maxScroll) {
-//         if (productSubclasses.isNotEmpty) {
-//           BlocProvider.of<HomeBloc>(context).add(
-//               HomeEvent.watchProductSubclasses(
-//                   parentId: parentId,
-//                   lastProductSubClassId:
-//                       productSubclasses.last.id.getOrCrash()));
-//         }
-//       }
-//     });
-//   }
-// }
+
+
+
+
+// FlexibleSpaceBar(
+// background: Stack(
+// clipBehavior: Clip.none,
+// children: [
+// Container(
+// height: SizeConfig.defaultSize! * 14,
+// color: Theme.of(context).primaryColor,
+// padding:
+// const EdgeInsetsDirectional.only(
+// start: 30, end: 30),
+// child: Row(
+// children: [
+// Text(
+// "marketName".tr,
+// style: TextStyle(
+// color: Theme.of(context)
+// .dividerColor,
+// fontSize: 25,
+// fontWeight: FontWeight.bold),
+// ),
+// const Spacer(),
+// Icon(
+// Icons.notifications,
+// color: Theme.of(context)
+// .dividerColor,
+// ),
+// ],
+// ),
+// ),
+// Positioned(
+// bottom: SizeConfig.defaultSize! * 8,
+// left: SizeConfig.defaultSize! * 3,
+// right: SizeConfig.defaultSize! * 3,
+// child: GestureDetector(
+// onTap: () {
+// Get.toNamed(MobileRoutes.Search);
+// },
+// child: Container(
+// height:
+// SizeConfig.defaultSize! * 5.6,
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius:
+// BorderRadius.circular(15.0),
+// ),
+// child: TextField(
+// enabled: false,
+// decoration: InputDecoration(
+// border: OutlineInputBorder(
+// borderSide:
+// const BorderSide(
+// color: Colors.black,
+// width: 1.0),
+// borderRadius:
+// BorderRadius.circular(
+// 15.0),
+// ),
+// hintText: 'search'.tr,
+// prefixIcon:
+// Icon(Icons.search),
+// ),
+// )),
+// ),
+// ),
+// ]),
+// )

@@ -1,41 +1,34 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/custom_images.dart';
 import '../../../../core/widgets/custom_text_field.dart';
-import '../../../../core/widgets/space_widget.dart';
 import '../../domain/entities/cart_item.dart';
+import '../../domain/entities/value_objects.dart';
+import '../cubit/cart/cart_cubit.dart';
 
-class CartItemCard extends StatefulWidget {
-  const CartItemCard(this._cartItem, {Key? key}) : super(key: key);
+class CartItemCard extends StatelessWidget {
+  CartItem _cartItem;
+  int indexItem;
 
-  final CartItem _cartItem;
-
-  @override
-  State<CartItemCard> createState() => _CartItemCardState();
-}
-
-class _CartItemCardState extends State<CartItemCard> {
-  int _productNo = 1;
+  CartItemCard(this._cartItem, this.indexItem, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(17),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(right: 15.0),
-            child: CachedNetworkImage(
-              fit: BoxFit.cover,
-              imageUrl: widget._cartItem.imageURL.getOrCrash(),
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  CircularProgressIndicator(value: downloadProgress.progress),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
+            padding: const EdgeInsetsDirectional.only(end: 15.0),
+            child: CustomNetworkImage(
+              imageUrl: _cartItem.imageURL.getOrCrash(),
               width: SizeConfig.defaultSize! * 12,
               height: SizeConfig.defaultSize! * 12,
+              imageKey: _cartItem.id.getOrCrash(),
             ),
           ),
           Flexible(
@@ -46,39 +39,46 @@ class _CartItemCardState extends State<CartItemCard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Flexible(
+                    Expanded(
                       child: CustomText(
-                          text: widget._cartItem.name.getOrCrash(),
+                          text: _cartItem.name.getOrCrash(),
                           fontWeight: FontWeight.bold,
                           fontSize: 14),
                     ),
-                    // const HorizontalSpace(
-                    //   value: 1,
-                    // ),
-                    const Spacer(),
-                    const Icon(Icons.delete),
+                    Align(
+                        alignment: FractionalOffset.centerRight,
+                        child: GestureDetector(
+                          child: const Icon(Icons.delete),
+                          onTap: () {
+                            context.read<CartCubit>().removeCartItem(indexItem);
+                          },
+                        )),
                   ],
                 ),
                 Row(
                   children: [
-                    Text("${widget._cartItem.oldPrice.getOrCrash()}",
+                    Text("${_cartItem.oldPrice.getOrCrash()}",
                         style: const TextStyle(
                           decoration: TextDecoration.lineThrough,
                           color: Colors.grey,
                           fontSize: 14,
                         )),
-                    const Spacer(),
                     Expanded(
-                      child: CustomText(
-                          text: "Rs ${widget._cartItem.saved.getOrCrash().ceil()} Saved",
-                          // fontWeight: FontWeight.bold,
-                          color: const Color(0xff69A03A),
-                          fontSize: 14),
+                      child: Align(
+                        alignment: FractionalOffset.centerRight,
+                        child: CustomText(
+                            text:
+                                "Rs ${_cartItem.saved.getOrCrash().ceil()} Saved",
+                            // fontWeight: FontWeight.bold,
+                            color: const Color(0xff69A03A),
+                            fontSize: 14),
+                      ),
                     ),
                   ],
                 ),
                 CustomText(
-                    text: "${widget._cartItem.currentPrice.getOrCrash().ceil()} Per/kg",
+                    text:
+                        "${_cartItem.currentPrice.getOrCrash().ceil()} Per/kg",
                     fontWeight: FontWeight.bold,
                     fontSize: 14),
                 Row(
@@ -87,13 +87,11 @@ class _CartItemCardState extends State<CartItemCard> {
                     const Spacer(),
                     FloatingActionButton(
                         onPressed: () {
-                          if (_productNo > 1) {
-                            setState(() {
-                              _productNo--;
-                            });
-                          }
+                          context
+                              .read<CartCubit>()
+                              .decreaseCartItemQuantity(indexItem);
                         },
-                        heroTag: 'weight-',
+                        heroTag: '$indexItem weight-',
                         mini: true,
                         backgroundColor: Colors.white,
                         child: const Icon(
@@ -106,18 +104,20 @@ class _CartItemCardState extends State<CartItemCard> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: CustomText(
-                        text: "${widget._cartItem.quantity.getOrCrash()}",
+                        text: _cartItem.quantity.isValid()
+                            ? "${_cartItem.quantity.getOrCrash()}"
+                            : "1",
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
                     FloatingActionButton(
                         onPressed: () {
-                          setState(() {
-                            _productNo++;
-                          });
+                          context
+                              .read<CartCubit>()
+                              .increaseCartItemQuantity(indexItem);
                         },
-                        heroTag: 'weight+',
+                        heroTag: '$indexItem weight+',
                         mini: true,
                         backgroundColor: Colors.white,
                         child: const Icon(

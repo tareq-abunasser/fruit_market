@@ -1,89 +1,38 @@
-import 'dart:convert';
-
-import 'package:dartz/dartz.dart';
-import 'package:fruit_market/core/utils/hive_manager.dart';
-import 'package:fruit_market/features/home/data/datasources/home_hive_manager.dart';
+import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kt_dart/kt.dart';
-
 import '../../../../core/entities/exceptions.dart';
-import '../../../../core/utils/preferences_manager.dart';
-import '../../domain/entities/product_main_class.dart';
-import '../../domain/faliures/home_failure.dart';
-import '../models/product_dtos.dart';
-import '../models/product_main_class_dtos.dart';
-import '../models/product_subclass_dtos.dart';
+import '../models/subcategory_dtos.dart';
+import 'subcategory_hive_manager.dart';
 
-abstract class HomeLocalDataSource {
-  List<ProductMainClassDTO> getProductMainClasses();
+abstract class SubcategoryLocalDataSource {
+  List<SubcategoryDTO> getSubcategories({String parentId, int limit});
 
-  List<ProductSubclassDTO> getProductSubclasses({String parentId, int limit});
-
-  List<ProductDTO> getProducts({String? parentId, int? limit});
-
-  void cacheProducts(List<ProductDTO> products);
-
-  void cacheProductMainClasses(List<ProductMainClassDTO> productMainClasses);
-
-  void cacheProductSubclasses(List<ProductSubclassDTO> productSubclass);
+  void cacheSubcategories(List<SubcategoryDTO> subcategory);
 
   void clear();
-
-  void updateFavoriteProduct(ProductDTO product);
 }
 
-@LazySingleton(as: HomeLocalDataSource)
-class HomeLocalDataSourceImpl extends HomeLocalDataSource {
-  final HomeHiveManager _hiveManager;
+@LazySingleton(as: SubcategoryLocalDataSource)
+class SubcategoryLocalDataSourceImpl extends SubcategoryLocalDataSource {
+  final SubcategoryHiveManager _hiveManager;
 
-  HomeLocalDataSourceImpl(this._hiveManager);
-
-  @override
-  void cacheProducts(List<ProductDTO> products) {
-    Map<dynamic, ProductDTO> productsAsMap = {};
-    products.forEach((p) => productsAsMap[p.id] = p);
-    _hiveManager.productBox!.putAll(productsAsMap);
-  }
+  SubcategoryLocalDataSourceImpl(this._hiveManager);
 
   @override
-  void cacheProductMainClasses(List<ProductMainClassDTO> productMainClasses) {
-    Map<dynamic, ProductMainClassDTO> productMainClassesAsMap = {};
-    productMainClasses.forEach((p) => productMainClassesAsMap[p.id] = p);
-
-    _hiveManager.productMainClassBox!.putAll(productMainClassesAsMap);
-  }
-
-  @override
-  Future<void> cacheProductSubclasses(
-      List<ProductSubclassDTO> productSubclass) async {
-    Map<dynamic, ProductSubclassDTO> productSubclassesAsMap = {};
-    productSubclass.forEach((p) => productSubclassesAsMap[p.id] = p);
-    _hiveManager.productSubclassBox!.putAll(productSubclassesAsMap);
-  }
-
-  @override
-  List<ProductDTO> getProducts({String? parentId, int? limit}) {
-    try {
-      return _hiveManager.productBox!.values.toList();
-    } catch (_) {
-      throw CacheException();
+  Future<void> cacheSubcategories(List<SubcategoryDTO> subcategory) async {
+    Get.printInfo(info:'function : cacheSubcategories');
+    Map<dynamic, SubcategoryDTO> subcategoriesAsMap = {};
+    for (var p in subcategory) {
+      subcategoriesAsMap[p.id] = p;
     }
+    _hiveManager.subcategoryBox!.putAll(subcategoriesAsMap);
   }
 
   @override
-  List<ProductMainClassDTO> getProductMainClasses() {
+  List<SubcategoryDTO> getSubcategories({String? parentId, int? limit}) {
+    Get.printInfo(info:'function : getSubcategories');
     try {
-      return _hiveManager.productMainClassBox!.values.toList();
-    } catch (_) {
-      throw CacheException();
-    }
-  }
-
-  @override
-  List<ProductSubclassDTO> getProductSubclasses(
-      {String? parentId, int? limit}) {
-    try {
-      return _hiveManager.productSubclassBox!.values.toList();
+      return _hiveManager.subcategoryBox!.values.toList();
     } catch (_) {
       throw CacheException();
     }
@@ -91,17 +40,11 @@ class HomeLocalDataSourceImpl extends HomeLocalDataSource {
 
   @override
   void clear() {
+    Get.printInfo(info:'function : clear');
     try {
-      _hiveManager.productMainClassBox!.clear();
-      _hiveManager.productSubclassBox!.clear();
-      _hiveManager.productBox!.clear();
+      _hiveManager.subcategoryBox!.clear();
     } catch (_) {
       throw CacheException();
     }
-  }
-
-  @override
-  void updateFavoriteProduct(ProductDTO product) {
-    _hiveManager.productBox!.put(product.id, product);
   }
 }

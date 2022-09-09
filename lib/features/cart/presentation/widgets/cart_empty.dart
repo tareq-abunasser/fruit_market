@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 
 class CartEmpty extends StatelessWidget {
   const CartEmpty({Key? key}) : super(key: key);

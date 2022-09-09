@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:fruit_market/features/account/domain/usecases/get_user_info.dart';
 import 'package:injectable/injectable.dart';
 
@@ -19,30 +20,32 @@ class SplashRouter {
     this._userInfo,
   );
 
-  Future<String> call() async {
+  Future<void> call() async {
+    debugPrint("function : SplashRouter.call");
     bool isFirstTimeOpenApp = _isUserFirstTimeToOpenApp();
     if (isFirstTimeOpenApp) {
       initial = MobileRoutes.ON_BOARDING;
-      return MobileRoutes.ON_BOARDING;
+      return;
     }
 
     bool isAuthenticated = _signedInUser().isRight();
-    print("isAuthenticated : $isAuthenticated");
+    debugPrint("isAuthenticated : $isAuthenticated");
     if (!isAuthenticated) {
       initial = MobileRoutes.LOGIN;
-      return MobileRoutes.LOGIN;
+      return;
     }
-    // return MobileRoutes.AccountInitial;
 
     bool isUserInfoExist = false;
     var userInfo = await _userInfo();
     isUserInfoExist = userInfo.fold(() => false, (a) => a.isRight());
+    debugPrint("isUserInfoExist : $isUserInfoExist");
     if (isUserInfoExist) {
       initial = MobileRoutes.Main;
-      return MobileRoutes.Main;
+      return;
     }
     initial = MobileRoutes.UserForm;
-    return MobileRoutes.UserForm;
+    return;
   }
+
   static String get initialRoute => initial;
 }

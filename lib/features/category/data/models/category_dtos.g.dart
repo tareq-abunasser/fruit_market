@@ -8,7 +8,7 @@ part of 'category_dtos.dart';
 
 class CategoryDTOAdapter extends TypeAdapter<_$_CategoryDTO> {
   @override
-  final int typeId = 1;
+  final int typeId = 8;
 
   @override
   _$_CategoryDTO read(BinaryReader reader) {

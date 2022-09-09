@@ -9,5 +9,4 @@ abstract class IOrderRepository {
   Future<Either<Failure, Unit>> addToOrders(List<OrderItem> items);
 
   Future<Either<Failure, Unit>> updateOrderItem(OrderItem item);
-
 }

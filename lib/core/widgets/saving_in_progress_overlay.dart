@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/size_config.dart';
+import '../services/size_config.dart';
 
 class SavingInProgressOverlay extends StatelessWidget {
   final bool isSaving;

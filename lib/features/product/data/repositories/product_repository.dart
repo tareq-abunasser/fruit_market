@@ -1,99 +1,31 @@
 import 'package:dartz/dartz.dart';
-import 'package:fruit_market/features/home/data/models/product_dtos.dart';
-import 'package:fruit_market/features/home/data/models/product_main_class_dtos.dart';
-import 'package:fruit_market/features/home/domain/entities/product.dart';
-import 'package:fruit_market/features/home/domain/entities/product_main_class.dart';
-import 'package:fruit_market/features/home/domain/faliures/home_failure.dart';
+import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../../../core/entities/exceptions.dart';
-import '../../../../core/utils/network_info.dart';
-import '../../domain/entities/product_subclass.dart';
-import '../../domain/repositories/i_home_repository.dart';
-import '../datasources/home_local_data_source.dart';
-import '../datasources/home_remote_data_source.dart';
+import '../../../../core/entities/failures.dart';
+import '../../../../core/services/network_info.dart';
+import '../../domain/entities/product.dart';
+import '../../domain/repositories/i_product_repository.dart';
+import '../datasources/product_local_data_source.dart';
+import '../datasources/product_remote_data_source.dart';
+import '../models/product_dtos.dart';
 
-@LazySingleton(as: IHomeRepository)
-class HomeRepository implements IHomeRepository {
-  final HomeLocalDataSource _authLocalDataSourceImpl;
-  final HomeRemoteDataSource _authRemoteDataSourceImpl;
+@LazySingleton(as: IProductRepository)
+class ProductRepository implements IProductRepository {
+  final ProductLocalDataSource _authLocalDataSourceImpl;
+  final ProductRemoteDataSource _authRemoteDataSourceImpl;
   final NetworkInfo _networkInfo;
 
-  HomeRepository(
+  ProductRepository(
     this._authRemoteDataSourceImpl,
     this._authLocalDataSourceImpl,
     this._networkInfo,
   );
 
   @override
-  Future<Either<HomeFailure, List<ProductSubclass>>> getProductSubclasses(
-      {String? parentId, int? limit, String? lastProductSubClassId}) async {
-    List<ProductSubclass> listProductSubclass = [];
-
-    try {
-      if (await _networkInfo.isConnected) {
-        final listProductSubclassDTO =
-            await _authRemoteDataSourceImpl.getProductSubclasses(
-                parentId: parentId!,
-                limit: limit,
-                lastProductSubClassId: lastProductSubClassId);
-        for (var productSubclass in listProductSubclassDTO) {
-          listProductSubclass.add(productSubclass.toDomain());
-        }
-        _authLocalDataSourceImpl.cacheProductSubclasses(listProductSubclassDTO);
-        return right(listProductSubclass);
-      } else {
-        // print("lastProductSubClassId");
-        // print(lastProductSubClassId);
-        if (lastProductSubClassId == null) {
-          final listProductSubclassDTO =
-              _authLocalDataSourceImpl.getProductSubclasses();
-          for (var productSubclass in listProductSubclassDTO) {
-            listProductSubclass.add(productSubclass.toDomain());
-          }
-          return right(listProductSubclass);
-        }
-        return left(const HomeFailure.internet());
-      }
-    } on ServerException {
-      return left(const HomeFailure.serverError());
-    }
-  }
-
-  @override
-  Future<Either<HomeFailure, List<ProductMainClass>>>
-      getProductMainClasses() async {
-    List<ProductMainClass> listProductMainClass = [];
-
-    try {
-      if (await _networkInfo.isConnected) {
-        final listProductMainClassDTO =
-            await _authRemoteDataSourceImpl.getProductMainClasses();
-        for (var productMainClass in listProductMainClassDTO) {
-          listProductMainClass.add(productMainClass.toDomain());
-        }
-        _authLocalDataSourceImpl
-            .cacheProductMainClasses(listProductMainClassDTO);
-        return right(listProductMainClass);
-      } else {
-        final listProductMainClassDTO =
-            _authLocalDataSourceImpl.getProductMainClasses();
-        // print("getProductMainClasses 1");
-        // print(listProductMainClassDTO);
-        for (var productMainClass in listProductMainClassDTO) {
-          listProductMainClass.add(productMainClass.toDomain());
-        }
-        return right(listProductMainClass);
-        // return left(const HomeFailure.internet());
-      }
-    } on ServerException {
-      return left(const HomeFailure.serverError());
-    }
-  }
-
-  @override
-  Future<Either<HomeFailure, List<Product>>> getProducts(
+  Future<Either<Failure, List<Product>>> getProducts(
       {String? parentId, int? limit, String? lastProduct}) async {
+    Get.printInfo(info: "function getProducts");
     List<Product> listProduct = [];
     try {
       if (await _networkInfo.isConnected) {
@@ -105,8 +37,6 @@ class HomeRepository implements IHomeRepository {
         _authLocalDataSourceImpl.cacheProducts(listProductDTO);
         return right(listProduct);
       } else {
-        // print("lastProduct");
-        // print(lastProduct);
         if (lastProduct == null) {
           final listProductDTO = await _authRemoteDataSourceImpl.getProducts(
               parentId: parentId!, limit: limit, lastProduct: lastProduct);
@@ -115,16 +45,16 @@ class HomeRepository implements IHomeRepository {
           }
           return right(listProduct);
         }
-        return left(const HomeFailure.internet());
+        return left(const Failure.internet());
       }
     } on ServerException {
-      return left(const HomeFailure.serverError());
+      return left(const Failure.serverError());
     }
   }
 
   @override
-  Future<Either<HomeFailure, Unit>> updateFavoriteProduct(
-      Product product) async {
+  Future<Either<Failure, Unit>> updateFavoriteProduct(Product product) async {
+    Get.printInfo(info: "function updateFavoriteProduct");
     try {
       if (await _networkInfo.isConnected) {
         _authRemoteDataSourceImpl
@@ -133,11 +63,33 @@ class HomeRepository implements IHomeRepository {
             .updateFavoriteProduct(ProductDTO.fromDomain(product));
         return right(unit);
       } else {
-        return left(const HomeFailure.internet());
+        return left(const Failure.internet());
       }
     } on ServerException {
-      return left(const HomeFailure.serverError());
+      return left(const Failure.serverError());
     }
   }
 
+  @override
+  Future<Either<Failure, List<Product>>> searchProducts(
+      String searchText) async {
+    Get.printInfo(info: "function searchProducts");
+    print("ProductRepository : function call ${searchText}");
+
+    List<Product> listProduct = [];
+    try {
+      if (await _networkInfo.isConnected) {
+        final listProductDTO =
+            await _authRemoteDataSourceImpl.searchProducts(searchText);
+        for (var product in listProductDTO) {
+          listProduct.add(product.toDomain());
+        }
+        return right(listProduct);
+      } else {
+        return left(const Failure.internet());
+      }
+    } on ServerException {
+      return left(const Failure.serverError());
+    }
+  }
 }

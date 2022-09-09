@@ -5,7 +5,6 @@ import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../injection.dart';
 import '../../domain/entities/cart_item.dart';
 import '../cubit/cart_actor/cart_actor_cubit.dart';
-import '../cubit/cart_watcher/cart_watcher_cubit.dart';
 
 class AddCartItemButton extends StatelessWidget {
   const AddCartItemButton(

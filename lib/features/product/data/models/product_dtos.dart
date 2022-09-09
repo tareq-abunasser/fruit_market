@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:fruit_market/features/home/domain/entities/product.dart';
-import 'package:fruit_market/features/home/domain/entities/value_objects.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
+import '../../../../core/entities/exceptions.dart';
 import '../../../../core/entities/value_objects.dart';
 import '../../../../core/firebase/firestore_helper.dart';
+import '../../domain/entities/product.dart';
 
 part 'product_dtos.freezed.dart';
 
@@ -14,7 +13,7 @@ part 'product_dtos.g.dart';
 
 @freezed
 abstract class ProductDTO extends HiveObject implements _$ProductDTO {
-  @HiveType(typeId: 3, adapterName: 'ProductDTOAdapter')
+  @HiveType(typeId: 10, adapterName: 'ProductDTOAdapter')
   factory ProductDTO({
     @HiveField(0) @JsonKey(ignore: true) String? id,
     @HiveField(1) @JsonKey(name: 'name') required String name,
@@ -63,8 +62,16 @@ abstract class ProductDTO extends HiveObject implements _$ProductDTO {
       _$ProductDTOFromJson(json);
 
   factory ProductDTO.fromFirestore(DocumentSnapshot doc) {
-    final data = doc.data()! as Map<String, dynamic>;
-    return ProductDTO.fromJson(data).copyWith(id: doc.id);
+    try {
+      final data = doc.data()! as Map<String, dynamic>;
+      return ProductDTO.fromJson(data).copyWith(id: doc.id);
+    } catch (error) {
+      print("efsaffdasdd");
+      print( doc.id);
+      print(doc.data());
+      print( "function : fromFirestore, ${error.toString()}");
+      throw ServerException();
+    }
   }
 
   ProductDTO._();

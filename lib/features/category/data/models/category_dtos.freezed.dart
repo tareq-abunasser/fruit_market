@@ -132,7 +132,7 @@ class __$CategoryDTOCopyWithImpl<$Res> extends _$CategoryDTOCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@HiveType(typeId: 1, adapterName: 'CategoryDTOAdapter')
+@HiveType(typeId: 8, adapterName: 'CategoryDTOAdapter')
 class _$_CategoryDTO extends _CategoryDTO {
   _$_CategoryDTO(
       {@HiveField(0) @JsonKey(ignore: true) this.id,

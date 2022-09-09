@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_market/routes/mobile_app_pages.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/constants.dart';
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 import '../../../../injection.dart';
+import '../../../account/domain/usecases/get_user_info.dart';
 import '../../domain/splash_router.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-class SplashView extends StatefulWidget {
-  const SplashView({Key? key}) : super(key: key);
+class SplashPage extends StatefulWidget {
+  const SplashPage({Key? key}) : super(key: key);
 
   @override
-  State<SplashView> createState() => _SplashViewState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashViewState extends State<SplashView> {
+class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
@@ -27,17 +29,13 @@ class _SplashViewState extends State<SplashView> {
     return Scaffold(
       body: Container(),
     );
-
   }
 
-  void goToNextView()  {
-    debugPrint("function : goToNextView");
-    FlutterNativeSplash.remove();
+  void goToNextView() async {
     String page = SplashRouter.initialRoute;
-    debugPrint("page: $page");
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () async {
       Get.offAndToNamed(page);
+      FlutterNativeSplash.remove();
     });
-
   }
 }

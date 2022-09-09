@@ -134,6 +134,20 @@ class _$_Initial implements _Initial {
   const _$_Initial();
 
   @override
+  String toString() {
+    return 'OrdersState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Initial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -235,6 +249,20 @@ class __$LoadInProgressCopyWithImpl<$Res>
 
 class _$_LoadInProgress implements _LoadInProgress {
   const _$_LoadInProgress();
+
+  @override
+  String toString() {
+    return 'OrdersState.loadInProgress()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _LoadInProgress);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -353,6 +381,23 @@ class _$_LoadSuccess implements _LoadSuccess {
 
   @override
   final List<OrderItem> orders;
+
+  @override
+  String toString() {
+    return 'OrdersState.loadSuccess(orders: $orders)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _LoadSuccess &&
+            const DeepCollectionEquality().equals(other.orders, orders));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(orders));
 
   @JsonKey(ignore: true)
   @override
@@ -490,6 +535,23 @@ class _$_LoadFailure implements _LoadFailure {
 
   @override
   final Failure failure;
+
+  @override
+  String toString() {
+    return 'OrdersState.loadFailure(failure: $failure)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _LoadFailure &&
+            const DeepCollectionEquality().equals(other.failure, failure));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(failure));
 
   @JsonKey(ignore: true)
   @override

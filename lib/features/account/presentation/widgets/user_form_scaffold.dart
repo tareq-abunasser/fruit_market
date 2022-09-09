@@ -27,19 +27,7 @@ class UserFormScaffold extends StatelessWidget {
     return BlocBuilder<UserFormCubit, UserFormState>(
       buildWhen: (p, c) => (p.isEditing != c.isEditing),
       builder: (context, state) {
-        print("state is isEditing ${state.isEditing}");
         if (state.isEditing) {
-          // if (nameController.text != state.user.fullName.getOrCrash()) {
-          //   nameController.text = state.user.fullName.getOrCrash();
-          // }
-          // if (phoneController.text !=
-          //     state.user.phoneNumber.getOrCrash().toString()) {
-          //   phoneController.text =
-          //       state.user.phoneNumber.getOrCrash().toString();
-          // }
-          // if (addressController.text != state.user.address.getOrCrash()) {
-          //   addressController.text = state.user.address.getOrCrash();
-          // }
           if (state.user.fullName.isValid()) {
             nameController.text = state.user.fullName.getOrCrash();
             nameController.selection = TextSelection.fromPosition(
@@ -88,25 +76,6 @@ class UserFormScaffold extends StatelessWidget {
                             );
                           },
                         ),
-                        // state.imageFile == null
-                        //     ? ProfileImageWidget(
-                        //         imageURL: UserFormCubit.getInstance(context)
-                        //             .state
-                        //             .user
-                        //             .imageURL
-                        //             .getOrCrash(),
-                        //
-                        //         icon: Icons.add_a_photo,
-                        //         onTap: () {
-                        //           UserFormCubit.getInstance(context).imageChanged();
-                        //         },
-                        //       )
-                        //     : Container(
-                        //         child: Image.file(
-                        //           state.imageFile!,
-                        //           fit: BoxFit.cover,
-                        //         ),
-                        //       ),
                         const VerticalSpace(value: 5),
                         CompleteInfoItem(
                           inputType: TextInputType.text,
@@ -123,13 +92,13 @@ class UserFormScaffold extends StatelessWidget {
                                 .value
                                 .fold(
                                   (f) => f.maybeMap(
-                                    empty: (_) => 'empty name',
+                                    empty: (_) => 'emptyName'.tr,
                                     orElse: () => null,
                                   ),
                                   (_) => null,
                                 );
                           },
-                          text: 'Full Name',
+                          text: 'fullName'.tr,
                         ),
                         const VerticalSpace(value: 3),
                         CompleteInfoItem(
@@ -148,13 +117,13 @@ class UserFormScaffold extends StatelessWidget {
                                 .fold(
                                   (f) => f.maybeMap(
                                     invalidPhoneNumber: (_) =>
-                                        'this is not a phone number',
+                                        'invalidPhoneNumber'.tr,
                                     orElse: () => null,
                                   ),
                                   (_) => null,
                                 );
                           },
-                          text: 'Phone Number',
+                          text: 'phoneNumber'.tr,
                         ),
                         const VerticalSpace(value: 3),
                         CompleteInfoItem(
@@ -172,18 +141,18 @@ class UserFormScaffold extends StatelessWidget {
                                 .value
                                 .fold(
                                   (f) => f.maybeMap(
-                                    empty: (_) => 'empty address',
+                                    empty: (_) => 'emptyAddress'.tr,
                                     orElse: () => null,
                                   ),
                                   (_) => null,
                                 );
                           },
                           maxLines: 5,
-                          text: 'Address',
+                          text: 'address'.tr,
                         ),
                         const VerticalSpace(value: 5),
                         CustomGeneralButton(
-                          text: 'Save',
+                          text: 'save'.tr,
                           onTap: () {
                             // formKey.currentState?.save();
                             if (formKey.currentState!.validate()) {

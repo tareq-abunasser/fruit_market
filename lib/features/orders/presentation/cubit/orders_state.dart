@@ -1,10 +1,14 @@
 part of 'orders_cubit.dart';
 
-abstract class OrdersState extends Equatable {
-  const OrdersState();
+@freezed
+class OrdersState with _$OrdersState {
+  const factory OrdersState.initial() = _Initial;
 
-  @override
-  List<Object> get props => [];
+  const factory OrdersState.loadInProgress() = _LoadInProgress;
+
+  const factory OrdersState.loadSuccess(List<OrderItem> orders) =
+  _LoadSuccess;
+
+  const factory OrdersState.loadFailure(Failure failure) = _LoadFailure;
 }
 
-class OrdersInitial extends OrdersState {}

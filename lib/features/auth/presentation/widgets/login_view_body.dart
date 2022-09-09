@@ -5,7 +5,7 @@ import 'package:fruit_market/routes/mobile_app_pages.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/constants.dart';
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/custom_buttons.dart';
 import '../../../../core/widgets/space_widget.dart';
 
@@ -16,22 +16,22 @@ class LoginViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-       const VerticalSpace(value:10),
+        const VerticalSpace(value: 10),
         SizedBox(
           child: Image.asset(kLogo),
           height: SizeConfig.defaultSize! * 17,
         ),
-        const Text.rich(
+        Text.rich(
           TextSpan(
-            style: TextStyle(
+            style:  TextStyle(
               fontFamily: 'Poppins',
               fontSize: 51,
-              color:  Color(0xff69a03a),
+              color: Theme.of(context).primaryColor,
             ),
             children: [
               TextSpan(
-                text: 'Fruit Market',
-                style: TextStyle(
+                text: "marketName".tr,
+                style: const TextStyle(
                   fontSize: 42,
                   fontWeight: FontWeight.w700,
                 ),
@@ -39,24 +39,23 @@ class LoginViewBody extends StatelessWidget {
             ],
           ),
           textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
+              const TextHeightBehavior(applyHeightToFirstAscent: false),
           textAlign: TextAlign.left,
         ),
-        Expanded(child: SizedBox()),
+        const Expanded(child: SizedBox()),
         Row(
           children: [
-             Flexible(
+            Flexible(
               flex: 1,
               child: Padding(
-                padding: const  EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: CustomButtonWithIcon(
                   onTap: () {
                     SignInCubit.getInstance(context).signInWithGoogle();
                   },
                   color: const Color(0xFFdb3236),
                   iconData: FontAwesomeIcons.googlePlusG,
-                  text: 'Log in with ',
-
+                  text: 'LoginWith'.tr,
                 ),
               ),
             ),
@@ -70,7 +69,7 @@ class LoginViewBody extends StatelessWidget {
                   },
                   color: const Color(0xFF4267B2),
                   iconData: FontAwesomeIcons.facebookF,
-                  text: 'Log in with ',
+                  text: 'LoginWith'.tr,
                 ),
               ),
             )

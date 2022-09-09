@@ -5,7 +5,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../core/entities/value_objects.dart';
 import '../../../../core/firebase/firestore_helper.dart';
-import '../../../home/domain/entities/value_objects.dart';
 import '../../domain/entities/cart_item.dart';
 import '../../domain/entities/value_objects.dart';
 

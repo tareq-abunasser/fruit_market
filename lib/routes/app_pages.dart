@@ -6,6 +6,6 @@ import 'mobile_app_pages.dart';
 import 'web_app_pages.dart';
 
 
-const String initial = kIsWeb ? WebRoutes.SPLASH : MobileRoutes.SPLASH;
+const String initial = kIsWeb ? WEB_INITIAL : MOBILE_INITIAL;
 
 final List<GetPage<Widget>> routes = kIsWeb ? webRoutes : mobileRoutes;

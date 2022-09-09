@@ -1,16 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/entities/failures.dart';
-import '../entities/category.dart';
-import '../repositories/category_repository.dart';
+import '../entities/subcategory.dart';
+import '../repositories/i_subcategory_repository.dart';
 
 @LazySingleton()
-class GetCategories {
-  final ICategoryRepository _repository;
+class GetSubcategories {
+  final ISubcategoryRepository _repository;
 
-  GetCategories(this._repository);
+  GetSubcategories(this._repository);
 
-  Future<Either<Failure, List<Category>>> call() async {
-    return await _repository.getCategories();
+  Future<Either<Failure, List<Subcategory>>> call(
+      {String? parentId, int? limit, String? lastSubcategoryId}) async {
+    return await _repository.getSubcategories(
+        parentId: parentId, limit: limit, lastSubcategoryId: lastSubcategoryId);
   }
 }

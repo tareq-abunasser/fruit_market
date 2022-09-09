@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_market/core/widgets/custom_text_field.dart';
 
 import '../../../../core/constants.dart';
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 
 class ListTileItem extends StatelessWidget {
   const ListTileItem({
@@ -32,7 +32,7 @@ class ListTileItem extends StatelessWidget {
             ),
             title: CustomText(
               text: text,
-              color: Colors.black,
+              // color: Colors.black,
               fontSize: fontSize,
               fontWeight: FontWeight.bold,
             ),

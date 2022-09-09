@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/exceptions.dart';
 import '../../../../core/entities/failures.dart';
-import '../../../../core/utils/network_info.dart';
+import '../../../../core/services/network_info.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/i_account_repository.dart';
 import '../datasources/account_local_data_source.dart';
@@ -26,6 +27,7 @@ class AccountRepository extends IAccountRepository {
 
   @override
   Future<Either<Failure, Unit>> addAccountData(User user) async {
+    printInfo(info: 'function addAccountData');
     UserDTO userDTO = UserDTO.fromDomain(user);
     try {
       if (await _networkInfo.isConnected) {
@@ -42,6 +44,7 @@ class AccountRepository extends IAccountRepository {
 
   @override
   Future<Either<Failure, Unit>> deleteAccountData() async {
+    printInfo(info: 'function deleteAccountData');
     try {
       if (await _networkInfo.isConnected) {
         _accountRemoteDataSourceImpl.deleteAccountData();
@@ -57,6 +60,7 @@ class AccountRepository extends IAccountRepository {
 
   @override
   Future<Either<Failure, Unit>> updateAccountData(User user) async {
+    printInfo(info: 'function updateAccountData');
     UserDTO userDTO = UserDTO.fromDomain(user);
     try {
       if (await _networkInfo.isConnected) {
@@ -73,19 +77,16 @@ class AccountRepository extends IAccountRepository {
 
   @override
   Future<Option<Either<Failure, User>>> getAccountData() async {
+    printInfo(info: 'function getAccountData');
     UserDTO? userDto;
     try {
       userDto = _accountLocalDataSourceImpl.getAccountData();
       if (userDto != null) {
-        print('chaced user ${userDto.toDomain()}');
         return optionOf(right(userDto.toDomain()));
       }
 
       if (await _networkInfo.isConnected) {
-        print('getAccountData1');
         UserDTO? userDto = await _accountRemoteDataSourceImpl.getAccountData();
-        print('getAccountData2');
-
         if (userDto != null) {
           _accountLocalDataSourceImpl.cacheAccountData(userDto);
           return optionOf(right(userDto.toDomain()));
@@ -97,17 +98,14 @@ class AccountRepository extends IAccountRepository {
     } on ServerException {
       return optionOf(left(const Failure.serverError()));
     }
-    catch (e) {
-      print(e.toString());
-      return optionOf(left(const Failure.internet()));
-    }
   }
 
   @override
   Future<Either<Failure, Unit>> uploadProfileImageFile(File imageFile) async {
+    printInfo(info: 'function uploadProfileImageFile');
     try {
       if (await _networkInfo.isConnected) {
-        await _accountRemoteDataSourceImpl.uploadProfileImageFile(imageFile);
+        await _accountRemoteDataSourceImpl.uploadProfileImageAsFile(imageFile);
         return right(unit);
       } else {
         return left(const Failure.internet());
@@ -119,6 +117,7 @@ class AccountRepository extends IAccountRepository {
 
   @override
   Future<Either<Failure, String>> getProfileImageURL() async {
+    printInfo(info: 'function getProfileImageURL');
     try {
       if (await _networkInfo.isConnected) {
         String imageURL =

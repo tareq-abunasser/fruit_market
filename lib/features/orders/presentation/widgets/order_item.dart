@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fruit_market/core/widgets/custom_text_field.dart';
+import 'package:fruit_market/features/orders/domain/entities/order_item.dart';
 
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/custom_images.dart';
 import '../../../../core/widgets/custom_rating_bar.dart';
 
-class OrderItem extends StatelessWidget {
-  const OrderItem({Key? key, required this.text}) : super(key: key);
-
-  final String text;
+class OrderItemCard extends StatelessWidget {
+  const OrderItemCard(this._item, {Key? key}) : super(key: key);
+  final OrderItem _item;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +20,10 @@ class OrderItem extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
-            child: CustomImage(
-              image: AssetImage("assets/images/broccoli.jpg"),
-              width: SizeConfig.defaultSize! * 12,
-              height: SizeConfig.defaultSize! * 12,
-            ),
+            child: CustomNetworkImage(
+                imageUrl: _item.imageURL.getOrCrash(),
+                width: SizeConfig.defaultSize! * 12,
+                height: SizeConfig.defaultSize! * 12),
           ),
           Flexible(
             child: Column(
@@ -35,7 +34,9 @@ class OrderItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                        text: text, fontWeight: FontWeight.bold, fontSize: 18),
+                        text: _item.name.getOrCrash(),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
                     const Spacer(),
                     const Icon(Icons.arrow_forward_ios)
                   ],

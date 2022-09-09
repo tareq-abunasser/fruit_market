@@ -14,13 +14,25 @@ class OrdersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<OrdersCubit>()..watchOrders(),
-      child: BlocBuilder<OrdersCubit, OrdersState>(
+      child: BlocConsumer<OrdersCubit, OrdersState>(
+        listener:  (context, state) {
+          //  state.mapOrNull(
+          //   loadInProgress: (_) => Center(
+          //     child: CircularProgressIndicator(),
+          //   ),
+          //   loadFailure: (failure) => CriticalFailureDisplayWidget(
+          //     failure: failure,
+          //   ),
+          //   loadSuccess: (orders) => Get.snackbar("Success", "Orders"),
+          // );
+        },
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(title: Text("My Orders".tr)),
             body: state.map(
               initial: (_) => Container(),
-              loadInProgress: (_) =>const Center(child: CircularProgressIndicator()),
+              loadInProgress: (_) =>
+                  const Center(child: CircularProgressIndicator()),
               loadSuccess: (state) {
                 return ListView.separated(
                   itemCount: state.orders.length,
@@ -45,4 +57,3 @@ class OrdersPage extends StatelessWidget {
     );
   }
 }
-

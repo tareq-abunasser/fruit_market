@@ -2,17 +2,17 @@ import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/entities/failures.dart';
-import '../entities/category.dart';
-import '../repositories/category_repository.dart';
+import '../entities/order_item.dart';
+import '../repositories/i_order_repository.dart';
 
 @LazySingleton()
-class GetCategories {
-  final ICategoryRepository _repository;
+class GetOrders {
+  final IOrderRepository _repository;
 
-  GetCategories(this._repository);
+  GetOrders(this._repository);
 
-  Future<Either<Failure, List<Category>>> call() async {
-    Get.printInfo(info:'function : GetCategories');
-    return await _repository.getCategories();
+  Future<Either<Failure, List<OrderItem>>> call() async {
+    Get.printInfo(info: 'function : call');
+    return await _repository.getOrders();
   }
 }

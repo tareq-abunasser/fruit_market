@@ -1,11 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:faker_dart/faker_dart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fruit_market/core/widgets/custom_buttons.dart';
 import 'package:fruit_market/core/widgets/custom_text_field.dart';
-
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
+import '../../../../core/widgets/custom_images.dart';
 import '../../domain/entities/product.dart';
 import 'nutrition_widget.dart';
 
@@ -17,8 +13,6 @@ class ProductDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final faker = Faker.instance;
-
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -26,12 +20,8 @@ class ProductDetailsWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-            child: CachedNetworkImage(
-              fit: BoxFit.cover,
+            child: CustomNetworkImage(
               imageUrl: product.imageURL.getOrCrash(),
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  CircularProgressIndicator(value: downloadProgress.progress),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
               width: double.infinity,
               height: SizeConfig.defaultSize! * 20,
             ),
@@ -74,7 +64,7 @@ class ProductDetailsWidget extends StatelessWidget {
               CustomText(
                 text: " ${product.price.getOrCrash()} Per/ kg",
               ),
-              MaterialButton(child: const Text("Buy Now"), onPressed: () {})
+              MaterialButton(child: const Text("Order Now"), onPressed: () {})
             ],
           ),
         ],

@@ -9,7 +9,7 @@ import '../../../cart/domain/entities/value_objects.dart';
 part 'order_item.freezed.dart';
 
 @freezed
-abstract class OrderItem implements _$OrderItem{
+abstract class OrderItem implements _$OrderItem {
   const OrderItem._();
 
   const factory OrderItem({
@@ -20,11 +20,19 @@ abstract class OrderItem implements _$OrderItem{
     required DateTime deliveredOn,
   }) = _Product;
 
+  factory OrderItem.empty() {
+    return OrderItem(
+      id: UniqueId(),
+      name: ItemName(''),
+      imageURL: ImageURL(''),
+      rate: 0,
+      deliveredOn: DateTime.now(),
+    );
+  }
+
   Option<ValueFailure<dynamic>> get failureOption {
     return name.failureOrUnit
         .andThen(imageURL.failureOrUnit)
         .fold((f) => some(f), (_) => none());
   }
-
-
 }

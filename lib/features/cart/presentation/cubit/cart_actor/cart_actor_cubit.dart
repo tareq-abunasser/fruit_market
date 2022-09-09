@@ -23,4 +23,6 @@ class CartActorCubit extends Cubit<CartActorState> {
         (f) => emit(CartActorState.addToCartFailure(f)),
         (unit) => emit(const CartActorState.addToCartSuccess())));
   }
+
+
 }

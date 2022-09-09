@@ -1,14 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
-import '../features/splash/presentation/pages/splash_view.dart';
+import '../features/splash/presentation/pages/splash_page.dart';
 
 const String WEB_INITIAL = WebRoutes.HOME;
 
 final List<GetPage<Widget>> webRoutes = <GetPage<Widget>>[
-  GetPage<SplashView>(
+  GetPage<SplashPage>(
     name: WebRoutes.LOGIN,
-    page: () => SplashView(),
+    page: () => SplashPage(),
   ),
 ];
 

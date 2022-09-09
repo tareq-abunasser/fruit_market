@@ -17,4 +17,12 @@ class OrderHiveManager {
   }
 
   Box<OrderItemDTO>? get ordersBox => _ordersBox;
+  Future<void> close() async {
+    await _ordersBox.close();
+  }
+
+  Future<void> clear() async {
+    await _ordersBox.clear();
+  }
+
 }

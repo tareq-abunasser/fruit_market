@@ -8,7 +8,7 @@ class UserFormState with _$UserFormState {
     required bool isEditing,
     required bool isSubmitting,
     File? imageFile,
-    required Option<Either<Failure, dynamic>> authFailureOrSuccessOption,
+    required Option<Either<Failure, dynamic>> userFailureOrSuccessOption,
   }) = _UserState;
 
   factory UserFormState.initial() => UserFormState(
@@ -17,7 +17,7 @@ class UserFormState with _$UserFormState {
         isEditing: false,
         isSubmitting: false,
         imageFile: null,
-        authFailureOrSuccessOption: none(),
+        userFailureOrSuccessOption: none(),
       );
 }
 

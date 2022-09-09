@@ -13,6 +13,6 @@ import '../entities/category.dart';
 // Kotlin uses Unit which is also a regular type.
 // Thankfully, the dartz package provides us, Dart programmers, with a Unit type too!
 
-abstract class IHomeRepository {
+abstract class ICategoryRepository {
   Future<Either<Failure, List<Category>>> getCategories();
 }

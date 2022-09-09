@@ -8,6 +8,5 @@ final getIt = GetIt.instance;
   initializerName: r'$initGetIt', // default
   preferRelativeImports: true, // default
   asExtension: false, // default
-  // generateForDir: ['lib//core//utils'] // this will only process files inside of the utils folder.
 )
 void configureDependencies(String env) => $initGetIt(getIt, environment: env);

@@ -1,40 +1,37 @@
-import 'dart:convert';
-
-import 'package:dartz/dartz.dart';
-import 'package:fruit_market/core/utils/hive_manager.dart';
-import 'package:fruit_market/features/home/data/datasources/home_hive_manager.dart';
+import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kt_dart/kt.dart';
-
 import '../../../../core/entities/exceptions.dart';
-import '../../../../core/utils/preferences_manager.dart';
 import '../models/category_dtos.dart';
-import 'home_hive_manager.dart';
+import 'category_hive_manager.dart';
 
-abstract class HomeLocalDataSource {
-  List<CategoryDTO> getCategory();
+abstract class CategoryLocalDataSource {
+  List<CategoryDTO> getCategories();
 
-  void cacheCategory(List<CategoryDTO> category);
+  void cacheCategories(List<CategoryDTO> category);
 
   void clear();
 }
 
-@LazySingleton(as: HomeLocalDataSource)
-class HomeLocalDataSourceImpl extends HomeLocalDataSource {
+@LazySingleton(as: CategoryLocalDataSource)
+class CategoryLocalDataSourceImpl extends CategoryLocalDataSource {
   final CategoryHiveManager _hiveManager;
 
-  HomeLocalDataSourceImpl(this._hiveManager);
+  CategoryLocalDataSourceImpl(this._hiveManager);
 
   @override
-  void cacheCategory(List<CategoryDTO> category) {
+  void cacheCategories(List<CategoryDTO> category) {
+    Get.printInfo(info:'function : cacheCategories');
     Map<dynamic, CategoryDTO> categoryAsMap = {};
-    category.forEach((p) => categoryAsMap[p.id] = p);
+    for (var p in category) {
+      categoryAsMap[p.id] = p;
+    }
 
     _hiveManager.categoryBox!.putAll(categoryAsMap);
   }
 
   @override
-  List<CategoryDTO> getCategory() {
+  List<CategoryDTO> getCategories() {
+    Get.printInfo(info:'function : getCategories');
     try {
       return _hiveManager.categoryBox!.values.toList();
     } catch (_) {
@@ -44,6 +41,7 @@ class HomeLocalDataSourceImpl extends HomeLocalDataSource {
 
   @override
   void clear() {
+    Get.printInfo(info:'function : clear');
     try {
       _hiveManager.categoryBox!.clear();
     } catch (_) {

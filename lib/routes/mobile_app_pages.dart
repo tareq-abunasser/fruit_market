@@ -1,98 +1,97 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/widgets.dart';
-import 'package:fruit_market/features/auth/presentation/pages/login_view.dart';
-import 'package:fruit_market/features/home/presentation/pages/home_page.dart';
+import 'package:fruit_market/features/auth/presentation/pages/login_page.dart';
+import 'package:fruit_market/features/notification/presentation/pages/notification_page.dart';
+import 'package:fruit_market/injection.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-
-import '../features/account/presentation/pages/aacount_initial_page.dart';
+import '../features/account/domain/usecases/get_user_info.dart';
 import '../features/account/presentation/pages/account_page.dart';
 import '../features/account/presentation/pages/account_settings_page.dart';
 import '../features/account/presentation/pages/help_page.dart';
 import '../features/account/presentation/pages/language_settings_page.dart';
 import '../features/account/presentation/pages/user_form_page.dart';
-import '../features/bottom_nav_bar/presentation/pages/main_page.dart';
+import '../features/auth/domain/usecases/get_signed_in_user.dart';
 import '../features/cart/presentation/pages/shopping_cart_page.dart';
-import '../features/home/presentation/pages/favourite_page.dart';
-import '../features/home/presentation/pages/product_details_page.dart';
-import '../features/home/presentation/pages/search_page.dart';
+import '../features/favourite/presentation/pages/favourite_page.dart';
+import '../features/home/presentation/pages/main_page.dart';
+import '../features/onboarding/domain/usecases/get_if_user_time_open_app.dart';
 import '../features/onboarding/presentation/pages/on_boarding_view.dart';
-import '../features/orders/presentation/pages/orders.dart';
-import '../features/splash/presentation/pages/splash_view.dart';
+import '../features/orders/presentation/pages/orders_page.dart';
+import '../features/product/presentation/pages/product_details_page.dart';
+import '../features/product/presentation/pages/search_page.dart';
+import '../features/splash/presentation/pages/splash_page.dart';
 
-const String MOBILE_INITIAL = MobileRoutes.HOME;
+const String MOBILE_INITIAL = MobileRoutes.SPLASH;
 
 final List<GetPage<Widget>> mobileRoutes = <GetPage<Widget>>[
-  GetPage<SplashView>(
-      name: MobileRoutes.SPLASH,
-      page: () => const SplashView(),
-      middlewares: [MyMiddleware()]),
+  GetPage<SplashPage>(
+    name: MobileRoutes.SPLASH,
+    page: () => const SplashPage(),
+    middlewares: [NotAuthMiddleware()],
+  ),
   GetPage<OnBoardingView>(
       name: MobileRoutes.ON_BOARDING,
       page: () => const OnBoardingView(),
-      middlewares: [MyMiddleware()]),
-  GetPage<HomePage>(
-      name: MobileRoutes.HOME,
-      page: () => const HomePage(),
-      middlewares: [MyMiddleware()]),
-  GetPage<LoginView>(
+      middlewares: [OnBoardingMiddleware()]),
+  GetPage<LoginPage>(
       name: MobileRoutes.LOGIN,
-      page: () => const LoginView(),
-      middlewares: [MyMiddleware()]),
+      page: () => const LoginPage(),
+      middlewares: [AuthMiddleware()]),
   GetPage<UserFormPage>(
       name: MobileRoutes.UserForm,
       page: () => UserFormPage(),
-      middlewares: [MyMiddleware()]),
+      middlewares: [CompleteUserInfoMiddleware(), NotAuthMiddleware()]),
   GetPage<AccountPage>(
       name: MobileRoutes.Account,
       page: () => const AccountPage(),
-      middlewares: [MyMiddleware()]),
-  GetPage<Orders>(
+      middlewares: [NotAuthMiddleware()]),
+  GetPage<OrdersPage>(
       name: MobileRoutes.Orders,
-      page: () => const Orders(),
-      middlewares: [MyMiddleware()]),
+      page: () => const OrdersPage(),
+      middlewares: [NotAuthMiddleware()]),
   GetPage<MainPage>(
       name: MobileRoutes.Main,
       page: () => MainPage(),
-      middlewares: [MyMiddleware()]),
+      middlewares: [NotAuthMiddleware()]),
   GetPage<AccountSettingsPage>(
       name: MobileRoutes.ACCOUNT_SETTINGS,
       page: () => const AccountSettingsPage(),
-      middlewares: [MyMiddleware()]),
+      middlewares: [NotAuthMiddleware()]),
   GetPage<HelpPage>(
       name: MobileRoutes.HELP,
       page: () => const HelpPage(),
-      middlewares: [MyMiddleware()]),
+      middlewares: [NotAuthMiddleware()]),
   GetPage<FavouritePage>(
     name: MobileRoutes.Favourite,
     page: () => const FavouritePage(),
-    middlewares: [MyMiddleware()],
+    middlewares: [NotAuthMiddleware()],
   ),
   GetPage<ShoppingCartPage>(
     name: MobileRoutes.Cart,
     page: () => const ShoppingCartPage(),
-    middlewares: [MyMiddleware()],
+    middlewares: [NotAuthMiddleware()],
   ),
   GetPage<SearchPage>(
     name: MobileRoutes.Search,
     page: () => const SearchPage(),
-    middlewares: [MyMiddleware()],
+    middlewares: [NotAuthMiddleware()],
   ),
   GetPage<ProductDetailsPage>(
     name: MobileRoutes.Product,
     page: () => const ProductDetailsPage(),
-    middlewares: [MyMiddleware()],
+    middlewares: [NotAuthMiddleware()],
   ),
   GetPage<LanguageSettingsPage>(
     name: MobileRoutes.Language,
     page: () => const LanguageSettingsPage(),
-    middlewares: [MyMiddleware()],
+    middlewares: [NotAuthMiddleware()],
   ),
-  GetPage<AccountInitialPage>(
-    name: MobileRoutes.AccountInitial,
-    page: () => const AccountInitialPage(),
-    middlewares: [MyMiddleware()],
+  GetPage<NotificationPage>(
+    name: MobileRoutes.Notification,
+    page: () => const NotificationPage(),
+    middlewares: [NotAuthMiddleware()],
   ),
 ];
 
@@ -113,14 +112,55 @@ abstract class MobileRoutes {
   static const String Product = '/mobile-product-details';
   static const String Language = '/mobile-language';
   static const String AccountInitial = '/mobile-account-initial';
+  static const String Notification = '/mobile-notification';
 }
 
-class MyMiddleware extends GetMiddleware {
+class AuthMiddleware extends GetMiddleware {
+  @override
+  int? get priority => 2;
+
+  @override
+  RouteSettings? redirect(String? route) {
+    print('AuthMiddleware redirecting to $route');
+    if (getIt<GetSignedInUser>().call().isRight()) {
+      return const RouteSettings(
+        name: MobileRoutes.UserForm,
+      );
+    }
+    return super.redirect(route);
+  }
+
+  @override
+  Widget onPageBuilt(Widget page) {
+    print('Widget ${page.toStringShort()} will be showed');
+    return page;
+  }
+
+  @override
+  void onPageDispose() {
+    print('PageDisposed');
+  }
+
   @override
   GetPage? onPageCalled(GetPage? page) {
     print(page?.name);
     return super.onPageCalled(page);
   }
+}
+
+class NotAuthMiddleware extends GetMiddleware {
+  @override
+  int? get priority => 1;
+
+  @override
+  RouteSettings? redirect(String? route) {
+    if (getIt<GetSignedInUser>().call().isLeft()) {
+      return const RouteSettings(
+        name: MobileRoutes.LOGIN,
+      );
+    }
+    return super.redirect(route);
+  }
 
   @override
   Widget onPageBuilt(Widget page) {
@@ -132,9 +172,32 @@ class MyMiddleware extends GetMiddleware {
   void onPageDispose() {
     print('PageDisposed');
   }
+
+  @override
+  GetPage? onPageCalled(GetPage? page) {
+    print(page?.name);
+    return super.onPageCalled(page);
+  }
 }
 
-class GlobalMiddleware extends GetMiddleware {
+class OnBoardingMiddleware extends GetMiddleware {
+  @override
+  int? get priority => 3;
+
+  @override
+  RouteSettings? redirect(String? route) {
+    print('OnBoardingMiddleware redirecting to $route');
+    print("111");
+    print(getIt<GetIfUserFirstTimeToOpenApp>().call());
+    if (!getIt<GetIfUserFirstTimeToOpenApp>().call()) {
+      return const RouteSettings(
+        name: MobileRoutes.LOGIN,
+      );
+    }
+    print("222");
+    // return super.redirect(route);
+  }
+
   @override
   Widget onPageBuilt(Widget page) {
     print('Widget ${page.toStringShort()} will be showed');
@@ -145,34 +208,46 @@ class GlobalMiddleware extends GetMiddleware {
   void onPageDispose() {
     print('PageDisposed');
   }
+
+  @override
+  GetPage? onPageCalled(GetPage? page) {
+    print(page?.name);
+    return super.onPageCalled(page);
+  }
 }
 
-//
-// class EnsureAuthMiddleware extends GetMiddleware {
-//   @override
-//   Future<RouteDecoder?> redirectDelegate(RouteDecoder route) async {
-//     // you can do whatever you want here
-//     // but it's preferable to make this method fast
-//     // await Future.delayed(Duration(milliseconds: 500));
-//
-//     if (!AuthService.to.isLoggedInValue) {
-//       final newRoute = Routes.LOGIN_THEN(route.pageSettings!.name);
-//       return RouteDecoder.fromRoute(newRoute);
-//     }
-//     return await super.redirectDelegate(route);
-//   }
-// }
-//
-// class EnsureNotAuthedMiddleware extends GetMiddleware {
-//   @override
-//   Future<RouteDecoder?> redirectDelegate(RouteDecoder route) async {
-//     if (AuthService.to.isLoggedInValue) {
-//       //NEVER navigate to auth screen, when user is already authed
-//       return null;
-//
-//       //OR redirect user to another screen
-//       //return RouteDecoder.fromRoute(Routes.PROFILE);
-//     }
-//     return await super.redirectDelegate(route);
-//   }
-// }
+class CompleteUserInfoMiddleware extends GetMiddleware {
+  @override
+  int? get priority => 4;
+
+  @override
+  Future<GetNavConfig?> redirectDelegate(GetNavConfig route) async {
+    print('CompleteUserInfoMiddleware redirecting to $route');
+    bool isUserInfoExist = false;
+    var userInfo = await getIt<GetUserInfo>().call();
+    print("userInfo $userInfo");
+    isUserInfoExist = userInfo.fold(() => false, (a) => a.isRight());
+    print("isUserInfoExist $isUserInfoExist");
+    if (isUserInfoExist) {
+      return GetNavConfig.fromRoute(MobileRoutes.Main);
+    }
+    return await super.redirectDelegate(route);
+  }
+
+  @override
+  Widget onPageBuilt(Widget page) {
+    print('Widget ${page.toStringShort()} will be showed');
+    return page;
+  }
+
+  @override
+  void onPageDispose() {
+    print('PageDisposed');
+  }
+
+  @override
+  GetPage? onPageCalled(GetPage? page) {
+    print(page?.name);
+    return super.onPageCalled(page);
+  }
+}

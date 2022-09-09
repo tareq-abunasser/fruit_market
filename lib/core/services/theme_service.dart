@@ -7,6 +7,8 @@ import 'preferences_helper.dart';
 
 abstract class ThemeService {
   void switchTheme();
+
+  bool get isDarkMode;
 }
 
 @LazySingleton(as: ThemeService)
@@ -36,6 +38,11 @@ class ThemeServiceImpl implements ThemeService {
 
   _saveThemeToCache(bool isDarkMode) =>
       _preferencesManager.saveData(key: _key, data: isDarkMode);
+
+  @override
+  bool get isDarkMode {
+    return Get.isDarkMode;
+  }
 }
 
 void switchTheme() {

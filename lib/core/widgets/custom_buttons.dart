@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../utils/size_config.dart';
+import '../services/size_config.dart';
 import 'space_widget.dart';
+
 class CustomGeneralButton extends StatelessWidget {
-  const CustomGeneralButton({Key? key, this.text, this.onTap})
+  const CustomGeneralButton(
+      {Key? key, this.text, this.onTap, this.width, this.height})
       : super(key: key);
   final String? text;
   final VoidCallback? onTap;
+  final double? width;
+  final double? height;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 60,
-        width: SizeConfig.screenWidth,
+        height: height ?? 60,
+        width: width ?? SizeConfig.screenWidth,
         decoration: BoxDecoration(
           color: kMainColor,
           borderRadius: BorderRadius.circular(8),
@@ -23,7 +28,7 @@ class CustomGeneralButton extends StatelessWidget {
             text!,
             style: const TextStyle(
               fontSize: 18,
-              color:  Color(0xffffffff),
+              color: Color(0xffffffff),
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.left,
@@ -42,6 +47,7 @@ class CustomButtonWithIcon extends StatelessWidget {
   final IconData? iconData;
   final VoidCallback? onTap;
   final Color? color;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -62,14 +68,14 @@ class CustomButtonWithIcon extends StatelessWidget {
               iconData,
               color: color,
             ),
-            const HorizontalSpace(value:2),
+            const HorizontalSpace(value: 2),
             Text(
               text,
-              style:const  TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Poppins',
                 fontSize: 12,
-                color:  Color(0xFF000000),
+                color: Color(0xFF000000),
               ),
               textAlign: TextAlign.left,
             ),

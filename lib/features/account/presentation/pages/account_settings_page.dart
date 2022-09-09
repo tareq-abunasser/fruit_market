@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../widgets/account_settings_list_utils.dart';
 import '../widgets/custom_list_tile_item.dart';
@@ -9,10 +10,9 @@ class AccountSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text("Settings"),
-          backgroundColor: Theme.of(context).primaryColor),
-      body: const AccountSettingsListUtils()
-    );
+        appBar: AppBar(
+            title: Text("settings".tr),
+            backgroundColor: Theme.of(context).primaryColor),
+        body: const AccountSettingsListUtils());
   }
 }

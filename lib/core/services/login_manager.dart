@@ -1,4 +1,4 @@
-import 'package:fruit_market/core/utils/preferences_helper.dart';
+import 'package:fruit_market/core/services/preferences_helper.dart';
 import 'package:injectable/injectable.dart';
 
 

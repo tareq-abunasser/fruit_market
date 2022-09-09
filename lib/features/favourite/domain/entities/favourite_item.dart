@@ -31,13 +31,15 @@ abstract class FavouriteItem implements _$FavouriteItem {
   }
 
   CartItem toCartItem(int quantity) {
+    print('toCartItem');
+    print(toString());
     return CartItem(
       id: this.id,
       name: name,
       imageURL: imageURL,
-      currentPrice: price,
-      oldPrice: Price(price.getOrCrash() +
+      currentPrice: Price(price.getOrCrash() -
           price.getOrCrash() * discount.getOrCrash()),
+      oldPrice: price,
       saved: Price(price.getOrCrash() * discount.getOrCrash()),
       quantity: Quantity(quantity),
     );

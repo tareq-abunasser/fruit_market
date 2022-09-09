@@ -1,5 +1,6 @@
 part of 'subcategory_cubit.dart';
 
+
 @freezed
 class SubcategoryState with _$SubcategoryState {
   const factory SubcategoryState.initial() = Initial;

@@ -1,20 +1,13 @@
 import 'package:dartz/dartz.dart';
-// import 'package:injectable/injectable.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fruit_market/core/entities/exceptions.dart';
-import 'package:fruit_market/core/entities/failures.dart';
 import 'package:fruit_market/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:fruit_market/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:fruit_market/features/auth/data/models/user_dtos.dart';
 import 'package:fruit_market/features/auth/domain/failures/auth_failure.dart';
 import 'package:fruit_market/features/auth/domain/repositories/i_auth_repository.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../core/utils/network_info.dart';
+import '../../../../core/services/network_info.dart';
 import '../../domain/entities/user.dart' as _user;
-import '../../../../core/firebase/firebase_user_mapper.dart';
 
 @LazySingleton(as: IAuthRepository)
 class AuthRepository implements IAuthRepository {
@@ -30,52 +23,44 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Either<AuthFailure, _user.User> getSignedInUser() {
+    printInfo(info: 'class:AuthRepository , function : getSignedInUser');
     try {
       _user.User user = _authRemoteDataSourceImpl.getSignedInUser().toDomain();
-      print("5555555");
-      print('user: $user');
       return right(user);
     } on UnAuthenticatedException {
       return left(const AuthFailure.unAuthenticated());
-    } catch (e) {
-      return left(const AuthFailure.unknown());
     }
   }
 
   @override
   Future<Either<AuthFailure, Unit>> signInWithGoogle() async {
-    try {
-      final bool isInternetConnected = await _networkInfo.isConnected;
-      if (isInternetConnected) {
-        await _authRemoteDataSourceImpl.signInWithGoogle();
-        if (getSignedInUser().isRight()) {
-          await _authLocalDataSourceImpl
-              .cacheSignedInUser(_authRemoteDataSourceImpl.getSignedInUser());
-        } else {
-          return left(const AuthFailure.unknown());
-        }
-        return right(unit);
-      } else {
-        return left(const AuthFailure.internet());
-      }
-    } on ServerException {
-      return left(const AuthFailure.serverError());
-    } catch (e) {
-      return left(const AuthFailure.unknown());
-    }
+    printInfo(info: 'class:AuthRepository , function : signInWithGoogle');
+    return _signIn(_authRemoteDataSourceImpl.signInWithGoogle);
   }
 
   @override
   Future<Either<AuthFailure, Unit>> signInWithFacebook() async {
+    printInfo(info: 'class:AuthRepository , function : signInWithFacebook');
+    return _signIn(_authRemoteDataSourceImpl.signInWithFacebook);
+  }
+
+  @override
+  Future<void> signOut() => Future.wait([
+        _authRemoteDataSourceImpl.signOut(),
+        _authLocalDataSourceImpl.signOut(),
+      ]);
+
+  Future<Either<AuthFailure, Unit>> _signIn(Function f) async {
+    printInfo(info: 'class:AuthRepository , function : _signIn');
     try {
       if (await _networkInfo.isConnected) {
-        await _authRemoteDataSourceImpl.signInWithFacebook();
+        await f();
 
         if (getSignedInUser().isRight()) {
-          await _authLocalDataSourceImpl
+          _authLocalDataSourceImpl
               .cacheSignedInUser(_authRemoteDataSourceImpl.getSignedInUser());
         } else {
-          return left(const AuthFailure.unknown());
+          return left(const AuthFailure.unAuthenticated());
         }
       } else {
         return left(const AuthFailure.internet());
@@ -88,10 +73,4 @@ class AuthRepository implements IAuthRepository {
       return left(const AuthFailure.unknown());
     }
   }
-
-  @override
-  Future<void> signOut() => Future.wait([
-        _authRemoteDataSourceImpl.signOut(),
-        _authLocalDataSourceImpl.signOut(),
-      ]);
 }

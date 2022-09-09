@@ -20,7 +20,7 @@ class OrderItemDTOAdapter extends TypeAdapter<_$_OrderItemDTO> {
       id: fields[0] as String?,
       name: fields[1] as String,
       image: fields[2] as String,
-      deliveredOn: fields[3] as FieldValue,
+      deliveredOn: fields[3] as Timestamp,
       rate: fields[4] as double,
     );
   }
@@ -60,8 +60,8 @@ _$_OrderItemDTO _$$_OrderItemDTOFromJson(Map<String, dynamic> json) =>
     _$_OrderItemDTO(
       name: json['name'] as String,
       image: json['imageurl'] as String,
-      deliveredOn: const ServerTimestampConverter()
-          .fromJson(json['delivered_on'] as Object),
+      deliveredOn:
+          const TimestampConverter().fromJson(json['delivered_on'] as Object),
       rate: (json['rate'] as num).toDouble(),
     );
 
@@ -69,7 +69,6 @@ Map<String, dynamic> _$$_OrderItemDTOToJson(_$_OrderItemDTO instance) =>
     <String, dynamic>{
       'name': instance.name,
       'imageurl': instance.image,
-      'delivered_on':
-          const ServerTimestampConverter().toJson(instance.deliveredOn),
+      'delivered_on': const TimestampConverter().toJson(instance.deliveredOn),
       'rate': instance.rate,
     };

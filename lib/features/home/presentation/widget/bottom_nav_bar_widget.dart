@@ -11,13 +11,7 @@ class CustomBottomNavBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BottomNavCubit, int>(builder: (context, state) {
       return BottomNavigationBar(
-        type: BottomNavigationBarType.shifting,
-        backgroundColor: Colors.white38,
-        selectedItemColor: Theme.of(context).primaryColor,
         unselectedFontSize: 12,
-        unselectedItemColor: Colors.black,
-        unselectedLabelStyle: const TextStyle(color: Colors.black),
-        showUnselectedLabels: true,
         currentIndex: context.read<BottomNavCubit>().state,
         onTap: (index) {
           context.read<BottomNavCubit>().updateIndex(index);

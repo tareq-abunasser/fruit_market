@@ -14,15 +14,4 @@ abstract class User implements _$User {
   const factory User({
     required UniqueId uniqueId,
   }) = _User;
-
-  // Option<ValueFailure<dynamic>> get failureOption {
-  //   return uniqueId.value.fold((f) => some(f), (_) => none());
-  // }
-
-// Either<ValueFailure<dynamic>, Unit> get failureOrUnit {
-//   return emailAddress.value.fold(
-//     (l) => left(l),
-//     (r) => right(unit),
-//   );
-// }
 }

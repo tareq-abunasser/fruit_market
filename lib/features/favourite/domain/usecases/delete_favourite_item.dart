@@ -1,16 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/entities/failures.dart';
-import '../../../cart/domain/entities/cart_item.dart';
-import '../../../cart/domain/repositories/i_cart_repository.dart';
+import '../entities/favourite_item.dart';
+import '../repositories/i_favourite_repository.dart';
 
 @LazySingleton()
-class RemoveCartItem {
-  final ICartRepository _repository;
+class DeleteFavouriteItem {
+  final IFavouriteRepository _repository;
 
-  RemoveCartItem(this._repository);
+  DeleteFavouriteItem(this._repository);
 
-  Future<Either<Failure, Unit>> call(CartItem cartItem) async {
-    return await _repository.removeFromCart(cartItem);
+  Future<Either<Failure, Unit>> call(FavouriteItem item) async {
+    return await _repository.deleteFavoriteItem(item);
   }
 }
