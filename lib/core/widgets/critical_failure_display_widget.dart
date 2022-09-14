@@ -55,7 +55,7 @@ class CriticalFailureDisplay extends StatelessWidget {
               children: const <Widget>[
                 Icon(Icons.refresh_sharp),
                 SizedBox(width: 4),
-                Text('reupload page'),
+                Text('reload page'),
               ],
             ),
           )

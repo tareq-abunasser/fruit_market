@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fruit_market/core/widgets/custom_text_field.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/custom_images.dart';
@@ -11,22 +12,17 @@ import '../../../cart/presentation/widgets/add_cart_item_button.dart';
 import '../../domain/entities/favourite_item.dart';
 import '../cubit/favourite_actor/favourite_actor_cubit.dart';
 
-class FavouriteProductCard extends StatefulWidget {
+class FavouriteProductCard extends StatelessWidget {
   final FavouriteItem _item;
   final int index;
 
-  const FavouriteProductCard(
+  FavouriteProductCard(
     this._item,
     this.index, {
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<FavouriteProductCard> createState() => _FavouriteProductCardState();
-}
-
-class _FavouriteProductCardState extends State<FavouriteProductCard> {
-  int _productNo = 1;
+  int quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +34,10 @@ class _FavouriteProductCardState extends State<FavouriteProductCard> {
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: CustomNetworkImage(
-              imageUrl: widget._item.imageURL.getOrCrash(),
+              imageUrl: _item.imageURL.getOrCrash(),
               width: SizeConfig.defaultSize! * 12,
               height: SizeConfig.defaultSize! * 12,
-              imageKey: widget._item.id.getOrCrash(),
+              imageKey: _item.id.getOrCrash(),
             ),
           ),
           Flexible(
@@ -54,60 +50,62 @@ class _FavouriteProductCardState extends State<FavouriteProductCard> {
                   children: [
                     Expanded(
                       child: CustomText(
-                        text: widget._item.name.getOrCrash(),
+                        text: _item.name.getOrCrash(),
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
                     ),
                     // const Spacer(),
                     CustomText(
-                      text: "${widget._item.price.getOrCrash()} Per/kg",
+                      text: "${_item.price.getOrCrash()} Per/kg",
                       fontWeight: FontWeight.bold,
                       fontSize: 13,
                     ),
                   ],
                 ),
-                const CustomText(
-                  text: "Pick up from organic farms",
-                  color: Color(0xffb2b2b2),
+                CustomText(
+                  text: "Pick up from organic farms".tr,
+                  color: const Color(0xffb2b2b2),
                   fontSize: 14,
                 ),
                 CustomRatingBarWithoutEditing(
-                  rating: widget._item.rate.getOrCrash(),
+                  rating: _item.rate.getOrCrash(),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    FloatingActionButton(
-                        onPressed: () {
-                          if (_productNo > 1) {
-                            setState(() {
-                              _productNo--;
-                            });
-                          }
-                        },
-                        heroTag: 'weight-',
-                        mini: true,
-                        backgroundColor: Colors.white,
-                        child: const Icon(
-                          Icons.remove,
-                          color: Colors.black,
+                StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      FloatingActionButton(
+                          onPressed: () {
+                            if (quantity > 1) {
+                              setState(() {
+                                quantity--;
+                              });
+                            }
+                          },
+                          heroTag: 'weight-',
+                          mini: true,
+                          backgroundColor: Colors.white,
+                          child: const Icon(
+                            Icons.remove,
+                            color: Colors.black,
+                          ),
+                          shape: RoundedRectangleBorder(
+                              side: const BorderSide(color: Colors.black),
+                              borderRadius: BorderRadius.circular(12))),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: CustomText(
+                          text: "$quantity",
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
-                        shape: RoundedRectangleBorder(
-                            side: const BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.circular(12))),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: CustomText(
-                        text: "$_productNo",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
                       ),
-                    ),
-                    FloatingActionButton(
+                      FloatingActionButton(
                         onPressed: () {
                           setState(() {
-                            _productNo++;
+                            quantity++;
                           });
                         },
                         heroTag: 'weight+',
@@ -118,19 +116,23 @@ class _FavouriteProductCardState extends State<FavouriteProductCard> {
                           color: Colors.black,
                         ),
                         shape: RoundedRectangleBorder(
-                            side: const BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.circular(12))),
-                    const Spacer(),
-                    AddCartItemButton(
-                      onPressed: () {
-                        context
-                            .read<FavouriteActorCubit>()
-                            .deleteFavoriteItem(widget._item, widget.index);
-                      },
-                      cartItem: widget._item.toCartItem(_productNo),
-                    )
-                  ],
-                ),
+                          side: const BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      const Spacer(),
+                      AddCartItemButton(
+                        onPressed: () {
+                          context
+                              .read<FavouriteActorCubit>()
+                              .deleteFavoriteItem(_item, index);
+                        },
+                        favouriteItem: _item,
+                        quantity: quantity,
+                      )
+                    ],
+                  );
+                })
               ],
             ),
           ),

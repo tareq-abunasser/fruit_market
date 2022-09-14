@@ -18,7 +18,7 @@ class UpdateFavouriteProduct {
       this._productRepository);
 
   Future<Either<Failure, Unit>> call(Product product) async {
-    FavouriteItem _favouriteItem = productToFavouriteItem(product);
+    FavouriteItem _favouriteItem = FavouriteItem.fromProduct(product);
     Either<Failure, Unit> failureOrUnit =
         await _productRepository.updateFavoriteProduct(product);
     if (failureOrUnit.isRight()) {
@@ -31,14 +31,14 @@ class UpdateFavouriteProduct {
     return failureOrUnit;
   }
 
-  FavouriteItem productToFavouriteItem(Product product) {
-    return FavouriteItem(
-      id: product.id,
-      name: product.name,
-      imageURL: product.imageURL,
-      price: product.price,
-      rate: product.rate,
-      discount: product.discount,
-    );
-  }
+// FavouriteItem productToFavouriteItem(Product product) {
+//   return FavouriteItem(
+//     id: product.id,
+//     name: product.name,
+//     imageURL: product.imageURL,
+//     price: product.price,
+//     rate: product.rate,
+//     discount: product.discount,
+//   );
+// }
 }

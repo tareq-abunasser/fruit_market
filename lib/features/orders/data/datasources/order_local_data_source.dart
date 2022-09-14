@@ -24,7 +24,9 @@ class OrderLocalDataSourceImpl extends OrderLocalDataSource {
   @override
   void cacheOrders(List<OrderItemDTO> items) {
     Map<dynamic, OrderItemDTO> itemsAsMap = {};
-    items.forEach((p) => itemsAsMap[p.id] = p);
+    for (var p in items) {
+      itemsAsMap[p.id] = p;
+    }
     _hiveManager.ordersBox!.putAll(itemsAsMap);
   }
 

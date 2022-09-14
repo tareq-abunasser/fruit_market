@@ -18,13 +18,14 @@ class AppBarStackWidget extends StatelessWidget {
           children: [
             Text(
               "marketName".tr,
-              style: TextStyle(
-                  // color: Theme.of(context).dividerColor,
+              style: const TextStyle(
+                  color: Colors.white,
                   fontSize: 25,
                   fontWeight: FontWeight.bold),
             ),
             const Spacer(),
-            const Icon(
+              Icon(
+              color: Colors.white,
               Icons.notifications,
             ),
           ],

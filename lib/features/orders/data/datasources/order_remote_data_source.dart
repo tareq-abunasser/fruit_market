@@ -83,7 +83,7 @@ class OrderRemoteDataSourceImpl extends OrderRemoteDataSource {
     try {
       final collection = await _firestore.userOrders().get();
       for (final doc in collection.docs) {
-        orderItems.add(OrderItemDTO.fromJson(doc.data()).copyWith(id: doc.id));
+        orderItems.add(OrderItemDTO.fromFirestore(doc));
       }
     } catch (error) {
       printError(info: error.toString());

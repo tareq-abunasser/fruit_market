@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 import 'core/services/MyBlocObserver.dart';
 import 'core/services/hive_manager.dart';
 import 'core/services/init_app.dart';
-import 'core/services/size_config.dart';
 import 'core/widgets/app_widget.dart';
 import 'features/splash/domain/splash_router.dart';
 import 'firebase_options.dart';

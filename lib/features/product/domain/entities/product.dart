@@ -36,17 +36,17 @@ abstract class Product implements _$Product {
         .fold((f) => some(f), (_) => none());
   }
 
-  CartItem toCartItem(int quantity) {
-    return CartItem(
-      id: this.id,
-      name: name,
-      imageURL: imageURL,
-      currentPrice: price,
-      oldPrice: Price(price.getOrCrash() +
-          price.getOrCrash() * discount.getOrCrash()),
-      saved: Price(price.getOrCrash() * discount.getOrCrash()),
-      quantity: Quantity(quantity),
-    );
-  }
+  // CartItem toCartItem(int quantity) {
+  //   return CartItem(
+  //     id: this.id,
+  //     name: name,
+  //     imageURL: imageURL,
+  //     currentPrice: price,
+  //     oldPrice: Price(price.getOrCrash() +
+  //         price.getOrCrash() * discount.getOrCrash()),
+  //     saved: Price(price.getOrCrash() * discount.getOrCrash()),
+  //     quantity: Quantity(quantity),
+  //   );
+  // }
 
 }

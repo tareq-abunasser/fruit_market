@@ -29,7 +29,8 @@ abstract class CartItemDTO extends HiveObject implements _$CartItemDTO {
       id: product.id.getOrCrash(),
       name: product.name.getOrCrash(),
       price: product.currentPrice.getOrCrash(),
-      discount: product.saved.getOrCrash() / product.oldPrice.getOrCrash(),
+      discount:
+          product.saved.getOrCrash() * 100 / product.currentPrice.getOrCrash(),
       image: product.imageURL.getOrCrash(),
       quantity: product.quantity.getOrCrash(),
     );
@@ -39,9 +40,9 @@ abstract class CartItemDTO extends HiveObject implements _$CartItemDTO {
     return CartItem(
       id: UniqueId.fromUniqueString(id!),
       name: ItemName(name),
-      currentPrice: Price(price - price * discount),
-      oldPrice: Price(price),
-      saved: Price(price * discount),
+      currentPrice: Price(price),
+      oldPrice: Price(price + price * discount / 100),
+      saved: Price(price * discount / 100),
       imageURL: ImageURL(image),
       quantity: Quantity(quantity),
     );

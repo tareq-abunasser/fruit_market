@@ -64,7 +64,7 @@ class ProductDetailsWidget extends StatelessWidget {
               CustomText(
                 text: " ${product.price.getOrCrash()} Per/ kg",
               ),
-              MaterialButton(child: const Text("Order Now"), onPressed: () {})
+              MaterialButton(child: const Text("Add to Cart"), onPressed: () {})
             ],
           ),
         ],

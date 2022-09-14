@@ -186,16 +186,11 @@ class OnBoardingMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    print('OnBoardingMiddleware redirecting to $route');
-    print("111");
-    print(getIt<GetIfUserFirstTimeToOpenApp>().call());
     if (!getIt<GetIfUserFirstTimeToOpenApp>().call()) {
       return const RouteSettings(
         name: MobileRoutes.LOGIN,
       );
     }
-    print("222");
-    // return super.redirect(route);
   }
 
   @override
@@ -222,12 +217,9 @@ class CompleteUserInfoMiddleware extends GetMiddleware {
 
   @override
   Future<GetNavConfig?> redirectDelegate(GetNavConfig route) async {
-    print('CompleteUserInfoMiddleware redirecting to $route');
     bool isUserInfoExist = false;
     var userInfo = await getIt<GetUserInfo>().call();
-    print("userInfo $userInfo");
     isUserInfoExist = userInfo.fold(() => false, (a) => a.isRight());
-    print("isUserInfoExist $isUserInfoExist");
     if (isUserInfoExist) {
       return GetNavConfig.fromRoute(MobileRoutes.Main);
     }

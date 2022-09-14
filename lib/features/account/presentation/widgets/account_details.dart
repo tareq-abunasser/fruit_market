@@ -46,10 +46,12 @@ class AccountDetails extends StatelessWidget {
                       text: success.user.fullName.getOrCrash(),
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
+                      color: Colors.white,
                     ),
                     CustomText(
                       text: success.user.email.getOrCrash(),
                       fontSize: 16,
+                      color: Colors.white,
                     ),
                   ],
                 ),

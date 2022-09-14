@@ -31,6 +31,8 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
   Future<void> addToCart(CartItemDTO cartItem) async {
     printInfo(info: "function addToCart");
     try {
+      printInfo(info: "try addqToCart ${cartItem}");
+      printInfo(info: "try addToCart ${cartItem.toJson()}");
       await _firestore.userCart().doc(cartItem.id).set(cartItem.toJson());
     } on FirebaseException catch (e) {
       printError(info: e.toString());
@@ -65,7 +67,9 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
     printInfo(info: "function getCart");
     try {
       final collection = await _firestore.userCart().get();
-      return collection.docs.map((doc) => CartItemDTO.fromFirestore(doc)).toList();
+      return collection.docs
+          .map((doc) => CartItemDTO.fromFirestore(doc))
+          .toList();
     } on FirebaseException catch (e) {
       printError(info: e.toString());
       throw ServerException(e.toString());

@@ -21,12 +21,14 @@ class CartWatcherCubit extends Cubit<CartWatcherState> {
     this._getCartItems,
   ) : super(const CartWatcherState.initial());
   final GetCartItems _getCartItems;
+  List<CartItem> _cartItems = [];
 
   void watchCart() {
     emit(const CartWatcherState.cartItemLoadInProgress());
     _getCartItems().then((failureOrProducts) => failureOrProducts
             .fold((f) => emit(CartWatcherState.cartItemLoadFailure(f)), (items) {
           double totalPrice = calculateTotalPrice(items);
+          _cartItems = items;
           emit(CartWatcherState.cartItemLoadSuccess(items, totalPrice));
         }));
   }
@@ -47,7 +49,7 @@ class CartWatcherCubit extends Cubit<CartWatcherState> {
     }
     return totalPrice.roundToDouble();
   }
-
+  get cartItems => _cartItems;
   @override
   Future<void> close() {
     return super.close();

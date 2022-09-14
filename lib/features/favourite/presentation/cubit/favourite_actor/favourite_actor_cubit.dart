@@ -12,19 +12,15 @@ part 'favourite_actor_cubit.freezed.dart';
 
 @injectable
 class FavouriteActorCubit extends Cubit<FavouriteActorState> {
-  FavouriteActorCubit(this._deleteFavouriteItem, this._addItemToCart)
+  FavouriteActorCubit(this._deleteFavouriteItem)
       : super(const FavouriteActorState.initial());
   final DeleteFavouriteItem _deleteFavouriteItem;
-  final AddItemToCart _addItemToCart;
 
   void deleteFavoriteItem(FavouriteItem item, int index) {
     emit(const FavouriteActorState.actionInProgress());
     _deleteFavouriteItem(item).then((failureOrProducts) => failureOrProducts
             .fold((f) => emit(FavouriteActorState.deleteFailure(f)), (_) {
-          _addItemToCart(item, 1).then((failureOrProducts) => failureOrProducts
-                  .fold((f) => emit(FavouriteActorState.deleteFailure(f)), (_) {
-                emit(FavouriteActorState.deleteSuccess(index));
-              }));
+          emit(FavouriteActorState.deleteSuccess(index));
         }));
   }
 }

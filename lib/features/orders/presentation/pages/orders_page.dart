@@ -4,7 +4,7 @@ import 'package:fruit_market/features/orders/presentation/cubit/orders_cubit.dar
 import 'package:fruit_market/injection.dart';
 import 'package:get/get.dart';
 
-import '../../../cart/presentation/widgets/critical_failure_display_widget.dart';
+import '../../../../core/widgets/critical_failure_display_widget.dart';
 import '../widgets/order_item.dart';
 
 class OrdersPage extends StatelessWidget {

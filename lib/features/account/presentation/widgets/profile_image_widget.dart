@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fruit_market/core/widgets/custom_images.dart';
 
 import '../../../../core/constants.dart';
 import '../../../../core/services/size_config.dart';
@@ -28,18 +29,10 @@ class ProfileImageWidget extends StatelessWidget {
         children: [
           ClipOval(
             child: imageFile == null
-                ? CachedNetworkImage(
-                    fit: BoxFit.cover,
+                ? CustomNetworkImage(
                     imageUrl: imageURL!,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) =>
-                            CircularProgressIndicator(
-                                value: downloadProgress.progress),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
                     width: SizeConfig.defaultSize! * 12,
-                    height: SizeConfig.defaultSize! * 12,
-                  )
+                    height: SizeConfig.defaultSize! * 12)
                 : Image.file(
                     imageFile!,
                     fit: BoxFit.cover,

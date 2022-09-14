@@ -7,13 +7,14 @@ import '../../../../core/widgets/custom_images.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../domain/entities/cart_item.dart';
 import '../../domain/entities/value_objects.dart';
-import '../cubit/cart/cart_cubit.dart';
+import '../cubit/cart_actor/cart_actor_cubit.dart';
 
 class CartItemCard extends StatelessWidget {
-  CartItem _cartItem;
-  int indexItem;
+  final CartItem _cartItem;
+  final int indexItem;
 
-  CartItemCard(this._cartItem, this.indexItem, {Key? key}) : super(key: key);
+  const CartItemCard(this._cartItem, this.indexItem, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,9 @@ class CartItemCard extends StatelessWidget {
                         child: GestureDetector(
                           child: const Icon(Icons.delete),
                           onTap: () {
-                            context.read<CartCubit>().removeCartItem(indexItem);
+                            context
+                                .read<CartActorCubit>()
+                                .deleteCartItem(_cartItem);
                           },
                         )),
                   ],
@@ -88,8 +91,8 @@ class CartItemCard extends StatelessWidget {
                     FloatingActionButton(
                         onPressed: () {
                           context
-                              .read<CartCubit>()
-                              .decreaseCartItemQuantity(indexItem);
+                              .read<CartActorCubit>()
+                              .decreaseCartItemQuantity(_cartItem);
                         },
                         heroTag: '$indexItem weight-',
                         mini: true,
@@ -113,9 +116,10 @@ class CartItemCard extends StatelessWidget {
                     ),
                     FloatingActionButton(
                         onPressed: () {
+                          print("increase $indexItem");
                           context
-                              .read<CartCubit>()
-                              .increaseCartItemQuantity(indexItem);
+                              .read<CartActorCubit>()
+                              .increaseCartItemQuantity(_cartItem);
                         },
                         heroTag: '$indexItem weight+',
                         mini: true,
