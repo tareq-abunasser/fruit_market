@@ -18,29 +18,20 @@ class CartItemDTOAdapter extends TypeAdapter<_$_CartItemDTO> {
     };
     return _$_CartItemDTO(
       id: fields[0] as String?,
-      name: fields[1] as String,
-      price: fields[3] as double,
-      discount: fields[4] as double,
-      image: fields[5] as String,
-      quantity: fields[6] as int,
+      product: fields[1] as ProductDTO,
+      quantity: fields[2] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_CartItemDTO obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.name)
-      ..writeByte(3)
-      ..write(obj.price)
-      ..writeByte(4)
-      ..write(obj.discount)
-      ..writeByte(5)
-      ..write(obj.image)
-      ..writeByte(6)
+      ..write(obj.product)
+      ..writeByte(2)
       ..write(obj.quantity);
   }
 
@@ -61,18 +52,13 @@ class CartItemDTOAdapter extends TypeAdapter<_$_CartItemDTO> {
 
 _$_CartItemDTO _$$_CartItemDTOFromJson(Map<String, dynamic> json) =>
     _$_CartItemDTO(
-      name: json['name'] as String,
-      price: (json['price'] as num).toDouble(),
-      discount: (json['discount'] as num).toDouble(),
-      image: json['image'] as String,
+      product: const ProductConverter()
+          .fromJson(json['product'] as Map<String, dynamic>),
       quantity: json['quantity'] as int,
     );
 
 Map<String, dynamic> _$$_CartItemDTOToJson(_$_CartItemDTO instance) =>
     <String, dynamic>{
-      'name': instance.name,
-      'price': instance.price,
-      'discount': instance.discount,
-      'image': instance.image,
+      'product': const ProductConverter().toJson(instance.product),
       'quantity': instance.quantity,
     };

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_market/core/widgets/themes.dart';
+import 'package:fruit_market/core/constant/themes.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 

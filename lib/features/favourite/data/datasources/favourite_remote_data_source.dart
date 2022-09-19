@@ -26,6 +26,8 @@ class FavouriteRemoteDataSourceImpl extends FavouriteRemoteDataSource {
   @override
   Future<void> addFavouriteItem(FavouriteItemDTO favouriteItemDTO) async {
     printInfo(info: "function addFavouriteItem");
+    print(favouriteItemDTO.id);
+    print(favouriteItemDTO.toJson());
     try {
       await _firestore
           .userFavourites()

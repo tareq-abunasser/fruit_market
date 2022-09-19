@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_market/core/widgets/themes.dart';
+import 'package:fruit_market/core/constant/themes.dart';
 import 'package:fruit_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:fruit_market/injection.dart';
-import '../constants.dart';
+import '../constant/constants.dart';
 import '../../localization/localization_service.dart';
 import '../../routes/app_pages.dart';
 import 'package:get/get.dart';

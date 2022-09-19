@@ -20,9 +20,10 @@ abstract class ProductDTO extends HiveObject implements _$ProductDTO {
     @HiveField(2) @JsonKey(name: 'parent_id') required String parentId,
     @HiveField(3) @JsonKey(name: 'price') required double price,
     @HiveField(4) @JsonKey(name: 'imageurl') required String image,
-    @HiveField(5) @JsonKey(name: 'likes') required List likes,
-    @HiveField(6) @JsonKey(name: 'rate') required Map<String, double> rate,
-    @HiveField(7) @JsonKey(name: 'Nutrition')
+    @HiveField(5) @JsonKey(name: 'likes') required List<String> likes,
+    @HiveField(6) @JsonKey(name: 'rate') required Map<String, double> rates,
+    @HiveField(7)
+    @JsonKey(name: 'Nutrition')
         required Map<String, double> nutrition,
     @HiveField(8) @JsonKey(name: 'benefit') required String benefit,
     @HiveField(9) @JsonKey(name: 'discount') required double discount,
@@ -35,8 +36,8 @@ abstract class ProductDTO extends HiveObject implements _$ProductDTO {
       name: product.name.getOrCrash(),
       price: product.price.getOrCrash(),
       image: product.imageURL.getOrCrash(),
-      rate: {"rate": product.rate.getOrCrash()},
-      likes: product.isLike ? [FirebaseAuth.instance.currentUser!.uid] : [],
+      rates:  product.rates,
+      likes: product.likes,
       nutrition: product.nutrition.getOrCrash(),
       benefit: product.desc.getOrCrash(),
       discount: product.discount.getOrCrash(),
@@ -50,8 +51,8 @@ abstract class ProductDTO extends HiveObject implements _$ProductDTO {
       name: ItemName(name),
       price: Price(price),
       imageURL: ImageURL(image),
-      rate: Rate(rate),
-      isLike: likes.contains(FirebaseAuth.instance.currentUser!.uid),
+      rates: rates,
+      likes: likes,
       desc: Description(benefit),
       nutrition: Nutrition(nutrition),
       discount: Discount(discount),
@@ -66,10 +67,6 @@ abstract class ProductDTO extends HiveObject implements _$ProductDTO {
       final data = doc.data()! as Map<String, dynamic>;
       return ProductDTO.fromJson(data).copyWith(id: doc.id);
     } catch (error) {
-      print("efsaffdasdd");
-      print( doc.id);
-      print(doc.data());
-      print( "function : fromFirestore, ${error.toString()}");
       throw ServerException();
     }
   }

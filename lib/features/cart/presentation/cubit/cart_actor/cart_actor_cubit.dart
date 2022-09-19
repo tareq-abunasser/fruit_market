@@ -4,9 +4,10 @@ import 'package:fruit_market/features/cart/domain/entities/cart_item.dart';
 import 'package:fruit_market/features/cart/domain/usecases/update_cart_item.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../../core/entities/failures.dart';
+import '../../../../orders/domain/entities/order_item.dart';
+import '../../../../orders/domain/usecases/add_order_items.dart';
 import '../../../domain/entities/value_objects.dart';
 import '../../../domain/usecases/add_cart_item.dart';
-import '../../../domain/usecases/add_orders_item_from_cart.dart';
 import '../../../domain/usecases/clear_cart.dart';
 import '../../../domain/usecases/get_cart_items.dart';
 import '../../../domain/usecases/remove_cart_item.dart';
@@ -21,14 +22,13 @@ class CartActorCubit extends Cubit<CartActorState> {
   CartActorCubit(
     this._addCartItem,
     this._clearCart,
-    // this._addOrderItems,
+    this._addOrderItems,
     this._removeCartItem,
     this._updateCartItem,
   ) : super(const CartActorState.initial());
   final AddCartItem _addCartItem;
   final ClearCart _clearCart;
-
-  // final AddOrderItemsFomCart _addOrderItems;
+  final AddOrderItems _addOrderItems;
   final RemoveCartItem _removeCartItem;
   final UpdateCartItem _updateCartItem;
   List<CartItem> _cartItems = [];
@@ -48,9 +48,16 @@ class CartActorCubit extends Cubit<CartActorState> {
     emit(const CartActorState.actionInProgress());
     _clearCart().then((failureOrUnit) =>
         failureOrUnit.fold((f) => emit(CartActorState.actionFailure(f)), (_) {
-          _cartItems.clear();
-          // _addOrderItems(items);
-          emit(CartActorState.actionSuccess(_cartItems));
+          _addOrderItems(
+                  _cartItems.map((e) => OrderItem.fromCartItem(e)).toList())
+              .then((value) => value.fold(
+                  (f) => emit(CartActorState.actionFailure(f)),
+                  (_) {
+                    _cartItems.clear();
+                    emit(CartActorState.actionSuccess(_cartItems));
+                  }));
+
+          // emit(CartActorState.actionSuccess(_cartItems));
         }));
   }
 

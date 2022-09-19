@@ -27,23 +27,20 @@ class _$OrderItemDTOTearOff {
       @JsonKey(ignore: true)
           String? id,
       @HiveField(1)
-      @JsonKey(name: 'name')
-          required String name,
+      @JsonKey(name: 'cart')
+      @CartConverter()
+          required CartItemDTO cartItem,
       @HiveField(2)
-      @JsonKey(name: 'imageurl')
-          required String image,
-      @HiveField(3)
-      @JsonKey(name: 'delivered_on')
+      @JsonKey(name: 'order_at')
       @TimestampConverter()
-          required Timestamp deliveredOn,
+          required Timestamp orderAt,
       @HiveField(4)
       @JsonKey(name: 'rate')
           required double rate}) {
     return _OrderItemDTO(
       id: id,
-      name: name,
-      image: image,
-      deliveredOn: deliveredOn,
+      cartItem: cartItem,
+      orderAt: orderAt,
       rate: rate,
     );
   }
@@ -62,15 +59,13 @@ mixin _$OrderItemDTO {
   @JsonKey(ignore: true)
   String? get id => throw _privateConstructorUsedError;
   @HiveField(1)
-  @JsonKey(name: 'name')
-  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cart')
+  @CartConverter()
+  CartItemDTO get cartItem => throw _privateConstructorUsedError;
   @HiveField(2)
-  @JsonKey(name: 'imageurl')
-  String get image => throw _privateConstructorUsedError;
-  @HiveField(3)
-  @JsonKey(name: 'delivered_on')
+  @JsonKey(name: 'order_at')
   @TimestampConverter()
-  Timestamp get deliveredOn => throw _privateConstructorUsedError;
+  Timestamp get orderAt => throw _privateConstructorUsedError;
   @HiveField(4)
   @JsonKey(name: 'rate')
   double get rate => throw _privateConstructorUsedError;
@@ -91,18 +86,18 @@ abstract class $OrderItemDTOCopyWith<$Res> {
       @JsonKey(ignore: true)
           String? id,
       @HiveField(1)
-      @JsonKey(name: 'name')
-          String name,
+      @JsonKey(name: 'cart')
+      @CartConverter()
+          CartItemDTO cartItem,
       @HiveField(2)
-      @JsonKey(name: 'imageurl')
-          String image,
-      @HiveField(3)
-      @JsonKey(name: 'delivered_on')
+      @JsonKey(name: 'order_at')
       @TimestampConverter()
-          Timestamp deliveredOn,
+          Timestamp orderAt,
       @HiveField(4)
       @JsonKey(name: 'rate')
           double rate});
+
+  $CartItemDTOCopyWith<$Res> get cartItem;
 }
 
 /// @nodoc
@@ -116,9 +111,8 @@ class _$OrderItemDTOCopyWithImpl<$Res> implements $OrderItemDTOCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? image = freezed,
-    Object? deliveredOn = freezed,
+    Object? cartItem = freezed,
+    Object? orderAt = freezed,
     Object? rate = freezed,
   }) {
     return _then(_value.copyWith(
@@ -126,23 +120,26 @@ class _$OrderItemDTOCopyWithImpl<$Res> implements $OrderItemDTOCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
-      deliveredOn: deliveredOn == freezed
-          ? _value.deliveredOn
-          : deliveredOn // ignore: cast_nullable_to_non_nullable
+      cartItem: cartItem == freezed
+          ? _value.cartItem
+          : cartItem // ignore: cast_nullable_to_non_nullable
+              as CartItemDTO,
+      orderAt: orderAt == freezed
+          ? _value.orderAt
+          : orderAt // ignore: cast_nullable_to_non_nullable
               as Timestamp,
       rate: rate == freezed
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
               as double,
     ));
+  }
+
+  @override
+  $CartItemDTOCopyWith<$Res> get cartItem {
+    return $CartItemDTOCopyWith<$Res>(_value.cartItem, (value) {
+      return _then(_value.copyWith(cartItem: value));
+    });
   }
 }
 
@@ -158,18 +155,19 @@ abstract class _$OrderItemDTOCopyWith<$Res>
       @JsonKey(ignore: true)
           String? id,
       @HiveField(1)
-      @JsonKey(name: 'name')
-          String name,
+      @JsonKey(name: 'cart')
+      @CartConverter()
+          CartItemDTO cartItem,
       @HiveField(2)
-      @JsonKey(name: 'imageurl')
-          String image,
-      @HiveField(3)
-      @JsonKey(name: 'delivered_on')
+      @JsonKey(name: 'order_at')
       @TimestampConverter()
-          Timestamp deliveredOn,
+          Timestamp orderAt,
       @HiveField(4)
       @JsonKey(name: 'rate')
           double rate});
+
+  @override
+  $CartItemDTOCopyWith<$Res> get cartItem;
 }
 
 /// @nodoc
@@ -185,9 +183,8 @@ class __$OrderItemDTOCopyWithImpl<$Res> extends _$OrderItemDTOCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? image = freezed,
-    Object? deliveredOn = freezed,
+    Object? cartItem = freezed,
+    Object? orderAt = freezed,
     Object? rate = freezed,
   }) {
     return _then(_OrderItemDTO(
@@ -195,17 +192,13 @@ class __$OrderItemDTOCopyWithImpl<$Res> extends _$OrderItemDTOCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
-      deliveredOn: deliveredOn == freezed
-          ? _value.deliveredOn
-          : deliveredOn // ignore: cast_nullable_to_non_nullable
+      cartItem: cartItem == freezed
+          ? _value.cartItem
+          : cartItem // ignore: cast_nullable_to_non_nullable
+              as CartItemDTO,
+      orderAt: orderAt == freezed
+          ? _value.orderAt
+          : orderAt // ignore: cast_nullable_to_non_nullable
               as Timestamp,
       rate: rate == freezed
           ? _value.rate
@@ -224,15 +217,13 @@ class _$_OrderItemDTO extends _OrderItemDTO {
       @JsonKey(ignore: true)
           this.id,
       @HiveField(1)
-      @JsonKey(name: 'name')
-          required this.name,
+      @JsonKey(name: 'cart')
+      @CartConverter()
+          required this.cartItem,
       @HiveField(2)
-      @JsonKey(name: 'imageurl')
-          required this.image,
-      @HiveField(3)
-      @JsonKey(name: 'delivered_on')
+      @JsonKey(name: 'order_at')
       @TimestampConverter()
-          required this.deliveredOn,
+          required this.orderAt,
       @HiveField(4)
       @JsonKey(name: 'rate')
           required this.rate})
@@ -247,17 +238,14 @@ class _$_OrderItemDTO extends _OrderItemDTO {
   final String? id;
   @override
   @HiveField(1)
-  @JsonKey(name: 'name')
-  final String name;
+  @JsonKey(name: 'cart')
+  @CartConverter()
+  final CartItemDTO cartItem;
   @override
   @HiveField(2)
-  @JsonKey(name: 'imageurl')
-  final String image;
-  @override
-  @HiveField(3)
-  @JsonKey(name: 'delivered_on')
+  @JsonKey(name: 'order_at')
   @TimestampConverter()
-  final Timestamp deliveredOn;
+  final Timestamp orderAt;
   @override
   @HiveField(4)
   @JsonKey(name: 'rate')
@@ -265,7 +253,7 @@ class _$_OrderItemDTO extends _OrderItemDTO {
 
   @override
   String toString() {
-    return 'OrderItemDTO(id: $id, name: $name, image: $image, deliveredOn: $deliveredOn, rate: $rate)';
+    return 'OrderItemDTO(id: $id, cartItem: $cartItem, orderAt: $orderAt, rate: $rate)';
   }
 
   @override
@@ -274,10 +262,8 @@ class _$_OrderItemDTO extends _OrderItemDTO {
         (other.runtimeType == runtimeType &&
             other is _OrderItemDTO &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.image, image) &&
-            const DeepCollectionEquality()
-                .equals(other.deliveredOn, deliveredOn) &&
+            const DeepCollectionEquality().equals(other.cartItem, cartItem) &&
+            const DeepCollectionEquality().equals(other.orderAt, orderAt) &&
             const DeepCollectionEquality().equals(other.rate, rate));
   }
 
@@ -285,9 +271,8 @@ class _$_OrderItemDTO extends _OrderItemDTO {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(image),
-      const DeepCollectionEquality().hash(deliveredOn),
+      const DeepCollectionEquality().hash(cartItem),
+      const DeepCollectionEquality().hash(orderAt),
       const DeepCollectionEquality().hash(rate));
 
   @JsonKey(ignore: true)
@@ -307,15 +292,13 @@ abstract class _OrderItemDTO extends OrderItemDTO {
       @JsonKey(ignore: true)
           String? id,
       @HiveField(1)
-      @JsonKey(name: 'name')
-          required String name,
+      @JsonKey(name: 'cart')
+      @CartConverter()
+          required CartItemDTO cartItem,
       @HiveField(2)
-      @JsonKey(name: 'imageurl')
-          required String image,
-      @HiveField(3)
-      @JsonKey(name: 'delivered_on')
+      @JsonKey(name: 'order_at')
       @TimestampConverter()
-          required Timestamp deliveredOn,
+          required Timestamp orderAt,
       @HiveField(4)
       @JsonKey(name: 'rate')
           required double rate}) = _$_OrderItemDTO;
@@ -330,17 +313,14 @@ abstract class _OrderItemDTO extends OrderItemDTO {
   String? get id;
   @override
   @HiveField(1)
-  @JsonKey(name: 'name')
-  String get name;
+  @JsonKey(name: 'cart')
+  @CartConverter()
+  CartItemDTO get cartItem;
   @override
   @HiveField(2)
-  @JsonKey(name: 'imageurl')
-  String get image;
-  @override
-  @HiveField(3)
-  @JsonKey(name: 'delivered_on')
+  @JsonKey(name: 'order_at')
   @TimestampConverter()
-  Timestamp get deliveredOn;
+  Timestamp get orderAt;
   @override
   @HiveField(4)
   @JsonKey(name: 'rate')

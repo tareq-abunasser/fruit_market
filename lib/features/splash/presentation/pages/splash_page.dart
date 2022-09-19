@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_market/routes/mobile_app_pages.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/constants.dart';
+import '../../../../core/constant/constants.dart';
 import '../../../../core/services/size_config.dart';
 import '../../../../injection.dart';
 import '../../../account/domain/usecases/get_user_info.dart';

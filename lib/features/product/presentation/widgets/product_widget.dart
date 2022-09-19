@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,8 +14,8 @@ import '../../domain/entities/product.dart';
 import '../cubit/product/product_cubit.dart';
 
 class ProductWidget extends StatelessWidget {
-  ProductWidget({Key? key, required this.product}) : super(key: key);
-  Product product;
+  const ProductWidget({Key? key, required this.product}) : super(key: key);
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,6 @@ class ProductWidget extends StatelessWidget {
                       right: 15,
                       child: InkWell(
                         onTap: () {
-                          product = product.copyWith(isLike: !product.isLike);
                           context
                               .read<ProductCubit>()
                               .updateFavoriteProduct(product);
@@ -73,7 +73,7 @@ class ProductWidget extends StatelessWidget {
                   ],
                 ),
                 CustomRatingBarWithoutEditing(
-                  rating: product.rate.getOrCrash(),
+                  rating: product.rate,
                 ),
                 CustomText(
                   text: product.name.getOrCrash(),

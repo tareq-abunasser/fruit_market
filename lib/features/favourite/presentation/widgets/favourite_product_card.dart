@@ -34,7 +34,7 @@ class FavouriteProductCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: CustomNetworkImage(
-              imageUrl: _item.imageURL.getOrCrash(),
+              imageUrl: _item.product.imageURL.getOrCrash(),
               width: SizeConfig.defaultSize! * 12,
               height: SizeConfig.defaultSize! * 12,
               imageKey: _item.id.getOrCrash(),
@@ -50,14 +50,14 @@ class FavouriteProductCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: CustomText(
-                        text: _item.name.getOrCrash(),
+                        text: _item.product.name.getOrCrash(),
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
                     ),
                     // const Spacer(),
                     CustomText(
-                      text: "${_item.price.getOrCrash()} Per/kg",
+                      text: "${_item.product.price.getOrCrash()} Per/kg",
                       fontWeight: FontWeight.bold,
                       fontSize: 13,
                     ),
@@ -69,7 +69,7 @@ class FavouriteProductCard extends StatelessWidget {
                   fontSize: 14,
                 ),
                 CustomRatingBarWithoutEditing(
-                  rating: _item.rate.getOrCrash(),
+                  rating: _item.product.rate,
                 ),
                 StatefulBuilder(
                     builder: (BuildContext context, StateSetter setState) {
@@ -127,8 +127,9 @@ class FavouriteProductCard extends StatelessWidget {
                               .read<FavouriteActorCubit>()
                               .deleteFavoriteItem(_item, index);
                         },
-                        favouriteItem: _item,
+                        product: _item.product,
                         quantity: quantity,
+                        text: "Add",
                       )
                     ],
                   );

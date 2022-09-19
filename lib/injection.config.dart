@@ -16,7 +16,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i19;
 import 'package:shared_preferences/shared_preferences.dart' as _i27;
 
-import 'core/firebase/firebase_injectable_module.dart' as _i103;
+import 'core/firebase/firebase_injectable_module.dart' as _i104;
 import 'core/services/hive_manager.dart' as _i18;
 import 'core/services/network_info.dart' as _i20;
 import 'core/services/preferences_helper.dart' as _i50;
@@ -31,8 +31,8 @@ import 'features/account/domain/repositories/i_account_repository.dart' as _i36;
 import 'features/account/domain/usecases/add_user_info.dart' as _i63;
 import 'features/account/domain/usecases/get_profile_image_url.dart' as _i74;
 import 'features/account/domain/usecases/get_user_info.dart' as _i76;
-import 'features/account/domain/usecases/update_user_info.dart' as _i56;
-import 'features/account/domain/usecases/upload_image_file.dart' as _i57;
+import 'features/account/domain/usecases/update_user_info.dart' as _i57;
+import 'features/account/domain/usecases/upload_image_file.dart' as _i58;
 import 'features/account/presentation/cubit/get_user_info/get_user_info_cubit.dart'
     as _i77;
 import 'features/account/presentation/cubit/user_form/user_form_cubit.dart'
@@ -42,18 +42,17 @@ import 'features/auth/data/datasources/auth_remote_data_source.dart' as _i32;
 import 'features/auth/data/repositories/auth_repository.dart' as _i79;
 import 'features/auth/domain/repositories/i_auth_repository.dart' as _i78;
 import 'features/auth/domain/usecases/get_signed_in_user.dart' as _i95;
-import 'features/auth/domain/usecases/sign_in_with_facebook.dart' as _i85;
-import 'features/auth/domain/usecases/sign_in_with_google.dart' as _i86;
-import 'features/auth/domain/usecases/sign_out.dart' as _i87;
+import 'features/auth/domain/usecases/sign_in_with_facebook.dart' as _i86;
+import 'features/auth/domain/usecases/sign_in_with_google.dart' as _i87;
+import 'features/auth/domain/usecases/sign_out.dart' as _i88;
 import 'features/auth/presentation/cubit/auth_cubit.dart' as _i90;
-import 'features/auth/presentation/cubit/sign_in/sign_in_cubit.dart' as _i84;
+import 'features/auth/presentation/cubit/sign_in/sign_in_cubit.dart' as _i85;
 import 'features/cart/data/datasources/cart_hive_manager.dart' as _i6;
 import 'features/cart/data/datasources/cart_local_data_source.dart' as _i7;
 import 'features/cart/data/datasources/cart_remote_data_source.dart' as _i33;
 import 'features/cart/data/repositories/cart_repository.dart' as _i39;
 import 'features/cart/domain/repositories/i_cart_repository.dart' as _i38;
-import 'features/cart/domain/usecases/add_cart_item.dart' as _i58;
-import 'features/cart/domain/usecases/add_orders_item_from_cart.dart' as _i62;
+import 'features/cart/domain/usecases/add_cart_item.dart' as _i59;
 import 'features/cart/domain/usecases/clear_cart.dart' as _i65;
 import 'features/cart/domain/usecases/get_cart_items.dart' as _i69;
 import 'features/cart/domain/usecases/remove_cart_item.dart' as _i51;
@@ -81,8 +80,8 @@ import 'features/favourite/data/datasources/favourite_remote_data_source.dart'
 import 'features/favourite/data/repositories/favourite_repository.dart' as _i43;
 import 'features/favourite/domain/repositories/i_favourite_repository.dart'
     as _i42;
-import 'features/favourite/domain/usecases/add_favourite_item.dart' as _i59;
-import 'features/favourite/domain/usecases/add_item_to_cart.dart' as _i60;
+import 'features/favourite/domain/usecases/add_favourite_item.dart' as _i60;
+import 'features/favourite/domain/usecases/add_item_to_cart.dart' as _i61;
 import 'features/favourite/domain/usecases/clear_favourites.dart' as _i66;
 import 'features/favourite/domain/usecases/delete_favourite_item.dart' as _i67;
 import 'features/favourite/domain/usecases/get_favourite_items.dart' as _i71;
@@ -100,15 +99,19 @@ import 'features/onboarding/domain/repositories/i_onboarding_repository.dart'
 import 'features/onboarding/domain/usecases/get_if_user_time_open_app.dart'
     as _i101;
 import 'features/onboarding/domain/usecases/set_user_open_app_before.dart'
-    as _i99;
+    as _i98;
 import 'features/orders/data/datasources/order_hive_manager.dart' as _i21;
 import 'features/orders/data/datasources/order_local_data_source.dart' as _i22;
 import 'features/orders/data/datasources/order_remote_data_source.dart' as _i23;
 import 'features/orders/data/repositories/order_repository.dart' as _i45;
 import 'features/orders/domain/repositories/i_order_repository.dart' as _i44;
-import 'features/orders/domain/usecases/add_order_items.dart' as _i61;
+import 'features/orders/domain/usecases/add_order_items.dart' as _i62;
 import 'features/orders/domain/usecases/get_orders.dart' as _i72;
-import 'features/orders/presentation/cubit/orders_cubit.dart' as _i82;
+import 'features/orders/domain/usecases/update_order_item.dart' as _i56;
+import 'features/orders/presentation/cubit/orders_actor/orders_actor_cubit.dart'
+    as _i82;
+import 'features/orders/presentation/cubit/orders_watcher/orders_watcher_cubit.dart'
+    as _i83;
 import 'features/product/data/datasources/product_hive_manager.dart' as _i24;
 import 'features/product/data/datasources/product_local_data_source.dart'
     as _i25;
@@ -118,10 +121,11 @@ import 'features/product/data/repositories/product_repository.dart' as _i47;
 import 'features/product/domain/repositories/i_product_repository.dart' as _i46;
 import 'features/product/domain/usecases/get_products.dart' as _i73;
 import 'features/product/domain/usecases/search_products.dart' as _i52;
-import 'features/product/domain/usecases/update_favourite_product.dart' as _i89;
-import 'features/product/presentation/cubit/product/product_cubit.dart' as _i98;
-import 'features/product/presentation/search_bloc/search_bloc.dart' as _i83;
-import 'features/splash/domain/splash_router.dart' as _i102;
+import 'features/product/domain/usecases/update_favourite_product.dart' as _i99;
+import 'features/product/presentation/cubit/product/product_cubit.dart'
+    as _i102;
+import 'features/product/presentation/search_bloc/search_bloc.dart' as _i84;
+import 'features/splash/domain/splash_router.dart' as _i103;
 import 'features/subcategory/data/datasources/subcategory_hive_manager.dart'
     as _i28;
 import 'features/subcategory/data/datasources/subcategory_local_data_source.dart'
@@ -133,7 +137,7 @@ import 'features/subcategory/data/repositories/subcategory_repository.dart'
 import 'features/subcategory/domain/repositories/i_subcategory_repository.dart'
     as _i48;
 import 'features/subcategory/domain/usecases/get_subcategories.dart' as _i75;
-import 'features/subcategory/presentation/cubit/subcategory_cubit.dart' as _i88;
+import 'features/subcategory/presentation/cubit/subcategory_cubit.dart' as _i89;
 import 'localization/localization_service.dart'
     as _i80; // ignore_for_file: unnecessary_lambdas
 
@@ -236,20 +240,20 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i54.UpdateCart(get<_i38.ICartRepository>()));
   gh.lazySingleton<_i55.UpdateCartItem>(
       () => _i55.UpdateCartItem(get<_i38.ICartRepository>()));
-  gh.lazySingleton<_i56.UpdateUserInfo>(
-      () => _i56.UpdateUserInfo(get<_i36.IAccountRepository>()));
-  gh.lazySingleton<_i57.UploadImageFile>(
-      () => _i57.UploadImageFile(get<_i36.IAccountRepository>()));
-  gh.lazySingleton<_i58.AddCartItem>(
-      () => _i58.AddCartItem(get<_i38.ICartRepository>()));
-  gh.lazySingleton<_i59.AddFavouriteItem>(
-      () => _i59.AddFavouriteItem(get<_i42.IFavouriteRepository>()));
-  gh.lazySingleton<_i60.AddItemToCart>(
-      () => _i60.AddItemToCart(get<_i58.AddCartItem>()));
-  gh.lazySingleton<_i61.AddOrderItems>(
-      () => _i61.AddOrderItems(get<_i44.IOrderRepository>()));
-  gh.lazySingleton<_i62.AddOrderItemsFomCart>(
-      () => _i62.AddOrderItemsFomCart(get<_i61.AddOrderItems>()));
+  gh.lazySingleton<_i56.UpdateOrderItem>(
+      () => _i56.UpdateOrderItem(get<_i44.IOrderRepository>()));
+  gh.lazySingleton<_i57.UpdateUserInfo>(
+      () => _i57.UpdateUserInfo(get<_i36.IAccountRepository>()));
+  gh.lazySingleton<_i58.UploadImageFile>(
+      () => _i58.UploadImageFile(get<_i36.IAccountRepository>()));
+  gh.lazySingleton<_i59.AddCartItem>(
+      () => _i59.AddCartItem(get<_i38.ICartRepository>()));
+  gh.lazySingleton<_i60.AddFavouriteItem>(
+      () => _i60.AddFavouriteItem(get<_i42.IFavouriteRepository>()));
+  gh.lazySingleton<_i61.AddItemToCart>(
+      () => _i61.AddItemToCart(get<_i59.AddCartItem>()));
+  gh.lazySingleton<_i62.AddOrderItems>(
+      () => _i62.AddOrderItems(get<_i44.IOrderRepository>()));
   gh.lazySingleton<_i63.AddUserInfo>(
       () => _i63.AddUserInfo(get<_i36.IAccountRepository>()));
   gh.lazySingleton<_i64.AuthLocalDataSource>(() => _i64.AuthLocalDataSourceImpl(
@@ -288,26 +292,27 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       _i80.LocalizationService(get<_i50.PreferencesHelper>()));
   gh.lazySingleton<_i81.OnBoardingLocalDataSource>(
       () => _i81.OnBoardingLocalDataSourceImpl(get<_i50.PreferencesHelper>()));
-  gh.factory<_i82.OrdersCubit>(() => _i82.OrdersCubit(get<_i72.GetOrders>()));
-  gh.factory<_i83.SearchBloc>(
-      () => _i83.SearchBloc(get<_i52.SearchProducts>()));
-  gh.factory<_i84.SignInCubit>(
-      () => _i84.SignInCubit(get<_i78.IAuthRepository>()));
-  gh.lazySingleton<_i85.SignInWithFacebook>(
-      () => _i85.SignInWithFacebook(get<_i78.IAuthRepository>()));
-  gh.lazySingleton<_i86.SignInWithGoogle>(
-      () => _i86.SignInWithGoogle(get<_i78.IAuthRepository>()));
-  gh.lazySingleton<_i87.SignOut>(
-      () => _i87.SignOut(get<_i78.IAuthRepository>()));
-  gh.factory<_i88.SubcategoryCubit>(
-      () => _i88.SubcategoryCubit(get<_i75.GetSubcategories>()));
-  gh.lazySingleton<_i89.UpdateFavouriteProduct>(() =>
-      _i89.UpdateFavouriteProduct(get<_i59.AddFavouriteItem>(),
-          get<_i67.DeleteFavouriteItem>(), get<_i46.IProductRepository>()));
+  gh.factory<_i82.OrdersActorCubit>(
+      () => _i82.OrdersActorCubit(get<_i56.UpdateOrderItem>()));
+  gh.factory<_i83.OrdersWatcherCubit>(
+      () => _i83.OrdersWatcherCubit(get<_i72.GetOrders>()));
+  gh.factory<_i84.SearchBloc>(
+      () => _i84.SearchBloc(get<_i52.SearchProducts>()));
+  gh.factory<_i85.SignInCubit>(
+      () => _i85.SignInCubit(get<_i78.IAuthRepository>()));
+  gh.lazySingleton<_i86.SignInWithFacebook>(
+      () => _i86.SignInWithFacebook(get<_i78.IAuthRepository>()));
+  gh.lazySingleton<_i87.SignInWithGoogle>(
+      () => _i87.SignInWithGoogle(get<_i78.IAuthRepository>()));
+  gh.lazySingleton<_i88.SignOut>(
+      () => _i88.SignOut(get<_i78.IAuthRepository>()));
+  gh.factory<_i89.SubcategoryCubit>(
+      () => _i89.SubcategoryCubit(get<_i75.GetSubcategories>()));
   gh.factory<_i90.AuthCubit>(() => _i90.AuthCubit(get<_i78.IAuthRepository>()));
   gh.factory<_i91.CartActorCubit>(() => _i91.CartActorCubit(
-      get<_i58.AddCartItem>(),
+      get<_i59.AddCartItem>(),
       get<_i65.ClearCart>(),
+      get<_i62.AddOrderItems>(),
       get<_i51.RemoveCartItem>(),
       get<_i55.UpdateCartItem>()));
   gh.factory<_i92.CartWatcherCubit>(
@@ -320,23 +325,29 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i95.GetSignedInUser(get<_i78.IAuthRepository>()));
   gh.lazySingleton<_i96.IOnBoardingRepository>(
       () => _i97.OnBoardingRepository(get<_i81.OnBoardingLocalDataSource>()));
-  gh.factory<_i98.ProductCubit>(
-      () => _i98.ProductCubit(get<_i89.UpdateFavouriteProduct>()));
-  gh.lazySingleton<_i99.SetUserOpenAppBefore>(
-      () => _i99.SetUserOpenAppBefore(get<_i96.IOnBoardingRepository>()));
+  gh.lazySingleton<_i98.SetUserOpenAppBefore>(
+      () => _i98.SetUserOpenAppBefore(get<_i96.IOnBoardingRepository>()));
+  gh.lazySingleton<_i99.UpdateFavouriteProduct>(() =>
+      _i99.UpdateFavouriteProduct(
+          get<_i60.AddFavouriteItem>(),
+          get<_i67.DeleteFavouriteItem>(),
+          get<_i46.IProductRepository>(),
+          get<_i95.GetSignedInUser>()));
   gh.factory<_i100.UserFormCubit>(() => _i100.UserFormCubit(
       get<_i63.AddUserInfo>(),
-      get<_i56.UpdateUserInfo>(),
+      get<_i57.UpdateUserInfo>(),
       get<_i74.GetProfileImageURL>(),
-      get<_i57.UploadImageFile>(),
+      get<_i58.UploadImageFile>(),
       get<_i95.GetSignedInUser>()));
   gh.lazySingleton<_i101.GetIfUserFirstTimeToOpenApp>(() =>
       _i101.GetIfUserFirstTimeToOpenApp(get<_i96.IOnBoardingRepository>()));
-  gh.factory<_i102.SplashRouter>(() => _i102.SplashRouter(
+  gh.factory<_i102.ProductCubit>(
+      () => _i102.ProductCubit(get<_i99.UpdateFavouriteProduct>()));
+  gh.factory<_i103.SplashRouter>(() => _i103.SplashRouter(
       get<_i95.GetSignedInUser>(),
       get<_i101.GetIfUserFirstTimeToOpenApp>(),
       get<_i76.GetUserInfo>()));
   return get;
 }
 
-class _$FirebaseInjectableModule extends _i103.FirebaseInjectableModule {}
+class _$FirebaseInjectableModule extends _i104.FirebaseInjectableModule {}

@@ -14,4 +14,6 @@ abstract class User implements _$User {
   const factory User({
     required UniqueId uniqueId,
   }) = _User;
+
+  get id => uniqueId.getOrCrash();
 }

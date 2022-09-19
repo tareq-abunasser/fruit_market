@@ -26,7 +26,7 @@ class CartItemCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsDirectional.only(end: 15.0),
             child: CustomNetworkImage(
-              imageUrl: _cartItem.imageURL.getOrCrash(),
+              imageUrl: _cartItem.product.imageURL.getOrCrash(),
               width: SizeConfig.defaultSize! * 12,
               height: SizeConfig.defaultSize! * 12,
               imageKey: _cartItem.id.getOrCrash(),
@@ -42,7 +42,7 @@ class CartItemCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: CustomText(
-                          text: _cartItem.name.getOrCrash(),
+                          text: _cartItem.product.name.getOrCrash(),
                           fontWeight: FontWeight.bold,
                           fontSize: 14),
                     ),
@@ -81,7 +81,7 @@ class CartItemCard extends StatelessWidget {
                 ),
                 CustomText(
                     text:
-                        "${_cartItem.currentPrice.getOrCrash().ceil()} Per/kg",
+                        "${_cartItem.product.price.getOrCrash().ceil()} Per/kg",
                     fontWeight: FontWeight.bold,
                     fontSize: 14),
                 Row(

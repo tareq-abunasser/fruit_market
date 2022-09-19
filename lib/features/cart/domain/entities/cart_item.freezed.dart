@@ -20,19 +20,11 @@ class _$CartItemTearOff {
 
   _CartItem call(
       {required UniqueId id,
-      required ItemName name,
-      required ImageURL imageURL,
-      required Price currentPrice,
-      required Price oldPrice,
-      required Price saved,
+      required Product product,
       required Quantity quantity}) {
     return _CartItem(
       id: id,
-      name: name,
-      imageURL: imageURL,
-      currentPrice: currentPrice,
-      oldPrice: oldPrice,
-      saved: saved,
+      product: product,
       quantity: quantity,
     );
   }
@@ -44,11 +36,7 @@ const $CartItem = _$CartItemTearOff();
 /// @nodoc
 mixin _$CartItem {
   UniqueId get id => throw _privateConstructorUsedError;
-  ItemName get name => throw _privateConstructorUsedError;
-  ImageURL get imageURL => throw _privateConstructorUsedError;
-  Price get currentPrice => throw _privateConstructorUsedError;
-  Price get oldPrice => throw _privateConstructorUsedError;
-  Price get saved => throw _privateConstructorUsedError;
+  Product get product => throw _privateConstructorUsedError;
   Quantity get quantity => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -60,14 +48,9 @@ mixin _$CartItem {
 abstract class $CartItemCopyWith<$Res> {
   factory $CartItemCopyWith(CartItem value, $Res Function(CartItem) then) =
       _$CartItemCopyWithImpl<$Res>;
-  $Res call(
-      {UniqueId id,
-      ItemName name,
-      ImageURL imageURL,
-      Price currentPrice,
-      Price oldPrice,
-      Price saved,
-      Quantity quantity});
+  $Res call({UniqueId id, Product product, Quantity quantity});
+
+  $ProductCopyWith<$Res> get product;
 }
 
 /// @nodoc
@@ -81,11 +64,7 @@ class _$CartItemCopyWithImpl<$Res> implements $CartItemCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? imageURL = freezed,
-    Object? currentPrice = freezed,
-    Object? oldPrice = freezed,
-    Object? saved = freezed,
+    Object? product = freezed,
     Object? quantity = freezed,
   }) {
     return _then(_value.copyWith(
@@ -93,31 +72,22 @@ class _$CartItemCopyWithImpl<$Res> implements $CartItemCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as UniqueId,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as ItemName,
-      imageURL: imageURL == freezed
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
-              as ImageURL,
-      currentPrice: currentPrice == freezed
-          ? _value.currentPrice
-          : currentPrice // ignore: cast_nullable_to_non_nullable
-              as Price,
-      oldPrice: oldPrice == freezed
-          ? _value.oldPrice
-          : oldPrice // ignore: cast_nullable_to_non_nullable
-              as Price,
-      saved: saved == freezed
-          ? _value.saved
-          : saved // ignore: cast_nullable_to_non_nullable
-              as Price,
+      product: product == freezed
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as Product,
       quantity: quantity == freezed
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as Quantity,
     ));
+  }
+
+  @override
+  $ProductCopyWith<$Res> get product {
+    return $ProductCopyWith<$Res>(_value.product, (value) {
+      return _then(_value.copyWith(product: value));
+    });
   }
 }
 
@@ -126,14 +96,10 @@ abstract class _$CartItemCopyWith<$Res> implements $CartItemCopyWith<$Res> {
   factory _$CartItemCopyWith(_CartItem value, $Res Function(_CartItem) then) =
       __$CartItemCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {UniqueId id,
-      ItemName name,
-      ImageURL imageURL,
-      Price currentPrice,
-      Price oldPrice,
-      Price saved,
-      Quantity quantity});
+  $Res call({UniqueId id, Product product, Quantity quantity});
+
+  @override
+  $ProductCopyWith<$Res> get product;
 }
 
 /// @nodoc
@@ -148,11 +114,7 @@ class __$CartItemCopyWithImpl<$Res> extends _$CartItemCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? imageURL = freezed,
-    Object? currentPrice = freezed,
-    Object? oldPrice = freezed,
-    Object? saved = freezed,
+    Object? product = freezed,
     Object? quantity = freezed,
   }) {
     return _then(_CartItem(
@@ -160,26 +122,10 @@ class __$CartItemCopyWithImpl<$Res> extends _$CartItemCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as UniqueId,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as ItemName,
-      imageURL: imageURL == freezed
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
-              as ImageURL,
-      currentPrice: currentPrice == freezed
-          ? _value.currentPrice
-          : currentPrice // ignore: cast_nullable_to_non_nullable
-              as Price,
-      oldPrice: oldPrice == freezed
-          ? _value.oldPrice
-          : oldPrice // ignore: cast_nullable_to_non_nullable
-              as Price,
-      saved: saved == freezed
-          ? _value.saved
-          : saved // ignore: cast_nullable_to_non_nullable
-              as Price,
+      product: product == freezed
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as Product,
       quantity: quantity == freezed
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -192,33 +138,19 @@ class __$CartItemCopyWithImpl<$Res> extends _$CartItemCopyWithImpl<$Res>
 
 class _$_CartItem extends _CartItem {
   const _$_CartItem(
-      {required this.id,
-      required this.name,
-      required this.imageURL,
-      required this.currentPrice,
-      required this.oldPrice,
-      required this.saved,
-      required this.quantity})
+      {required this.id, required this.product, required this.quantity})
       : super._();
 
   @override
   final UniqueId id;
   @override
-  final ItemName name;
-  @override
-  final ImageURL imageURL;
-  @override
-  final Price currentPrice;
-  @override
-  final Price oldPrice;
-  @override
-  final Price saved;
+  final Product product;
   @override
   final Quantity quantity;
 
   @override
   String toString() {
-    return 'CartItem(id: $id, name: $name, imageURL: $imageURL, currentPrice: $currentPrice, oldPrice: $oldPrice, saved: $saved, quantity: $quantity)';
+    return 'CartItem(id: $id, product: $product, quantity: $quantity)';
   }
 
   @override
@@ -227,12 +159,7 @@ class _$_CartItem extends _CartItem {
         (other.runtimeType == runtimeType &&
             other is _CartItem &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.imageURL, imageURL) &&
-            const DeepCollectionEquality()
-                .equals(other.currentPrice, currentPrice) &&
-            const DeepCollectionEquality().equals(other.oldPrice, oldPrice) &&
-            const DeepCollectionEquality().equals(other.saved, saved) &&
+            const DeepCollectionEquality().equals(other.product, product) &&
             const DeepCollectionEquality().equals(other.quantity, quantity));
   }
 
@@ -240,11 +167,7 @@ class _$_CartItem extends _CartItem {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(imageURL),
-      const DeepCollectionEquality().hash(currentPrice),
-      const DeepCollectionEquality().hash(oldPrice),
-      const DeepCollectionEquality().hash(saved),
+      const DeepCollectionEquality().hash(product),
       const DeepCollectionEquality().hash(quantity));
 
   @JsonKey(ignore: true)
@@ -256,26 +179,14 @@ class _$_CartItem extends _CartItem {
 abstract class _CartItem extends CartItem {
   const factory _CartItem(
       {required UniqueId id,
-      required ItemName name,
-      required ImageURL imageURL,
-      required Price currentPrice,
-      required Price oldPrice,
-      required Price saved,
+      required Product product,
       required Quantity quantity}) = _$_CartItem;
   const _CartItem._() : super._();
 
   @override
   UniqueId get id;
   @override
-  ItemName get name;
-  @override
-  ImageURL get imageURL;
-  @override
-  Price get currentPrice;
-  @override
-  Price get oldPrice;
-  @override
-  Price get saved;
+  Product get product;
   @override
   Quantity get quantity;
   @override

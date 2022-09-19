@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_market/core/constants.dart';
+import 'package:fruit_market/core/constant/constants.dart';
 import 'package:get/get.dart';
 import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/custom_text_field.dart';

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/entities/failures.dart';
@@ -18,10 +19,10 @@ abstract class Product implements _$Product {
     required ItemName name,
     required Price price,
     required ImageURL imageURL,
-    required Rate rate,
+    required Map<String, double> rates,
     required Nutrition nutrition,
     required Description desc,
-    required bool isLike,
+    required List<String> likes,
     required Discount discount,
   }) = _Product;
 
@@ -29,24 +30,37 @@ abstract class Product implements _$Product {
     return name.failureOrUnit
         .andThen(price.failureOrUnit)
         .andThen(imageURL.failureOrUnit)
-        .andThen(rate.failureOrUnit)
         .andThen(nutrition.failureOrUnit)
         .andThen(desc.failureOrUnit)
         .andThen(discount.failureOrUnit)
         .fold((f) => some(f), (_) => none());
   }
 
-  // CartItem toCartItem(int quantity) {
-  //   return CartItem(
-  //     id: this.id,
-  //     name: name,
-  //     imageURL: imageURL,
-  //     currentPrice: price,
-  //     oldPrice: Price(price.getOrCrash() +
-  //         price.getOrCrash() * discount.getOrCrash()),
-  //     saved: Price(price.getOrCrash() * discount.getOrCrash()),
-  //     quantity: Quantity(quantity),
-  //   );
-  // }
+  factory Product.empty() {
+    return Product(
+      id: UniqueId(),
+      name: ItemName(''),
+      price: Price(0),
+      imageURL: ImageURL(''),
+      rates: {},
+      nutrition: Nutrition({}),
+      desc: Description(''),
+      discount: Discount(0),
+      likes: [],
+      parentId: UniqueId(),
+    );
+  }
 
+  bool get isLike {
+    return likes.contains(FirebaseAuth.instance.currentUser!.uid);
+  }
+
+  double get rate {
+    double allRates = 0;
+    rates.forEach((key, value) {
+      allRates += value;
+    });
+    double rate = allRates / rates.length;
+    return rate;
+  }
 }

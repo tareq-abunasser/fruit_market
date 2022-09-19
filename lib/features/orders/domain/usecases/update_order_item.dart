@@ -6,13 +6,12 @@ import '../entities/order_item.dart';
 import '../repositories/i_order_repository.dart';
 
 @LazySingleton()
-class AddOrderItems {
+class UpdateOrderItem {
   final IOrderRepository _repository;
 
-  AddOrderItems(this._repository);
+  UpdateOrderItem(this._repository);
 
-  Future<Either<Failure, Unit>> call(List<OrderItem> items) async {
-
-    return await _repository.addToOrders(items);
+  Future<Either<Failure, Unit>> call(OrderItem item) async {
+    return await _repository.updateOrderItem(item);
   }
 }

@@ -18,7 +18,13 @@ class CustomBottomSheet extends StatelessWidget {
       height: 80,
       color: Theme.of(context).primaryColor,
       child: Center(
-        child: TextButton(
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary:  const Color.fromARGB(250, 10, 100, 10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
           onPressed: () {
             Get.toNamed(
               MobileRoutes.UserForm,

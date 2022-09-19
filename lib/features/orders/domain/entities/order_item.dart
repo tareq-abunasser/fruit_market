@@ -5,6 +5,7 @@ import '../../../../core/entities/failures.dart';
 import '../../../../core/entities/value_objects.dart';
 import '../../../cart/domain/entities/cart_item.dart';
 import '../../../cart/domain/entities/value_objects.dart';
+import 'package:intl/intl.dart';
 
 part 'order_item.freezed.dart';
 
@@ -14,25 +15,35 @@ abstract class OrderItem implements _$OrderItem {
 
   const factory OrderItem({
     required UniqueId id,
-    required ItemName name,
-    required ImageURL imageURL,
+    required CartItem cartItem,
+    required DateTime orderAt,
     required double rate,
-    required DateTime deliveredOn,
-  }) = _Product;
+  }) = _OrderItem;
 
   factory OrderItem.empty() {
     return OrderItem(
       id: UniqueId(),
-      name: ItemName(''),
-      imageURL: ImageURL(''),
+      cartItem: CartItem.empty(),
       rate: 0,
-      deliveredOn: DateTime.now(),
+      orderAt: DateTime.now(),
+    );
+  }
+
+  factory OrderItem.fromCartItem(CartItem cartItem) {
+    return OrderItem(
+      id: UniqueId(),
+      cartItem: cartItem,
+      rate: 0,
+      orderAt: DateTime.now(),
     );
   }
 
   Option<ValueFailure<dynamic>> get failureOption {
-    return name.failureOrUnit
-        .andThen(imageURL.failureOrUnit)
-        .fold((f) => some(f), (_) => none());
+    return cartItem.failureOption.fold(() => none(), (f) => some(f));
+  }
+  get orderAtFormatted {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm');
+    final String formatted = formatter.format(orderAt);
+    return  formatted; // something like 2013-04-20
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/constants.dart';
+import '../../../../core/constant/constants.dart';
 import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../injection.dart';

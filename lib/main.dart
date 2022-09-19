@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import 'core/services/MyBlocObserver.dart';
 import 'core/services/hive_manager.dart';
-import 'core/services/init_app.dart';
 import 'core/widgets/app_widget.dart';
 import 'features/splash/domain/splash_router.dart';
 import 'firebase_options.dart';
@@ -21,6 +20,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Get.printInfo(info: "Firebase initialized");
   await getIt<HiveManager>().init();
+  getIt<HiveManager>().clear();
   Get.printInfo(info: "HiveManager initialized all Boxes");
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await getIt<SplashRouter>().call();

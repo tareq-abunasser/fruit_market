@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_market/core/widgets/custom_images.dart';
 
-import '../../../../core/constants.dart';
+import '../../../../core/constant/constants.dart';
 import '../../../../core/services/size_config.dart';
 import 'circle_icon_widget.dart';
 

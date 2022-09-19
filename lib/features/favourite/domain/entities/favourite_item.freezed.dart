@@ -18,20 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$FavouriteItemTearOff {
   const _$FavouriteItemTearOff();
 
-  _Product call(
-      {required UniqueId id,
-      required ItemName name,
-      required Price price,
-      required ImageURL imageURL,
-      required Rate rate,
-      required Discount discount}) {
-    return _Product(
+  _FavouriteItem call({required UniqueId id, required Product product}) {
+    return _FavouriteItem(
       id: id,
-      name: name,
-      price: price,
-      imageURL: imageURL,
-      rate: rate,
-      discount: discount,
+      product: product,
     );
   }
 }
@@ -42,11 +32,7 @@ const $FavouriteItem = _$FavouriteItemTearOff();
 /// @nodoc
 mixin _$FavouriteItem {
   UniqueId get id => throw _privateConstructorUsedError;
-  ItemName get name => throw _privateConstructorUsedError;
-  Price get price => throw _privateConstructorUsedError;
-  ImageURL get imageURL => throw _privateConstructorUsedError;
-  Rate get rate => throw _privateConstructorUsedError;
-  Discount get discount => throw _privateConstructorUsedError;
+  Product get product => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FavouriteItemCopyWith<FavouriteItem> get copyWith =>
@@ -58,13 +44,9 @@ abstract class $FavouriteItemCopyWith<$Res> {
   factory $FavouriteItemCopyWith(
           FavouriteItem value, $Res Function(FavouriteItem) then) =
       _$FavouriteItemCopyWithImpl<$Res>;
-  $Res call(
-      {UniqueId id,
-      ItemName name,
-      Price price,
-      ImageURL imageURL,
-      Rate rate,
-      Discount discount});
+  $Res call({UniqueId id, Product product});
+
+  $ProductCopyWith<$Res> get product;
 }
 
 /// @nodoc
@@ -79,185 +61,117 @@ class _$FavouriteItemCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? price = freezed,
-    Object? imageURL = freezed,
-    Object? rate = freezed,
-    Object? discount = freezed,
+    Object? product = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as UniqueId,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as ItemName,
-      price: price == freezed
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as Price,
-      imageURL: imageURL == freezed
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
-              as ImageURL,
-      rate: rate == freezed
-          ? _value.rate
-          : rate // ignore: cast_nullable_to_non_nullable
-              as Rate,
-      discount: discount == freezed
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
-              as Discount,
+      product: product == freezed
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as Product,
     ));
+  }
+
+  @override
+  $ProductCopyWith<$Res> get product {
+    return $ProductCopyWith<$Res>(_value.product, (value) {
+      return _then(_value.copyWith(product: value));
+    });
   }
 }
 
 /// @nodoc
-abstract class _$ProductCopyWith<$Res> implements $FavouriteItemCopyWith<$Res> {
-  factory _$ProductCopyWith(_Product value, $Res Function(_Product) then) =
-      __$ProductCopyWithImpl<$Res>;
+abstract class _$FavouriteItemCopyWith<$Res>
+    implements $FavouriteItemCopyWith<$Res> {
+  factory _$FavouriteItemCopyWith(
+          _FavouriteItem value, $Res Function(_FavouriteItem) then) =
+      __$FavouriteItemCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {UniqueId id,
-      ItemName name,
-      Price price,
-      ImageURL imageURL,
-      Rate rate,
-      Discount discount});
+  $Res call({UniqueId id, Product product});
+
+  @override
+  $ProductCopyWith<$Res> get product;
 }
 
 /// @nodoc
-class __$ProductCopyWithImpl<$Res> extends _$FavouriteItemCopyWithImpl<$Res>
-    implements _$ProductCopyWith<$Res> {
-  __$ProductCopyWithImpl(_Product _value, $Res Function(_Product) _then)
-      : super(_value, (v) => _then(v as _Product));
+class __$FavouriteItemCopyWithImpl<$Res>
+    extends _$FavouriteItemCopyWithImpl<$Res>
+    implements _$FavouriteItemCopyWith<$Res> {
+  __$FavouriteItemCopyWithImpl(
+      _FavouriteItem _value, $Res Function(_FavouriteItem) _then)
+      : super(_value, (v) => _then(v as _FavouriteItem));
 
   @override
-  _Product get _value => super._value as _Product;
+  _FavouriteItem get _value => super._value as _FavouriteItem;
 
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? price = freezed,
-    Object? imageURL = freezed,
-    Object? rate = freezed,
-    Object? discount = freezed,
+    Object? product = freezed,
   }) {
-    return _then(_Product(
+    return _then(_FavouriteItem(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as UniqueId,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as ItemName,
-      price: price == freezed
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as Price,
-      imageURL: imageURL == freezed
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
-              as ImageURL,
-      rate: rate == freezed
-          ? _value.rate
-          : rate // ignore: cast_nullable_to_non_nullable
-              as Rate,
-      discount: discount == freezed
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
-              as Discount,
+      product: product == freezed
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as Product,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_Product extends _Product {
-  const _$_Product(
-      {required this.id,
-      required this.name,
-      required this.price,
-      required this.imageURL,
-      required this.rate,
-      required this.discount})
-      : super._();
+class _$_FavouriteItem extends _FavouriteItem {
+  const _$_FavouriteItem({required this.id, required this.product}) : super._();
 
   @override
   final UniqueId id;
   @override
-  final ItemName name;
-  @override
-  final Price price;
-  @override
-  final ImageURL imageURL;
-  @override
-  final Rate rate;
-  @override
-  final Discount discount;
+  final Product product;
 
   @override
   String toString() {
-    return 'FavouriteItem(id: $id, name: $name, price: $price, imageURL: $imageURL, rate: $rate, discount: $discount)';
+    return 'FavouriteItem(id: $id, product: $product)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Product &&
+            other is _FavouriteItem &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.price, price) &&
-            const DeepCollectionEquality().equals(other.imageURL, imageURL) &&
-            const DeepCollectionEquality().equals(other.rate, rate) &&
-            const DeepCollectionEquality().equals(other.discount, discount));
+            const DeepCollectionEquality().equals(other.product, product));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(price),
-      const DeepCollectionEquality().hash(imageURL),
-      const DeepCollectionEquality().hash(rate),
-      const DeepCollectionEquality().hash(discount));
+      const DeepCollectionEquality().hash(product));
 
   @JsonKey(ignore: true)
   @override
-  _$ProductCopyWith<_Product> get copyWith =>
-      __$ProductCopyWithImpl<_Product>(this, _$identity);
+  _$FavouriteItemCopyWith<_FavouriteItem> get copyWith =>
+      __$FavouriteItemCopyWithImpl<_FavouriteItem>(this, _$identity);
 }
 
-abstract class _Product extends FavouriteItem {
-  const factory _Product(
-      {required UniqueId id,
-      required ItemName name,
-      required Price price,
-      required ImageURL imageURL,
-      required Rate rate,
-      required Discount discount}) = _$_Product;
-  const _Product._() : super._();
+abstract class _FavouriteItem extends FavouriteItem {
+  const factory _FavouriteItem(
+      {required UniqueId id, required Product product}) = _$_FavouriteItem;
+  const _FavouriteItem._() : super._();
 
   @override
   UniqueId get id;
   @override
-  ItemName get name;
-  @override
-  Price get price;
-  @override
-  ImageURL get imageURL;
-  @override
-  Rate get rate;
-  @override
-  Discount get discount;
+  Product get product;
   @override
   @JsonKey(ignore: true)
-  _$ProductCopyWith<_Product> get copyWith =>
+  _$FavouriteItemCopyWith<_FavouriteItem> get copyWith =>
       throw _privateConstructorUsedError;
 }

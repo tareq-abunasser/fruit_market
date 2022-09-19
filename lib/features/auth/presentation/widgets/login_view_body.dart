@@ -4,7 +4,7 @@ import 'package:fruit_market/features/auth/presentation/cubit/sign_in/sign_in_cu
 import 'package:fruit_market/routes/mobile_app_pages.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/constants.dart';
+import '../../../../core/constant/constants.dart';
 import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/custom_buttons.dart';
 import '../../../../core/widgets/space_widget.dart';

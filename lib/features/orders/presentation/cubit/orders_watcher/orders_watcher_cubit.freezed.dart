@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'orders_cubit.dart';
+part of 'orders_watcher_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,8 +15,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$OrdersStateTearOff {
-  const _$OrdersStateTearOff();
+class _$OrdersWatcherStateTearOff {
+  const _$OrdersWatcherStateTearOff();
 
   _Initial initial() {
     return const _Initial();
@@ -40,10 +40,10 @@ class _$OrdersStateTearOff {
 }
 
 /// @nodoc
-const $OrdersState = _$OrdersStateTearOff();
+const $OrdersWatcherState = _$OrdersWatcherStateTearOff();
 
 /// @nodoc
-mixin _$OrdersState {
+mixin _$OrdersWatcherState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -97,19 +97,20 @@ mixin _$OrdersState {
 }
 
 /// @nodoc
-abstract class $OrdersStateCopyWith<$Res> {
-  factory $OrdersStateCopyWith(
-          OrdersState value, $Res Function(OrdersState) then) =
-      _$OrdersStateCopyWithImpl<$Res>;
+abstract class $OrdersWatcherStateCopyWith<$Res> {
+  factory $OrdersWatcherStateCopyWith(
+          OrdersWatcherState value, $Res Function(OrdersWatcherState) then) =
+      _$OrdersWatcherStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$OrdersStateCopyWithImpl<$Res> implements $OrdersStateCopyWith<$Res> {
-  _$OrdersStateCopyWithImpl(this._value, this._then);
+class _$OrdersWatcherStateCopyWithImpl<$Res>
+    implements $OrdersWatcherStateCopyWith<$Res> {
+  _$OrdersWatcherStateCopyWithImpl(this._value, this._then);
 
-  final OrdersState _value;
+  final OrdersWatcherState _value;
   // ignore: unused_field
-  final $Res Function(OrdersState) _then;
+  final $Res Function(OrdersWatcherState) _then;
 }
 
 /// @nodoc
@@ -119,7 +120,8 @@ abstract class _$InitialCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$InitialCopyWithImpl<$Res> extends _$OrdersStateCopyWithImpl<$Res>
+class __$InitialCopyWithImpl<$Res>
+    extends _$OrdersWatcherStateCopyWithImpl<$Res>
     implements _$InitialCopyWith<$Res> {
   __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
       : super(_value, (v) => _then(v as _Initial));
@@ -135,7 +137,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'OrdersState.initial()';
+    return 'OrdersWatcherState.initial()';
   }
 
   @override
@@ -222,7 +224,7 @@ class _$_Initial implements _Initial {
   }
 }
 
-abstract class _Initial implements OrdersState {
+abstract class _Initial implements OrdersWatcherState {
   const factory _Initial() = _$_Initial;
 }
 
@@ -235,7 +237,7 @@ abstract class _$LoadInProgressCopyWith<$Res> {
 
 /// @nodoc
 class __$LoadInProgressCopyWithImpl<$Res>
-    extends _$OrdersStateCopyWithImpl<$Res>
+    extends _$OrdersWatcherStateCopyWithImpl<$Res>
     implements _$LoadInProgressCopyWith<$Res> {
   __$LoadInProgressCopyWithImpl(
       _LoadInProgress _value, $Res Function(_LoadInProgress) _then)
@@ -252,7 +254,7 @@ class _$_LoadInProgress implements _LoadInProgress {
 
   @override
   String toString() {
-    return 'OrdersState.loadInProgress()';
+    return 'OrdersWatcherState.loadInProgress()';
   }
 
   @override
@@ -339,7 +341,7 @@ class _$_LoadInProgress implements _LoadInProgress {
   }
 }
 
-abstract class _LoadInProgress implements OrdersState {
+abstract class _LoadInProgress implements OrdersWatcherState {
   const factory _LoadInProgress() = _$_LoadInProgress;
 }
 
@@ -352,7 +354,8 @@ abstract class _$LoadSuccessCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$LoadSuccessCopyWithImpl<$Res> extends _$OrdersStateCopyWithImpl<$Res>
+class __$LoadSuccessCopyWithImpl<$Res>
+    extends _$OrdersWatcherStateCopyWithImpl<$Res>
     implements _$LoadSuccessCopyWith<$Res> {
   __$LoadSuccessCopyWithImpl(
       _LoadSuccess _value, $Res Function(_LoadSuccess) _then)
@@ -384,7 +387,7 @@ class _$_LoadSuccess implements _LoadSuccess {
 
   @override
   String toString() {
-    return 'OrdersState.loadSuccess(orders: $orders)';
+    return 'OrdersWatcherState.loadSuccess(orders: $orders)';
   }
 
   @override
@@ -479,7 +482,7 @@ class _$_LoadSuccess implements _LoadSuccess {
   }
 }
 
-abstract class _LoadSuccess implements OrdersState {
+abstract class _LoadSuccess implements OrdersWatcherState {
   const factory _LoadSuccess(List<OrderItem> orders) = _$_LoadSuccess;
 
   List<OrderItem> get orders;
@@ -499,7 +502,8 @@ abstract class _$LoadFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$LoadFailureCopyWithImpl<$Res> extends _$OrdersStateCopyWithImpl<$Res>
+class __$LoadFailureCopyWithImpl<$Res>
+    extends _$OrdersWatcherStateCopyWithImpl<$Res>
     implements _$LoadFailureCopyWith<$Res> {
   __$LoadFailureCopyWithImpl(
       _LoadFailure _value, $Res Function(_LoadFailure) _then)
@@ -538,7 +542,7 @@ class _$_LoadFailure implements _LoadFailure {
 
   @override
   String toString() {
-    return 'OrdersState.loadFailure(failure: $failure)';
+    return 'OrdersWatcherState.loadFailure(failure: $failure)';
   }
 
   @override
@@ -633,7 +637,7 @@ class _$_LoadFailure implements _LoadFailure {
   }
 }
 
-abstract class _LoadFailure implements OrdersState {
+abstract class _LoadFailure implements OrdersWatcherState {
   const factory _LoadFailure(Failure failure) = _$_LoadFailure;
 
   Failure get failure;

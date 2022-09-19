@@ -24,10 +24,10 @@ class _$ProductTearOff {
       required ItemName name,
       required Price price,
       required ImageURL imageURL,
-      required Rate rate,
+      required Map<String, double> rates,
       required Nutrition nutrition,
       required Description desc,
-      required bool isLike,
+      required List<String> likes,
       required Discount discount}) {
     return _Product(
       id: id,
@@ -35,10 +35,10 @@ class _$ProductTearOff {
       name: name,
       price: price,
       imageURL: imageURL,
-      rate: rate,
+      rates: rates,
       nutrition: nutrition,
       desc: desc,
-      isLike: isLike,
+      likes: likes,
       discount: discount,
     );
   }
@@ -54,10 +54,10 @@ mixin _$Product {
   ItemName get name => throw _privateConstructorUsedError;
   Price get price => throw _privateConstructorUsedError;
   ImageURL get imageURL => throw _privateConstructorUsedError;
-  Rate get rate => throw _privateConstructorUsedError;
+  Map<String, double> get rates => throw _privateConstructorUsedError;
   Nutrition get nutrition => throw _privateConstructorUsedError;
   Description get desc => throw _privateConstructorUsedError;
-  bool get isLike => throw _privateConstructorUsedError;
+  List<String> get likes => throw _privateConstructorUsedError;
   Discount get discount => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -74,10 +74,10 @@ abstract class $ProductCopyWith<$Res> {
       ItemName name,
       Price price,
       ImageURL imageURL,
-      Rate rate,
+      Map<String, double> rates,
       Nutrition nutrition,
       Description desc,
-      bool isLike,
+      List<String> likes,
       Discount discount});
 }
 
@@ -96,10 +96,10 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
     Object? name = freezed,
     Object? price = freezed,
     Object? imageURL = freezed,
-    Object? rate = freezed,
+    Object? rates = freezed,
     Object? nutrition = freezed,
     Object? desc = freezed,
-    Object? isLike = freezed,
+    Object? likes = freezed,
     Object? discount = freezed,
   }) {
     return _then(_value.copyWith(
@@ -123,10 +123,10 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
               as ImageURL,
-      rate: rate == freezed
-          ? _value.rate
-          : rate // ignore: cast_nullable_to_non_nullable
-              as Rate,
+      rates: rates == freezed
+          ? _value.rates
+          : rates // ignore: cast_nullable_to_non_nullable
+              as Map<String, double>,
       nutrition: nutrition == freezed
           ? _value.nutrition
           : nutrition // ignore: cast_nullable_to_non_nullable
@@ -135,10 +135,10 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
           ? _value.desc
           : desc // ignore: cast_nullable_to_non_nullable
               as Description,
-      isLike: isLike == freezed
-          ? _value.isLike
-          : isLike // ignore: cast_nullable_to_non_nullable
-              as bool,
+      likes: likes == freezed
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       discount: discount == freezed
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
@@ -158,10 +158,10 @@ abstract class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       ItemName name,
       Price price,
       ImageURL imageURL,
-      Rate rate,
+      Map<String, double> rates,
       Nutrition nutrition,
       Description desc,
-      bool isLike,
+      List<String> likes,
       Discount discount});
 }
 
@@ -181,10 +181,10 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
     Object? name = freezed,
     Object? price = freezed,
     Object? imageURL = freezed,
-    Object? rate = freezed,
+    Object? rates = freezed,
     Object? nutrition = freezed,
     Object? desc = freezed,
-    Object? isLike = freezed,
+    Object? likes = freezed,
     Object? discount = freezed,
   }) {
     return _then(_Product(
@@ -208,10 +208,10 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
           ? _value.imageURL
           : imageURL // ignore: cast_nullable_to_non_nullable
               as ImageURL,
-      rate: rate == freezed
-          ? _value.rate
-          : rate // ignore: cast_nullable_to_non_nullable
-              as Rate,
+      rates: rates == freezed
+          ? _value.rates
+          : rates // ignore: cast_nullable_to_non_nullable
+              as Map<String, double>,
       nutrition: nutrition == freezed
           ? _value.nutrition
           : nutrition // ignore: cast_nullable_to_non_nullable
@@ -220,10 +220,10 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
           ? _value.desc
           : desc // ignore: cast_nullable_to_non_nullable
               as Description,
-      isLike: isLike == freezed
-          ? _value.isLike
-          : isLike // ignore: cast_nullable_to_non_nullable
-              as bool,
+      likes: likes == freezed
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       discount: discount == freezed
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
@@ -241,10 +241,10 @@ class _$_Product extends _Product {
       required this.name,
       required this.price,
       required this.imageURL,
-      required this.rate,
+      required this.rates,
       required this.nutrition,
       required this.desc,
-      required this.isLike,
+      required this.likes,
       required this.discount})
       : super._();
 
@@ -259,19 +259,19 @@ class _$_Product extends _Product {
   @override
   final ImageURL imageURL;
   @override
-  final Rate rate;
+  final Map<String, double> rates;
   @override
   final Nutrition nutrition;
   @override
   final Description desc;
   @override
-  final bool isLike;
+  final List<String> likes;
   @override
   final Discount discount;
 
   @override
   String toString() {
-    return 'Product(id: $id, parentId: $parentId, name: $name, price: $price, imageURL: $imageURL, rate: $rate, nutrition: $nutrition, desc: $desc, isLike: $isLike, discount: $discount)';
+    return 'Product(id: $id, parentId: $parentId, name: $name, price: $price, imageURL: $imageURL, rates: $rates, nutrition: $nutrition, desc: $desc, likes: $likes, discount: $discount)';
   }
 
   @override
@@ -284,10 +284,10 @@ class _$_Product extends _Product {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.price, price) &&
             const DeepCollectionEquality().equals(other.imageURL, imageURL) &&
-            const DeepCollectionEquality().equals(other.rate, rate) &&
+            const DeepCollectionEquality().equals(other.rates, rates) &&
             const DeepCollectionEquality().equals(other.nutrition, nutrition) &&
             const DeepCollectionEquality().equals(other.desc, desc) &&
-            const DeepCollectionEquality().equals(other.isLike, isLike) &&
+            const DeepCollectionEquality().equals(other.likes, likes) &&
             const DeepCollectionEquality().equals(other.discount, discount));
   }
 
@@ -299,10 +299,10 @@ class _$_Product extends _Product {
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(price),
       const DeepCollectionEquality().hash(imageURL),
-      const DeepCollectionEquality().hash(rate),
+      const DeepCollectionEquality().hash(rates),
       const DeepCollectionEquality().hash(nutrition),
       const DeepCollectionEquality().hash(desc),
-      const DeepCollectionEquality().hash(isLike),
+      const DeepCollectionEquality().hash(likes),
       const DeepCollectionEquality().hash(discount));
 
   @JsonKey(ignore: true)
@@ -318,10 +318,10 @@ abstract class _Product extends Product {
       required ItemName name,
       required Price price,
       required ImageURL imageURL,
-      required Rate rate,
+      required Map<String, double> rates,
       required Nutrition nutrition,
       required Description desc,
-      required bool isLike,
+      required List<String> likes,
       required Discount discount}) = _$_Product;
   const _Product._() : super._();
 
@@ -336,13 +336,13 @@ abstract class _Product extends Product {
   @override
   ImageURL get imageURL;
   @override
-  Rate get rate;
+  Map<String, double> get rates;
   @override
   Nutrition get nutrition;
   @override
   Description get desc;
   @override
-  bool get isLike;
+  List<String> get likes;
   @override
   Discount get discount;
   @override

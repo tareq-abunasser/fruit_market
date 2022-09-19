@@ -5,6 +5,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../core/entities/value_objects.dart';
 import '../../../../core/firebase/firestore_helper.dart';
+import '../../../product/data/models/product_converter.dart';
+import '../../../product/data/models/product_dtos.dart';
 import '../../domain/entities/cart_item.dart';
 import '../../domain/entities/value_objects.dart';
 
@@ -17,33 +19,25 @@ abstract class CartItemDTO extends HiveObject implements _$CartItemDTO {
   @HiveType(typeId: 6, adapterName: 'CartItemDTOAdapter')
   factory CartItemDTO({
     @HiveField(0) @JsonKey(ignore: true) String? id,
-    @HiveField(1) required String name,
-    @HiveField(3) required double price,
-    @HiveField(4) required double discount,
-    @HiveField(5) required String image,
-    @HiveField(6) required int quantity,
+    @HiveField(1)
+    @JsonKey(name: 'product')
+    @ProductConverter()
+    required ProductDTO product,
+    @HiveField(2) required int quantity,
   }) = _CartItemDTO;
 
-  factory CartItemDTO.fromDomain(CartItem product) {
+  factory CartItemDTO.fromDomain(CartItem cartItem) {
     return CartItemDTO(
-      id: product.id.getOrCrash(),
-      name: product.name.getOrCrash(),
-      price: product.currentPrice.getOrCrash(),
-      discount:
-          product.saved.getOrCrash() * 100 / product.currentPrice.getOrCrash(),
-      image: product.imageURL.getOrCrash(),
-      quantity: product.quantity.getOrCrash(),
+      id: cartItem.id.getOrCrash(),
+      product: ProductDTO.fromDomain(cartItem.product),
+      quantity: cartItem.quantity.getOrCrash(),
     );
   }
 
   CartItem toDomain() {
     return CartItem(
       id: UniqueId.fromUniqueString(id!),
-      name: ItemName(name),
-      currentPrice: Price(price),
-      oldPrice: Price(price + price * discount / 100),
-      saved: Price(price * discount / 100),
-      imageURL: ImageURL(image),
+      product: product.toDomain(),
       quantity: Quantity(quantity),
     );
   }

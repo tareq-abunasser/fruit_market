@@ -17,48 +17,10 @@ class AddItemToCart {
 
   Future<Either<Failure, Unit>> call(FavouriteItem item, int quantity) async {
     print("111111111111111");
-    CartItem cartItem = CartItem.fromFavourite(item, quantity);
+    CartItem cartItem = CartItem.fromProduct(item.product, quantity);
     print("55555555555555555555");
 
     return await _addCartItem(cartItem);
   }
 
-// CartItem favouriteItemToCartItem(FavouriteItem item, int quantity) {
-//   print("2");
-//
-//   printInfo(info: "function favouriteItemToCartItem");
-//   printInfo(info:'error in favouriteItemToCartItem');
-//   printInfo(info: item.toString());
-//   print("3");
-
-// CartItem cartItem = CartItem(
-//   id: item.id,
-//   name: item.name,
-//   imageURL: item.imageURL,
-//   currentPrice: item.price,
-//   oldPrice: Price(item.price.getOrCrash() +
-//       item.price.getOrCrash() * item.discount.getOrCrash()),
-//   saved: Price(item.price.getOrCrash() * item.discount.getOrCrash()),
-//   quantity: Quantity(quantity),
-// );
-// printInfo(info: cartItem.toString());
-// print("***********");
-// print(item.price.getOrCrash() +
-//     item.price.getOrCrash() * item.discount.getOrCrash() / 100);
-// print(item.price.getOrCrash());
-// print(item.price.getOrCrash() * item.discount.getOrCrash());
-// print(item.price.getOrCrash() * item.discount.getOrCrash()/100);
-// print("4");
-//
-// return CartItem(
-//   id: item.id,
-//   name: item.name,
-//   imageURL: item.imageURL,
-//   currentPrice: item.price,
-//   oldPrice: Price(item.price.getOrCrash() +
-//       item.price.getOrCrash() * item.discount.getOrCrash() / 100),
-//   saved: Price(item.price.getOrCrash() * item.discount.getOrCrash()/ 100),
-//   quantity: Quantity(quantity),
-// );
-// }
 }

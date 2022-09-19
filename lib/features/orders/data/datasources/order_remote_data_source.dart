@@ -31,6 +31,8 @@ class OrderRemoteDataSourceImpl extends OrderRemoteDataSource {
   @override
   Future<void> addToOrders(List<OrderItemDTO> items) async {
     printInfo(info: "function addToOrders");
+    print(items);
+    print("fffffffffffffffffff");
     try {
       final batch = _firestore.batch();
       for (final item in items) {
@@ -82,6 +84,7 @@ class OrderRemoteDataSourceImpl extends OrderRemoteDataSource {
     List<OrderItemDTO> orderItems = [];
     try {
       final collection = await _firestore.userOrders().get();
+      print(collection.docs);
       for (final doc in collection.docs) {
         orderItems.add(OrderItemDTO.fromFirestore(doc));
       }

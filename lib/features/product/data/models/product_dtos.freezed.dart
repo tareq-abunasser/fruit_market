@@ -40,10 +40,10 @@ class _$ProductDTOTearOff {
           required String image,
       @HiveField(5)
       @JsonKey(name: 'likes')
-          required List<dynamic> likes,
+          required List<String> likes,
       @HiveField(6)
       @JsonKey(name: 'rate')
-          required Map<String, double> rate,
+          required Map<String, double> rates,
       @HiveField(7)
       @JsonKey(name: 'Nutrition')
           required Map<String, double> nutrition,
@@ -60,7 +60,7 @@ class _$ProductDTOTearOff {
       price: price,
       image: image,
       likes: likes,
-      rate: rate,
+      rates: rates,
       nutrition: nutrition,
       benefit: benefit,
       discount: discount,
@@ -94,10 +94,10 @@ mixin _$ProductDTO {
   String get image => throw _privateConstructorUsedError;
   @HiveField(5)
   @JsonKey(name: 'likes')
-  List<dynamic> get likes => throw _privateConstructorUsedError;
+  List<String> get likes => throw _privateConstructorUsedError;
   @HiveField(6)
   @JsonKey(name: 'rate')
-  Map<String, double> get rate => throw _privateConstructorUsedError;
+  Map<String, double> get rates => throw _privateConstructorUsedError;
   @HiveField(7)
   @JsonKey(name: 'Nutrition')
   Map<String, double> get nutrition => throw _privateConstructorUsedError;
@@ -125,8 +125,8 @@ abstract class $ProductDTOCopyWith<$Res> {
       @HiveField(2) @JsonKey(name: 'parent_id') String parentId,
       @HiveField(3) @JsonKey(name: 'price') double price,
       @HiveField(4) @JsonKey(name: 'imageurl') String image,
-      @HiveField(5) @JsonKey(name: 'likes') List<dynamic> likes,
-      @HiveField(6) @JsonKey(name: 'rate') Map<String, double> rate,
+      @HiveField(5) @JsonKey(name: 'likes') List<String> likes,
+      @HiveField(6) @JsonKey(name: 'rate') Map<String, double> rates,
       @HiveField(7) @JsonKey(name: 'Nutrition') Map<String, double> nutrition,
       @HiveField(8) @JsonKey(name: 'benefit') String benefit,
       @HiveField(9) @JsonKey(name: 'discount') double discount});
@@ -148,7 +148,7 @@ class _$ProductDTOCopyWithImpl<$Res> implements $ProductDTOCopyWith<$Res> {
     Object? price = freezed,
     Object? image = freezed,
     Object? likes = freezed,
-    Object? rate = freezed,
+    Object? rates = freezed,
     Object? nutrition = freezed,
     Object? benefit = freezed,
     Object? discount = freezed,
@@ -177,10 +177,10 @@ class _$ProductDTOCopyWithImpl<$Res> implements $ProductDTOCopyWith<$Res> {
       likes: likes == freezed
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
-      rate: rate == freezed
-          ? _value.rate
-          : rate // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      rates: rates == freezed
+          ? _value.rates
+          : rates // ignore: cast_nullable_to_non_nullable
               as Map<String, double>,
       nutrition: nutrition == freezed
           ? _value.nutrition
@@ -210,8 +210,8 @@ abstract class _$ProductDTOCopyWith<$Res> implements $ProductDTOCopyWith<$Res> {
       @HiveField(2) @JsonKey(name: 'parent_id') String parentId,
       @HiveField(3) @JsonKey(name: 'price') double price,
       @HiveField(4) @JsonKey(name: 'imageurl') String image,
-      @HiveField(5) @JsonKey(name: 'likes') List<dynamic> likes,
-      @HiveField(6) @JsonKey(name: 'rate') Map<String, double> rate,
+      @HiveField(5) @JsonKey(name: 'likes') List<String> likes,
+      @HiveField(6) @JsonKey(name: 'rate') Map<String, double> rates,
       @HiveField(7) @JsonKey(name: 'Nutrition') Map<String, double> nutrition,
       @HiveField(8) @JsonKey(name: 'benefit') String benefit,
       @HiveField(9) @JsonKey(name: 'discount') double discount});
@@ -235,7 +235,7 @@ class __$ProductDTOCopyWithImpl<$Res> extends _$ProductDTOCopyWithImpl<$Res>
     Object? price = freezed,
     Object? image = freezed,
     Object? likes = freezed,
-    Object? rate = freezed,
+    Object? rates = freezed,
     Object? nutrition = freezed,
     Object? benefit = freezed,
     Object? discount = freezed,
@@ -264,10 +264,10 @@ class __$ProductDTOCopyWithImpl<$Res> extends _$ProductDTOCopyWithImpl<$Res>
       likes: likes == freezed
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
-      rate: rate == freezed
-          ? _value.rate
-          : rate // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      rates: rates == freezed
+          ? _value.rates
+          : rates // ignore: cast_nullable_to_non_nullable
               as Map<String, double>,
       nutrition: nutrition == freezed
           ? _value.nutrition
@@ -296,7 +296,7 @@ class _$_ProductDTO extends _ProductDTO {
       @HiveField(3) @JsonKey(name: 'price') required this.price,
       @HiveField(4) @JsonKey(name: 'imageurl') required this.image,
       @HiveField(5) @JsonKey(name: 'likes') required this.likes,
-      @HiveField(6) @JsonKey(name: 'rate') required this.rate,
+      @HiveField(6) @JsonKey(name: 'rate') required this.rates,
       @HiveField(7) @JsonKey(name: 'Nutrition') required this.nutrition,
       @HiveField(8) @JsonKey(name: 'benefit') required this.benefit,
       @HiveField(9) @JsonKey(name: 'discount') required this.discount})
@@ -328,11 +328,11 @@ class _$_ProductDTO extends _ProductDTO {
   @override
   @HiveField(5)
   @JsonKey(name: 'likes')
-  final List<dynamic> likes;
+  final List<String> likes;
   @override
   @HiveField(6)
   @JsonKey(name: 'rate')
-  final Map<String, double> rate;
+  final Map<String, double> rates;
   @override
   @HiveField(7)
   @JsonKey(name: 'Nutrition')
@@ -348,7 +348,7 @@ class _$_ProductDTO extends _ProductDTO {
 
   @override
   String toString() {
-    return 'ProductDTO(id: $id, name: $name, parentId: $parentId, price: $price, image: $image, likes: $likes, rate: $rate, nutrition: $nutrition, benefit: $benefit, discount: $discount)';
+    return 'ProductDTO(id: $id, name: $name, parentId: $parentId, price: $price, image: $image, likes: $likes, rates: $rates, nutrition: $nutrition, benefit: $benefit, discount: $discount)';
   }
 
   @override
@@ -362,7 +362,7 @@ class _$_ProductDTO extends _ProductDTO {
             const DeepCollectionEquality().equals(other.price, price) &&
             const DeepCollectionEquality().equals(other.image, image) &&
             const DeepCollectionEquality().equals(other.likes, likes) &&
-            const DeepCollectionEquality().equals(other.rate, rate) &&
+            const DeepCollectionEquality().equals(other.rates, rates) &&
             const DeepCollectionEquality().equals(other.nutrition, nutrition) &&
             const DeepCollectionEquality().equals(other.benefit, benefit) &&
             const DeepCollectionEquality().equals(other.discount, discount));
@@ -377,7 +377,7 @@ class _$_ProductDTO extends _ProductDTO {
       const DeepCollectionEquality().hash(price),
       const DeepCollectionEquality().hash(image),
       const DeepCollectionEquality().hash(likes),
-      const DeepCollectionEquality().hash(rate),
+      const DeepCollectionEquality().hash(rates),
       const DeepCollectionEquality().hash(nutrition),
       const DeepCollectionEquality().hash(benefit),
       const DeepCollectionEquality().hash(discount));
@@ -412,10 +412,10 @@ abstract class _ProductDTO extends ProductDTO {
           required String image,
       @HiveField(5)
       @JsonKey(name: 'likes')
-          required List<dynamic> likes,
+          required List<String> likes,
       @HiveField(6)
       @JsonKey(name: 'rate')
-          required Map<String, double> rate,
+          required Map<String, double> rates,
       @HiveField(7)
       @JsonKey(name: 'Nutrition')
           required Map<String, double> nutrition,
@@ -453,11 +453,11 @@ abstract class _ProductDTO extends ProductDTO {
   @override
   @HiveField(5)
   @JsonKey(name: 'likes')
-  List<dynamic> get likes;
+  List<String> get likes;
   @override
   @HiveField(6)
   @JsonKey(name: 'rate')
-  Map<String, double> get rate;
+  Map<String, double> get rates;
   @override
   @HiveField(7)
   @JsonKey(name: 'Nutrition')

@@ -1,7 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants.dart';
+import '../../../../core/constant/constants.dart';
 
 class CustomIndicator extends StatelessWidget {
   const CustomIndicator({Key? key,@required this.dotIndex}) : super(key: key);

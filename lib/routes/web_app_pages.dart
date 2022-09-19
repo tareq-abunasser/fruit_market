@@ -3,11 +3,11 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 
 import '../features/splash/presentation/pages/splash_page.dart';
 
-const String WEB_INITIAL = WebRoutes.HOME;
+const String WEB_INITIAL = WebRoutes.SPLASH;
 
 final List<GetPage<Widget>> webRoutes = <GetPage<Widget>>[
   GetPage<SplashPage>(
-    name: WebRoutes.LOGIN,
+    name: WebRoutes.SPLASH,
     page: () => SplashPage(),
   ),
 ];

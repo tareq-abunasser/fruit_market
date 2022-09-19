@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_market/features/account/presentation/widgets/account_details.dart';
 import 'package:fruit_market/features/account/presentation/widgets/list_utils.dart';
 
-import '../../../../core/constants.dart';
+import '../../../../core/constant/constants.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);

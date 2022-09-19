@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:fruit_market/features/cart/domain/entities/cart_item.dart';
-import 'package:fruit_market/features/cart/domain/usecases/add_orders_item_from_cart.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../../core/entities/failures.dart';
 import '../../../domain/entities/value_objects.dart';
@@ -42,9 +41,9 @@ class CartWatcherCubit extends Cubit<CartWatcherState> {
   double calculateTotalPrice(List<CartItem> _cartItems) {
     double totalPrice = 0;
     for (var element in _cartItems) {
-      if (element.currentPrice.isValid() && element.quantity.isValid()) {
+      if (element.product.price.isValid() && element.quantity.isValid()) {
         totalPrice +=
-            element.currentPrice.getOrCrash() * element.quantity.getOrCrash();
+            element.product.price.getOrCrash() * element.quantity.getOrCrash();
       }
     }
     return totalPrice.roundToDouble();

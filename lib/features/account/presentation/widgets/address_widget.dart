@@ -66,12 +66,15 @@ class AddressWidget extends StatelessWidget {
                       ),
                       child: IconButton(
                           onPressed: () {
-                            Scaffold.of(context)
-                                .showBottomSheet<void>((BuildContext context) {
-                              return CustomBottomSheet(
-                                user: success.user,
-                              );
-                            });
+                            showModalBottomSheet(
+                                context: context,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20),
+                                  ),
+                                ),
+                                builder: (context) =>
+                                    CustomBottomSheet(user: success.user));
                           },
                           icon: const Icon(
                             Icons.arrow_drop_down_outlined,

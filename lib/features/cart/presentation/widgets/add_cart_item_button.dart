@@ -5,19 +5,22 @@ import 'package:get/get.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../injection.dart';
 import '../../../favourite/domain/entities/favourite_item.dart';
+import '../../../product/domain/entities/product.dart';
 import '../../domain/entities/cart_item.dart';
 import '../cubit/cart_actor/cart_actor_cubit.dart';
 
 class AddCartItemButton extends StatelessWidget {
   const AddCartItemButton({
     Key? key,
-    required this.onPressed,
+    this.onPressed,
     required this.quantity,
-    required this.favouriteItem,
+    required this.product,
+    this.text,
   }) : super(key: key);
   final VoidCallback? onPressed;
-  final FavouriteItem favouriteItem;
+  final Product product;
   final int quantity;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +30,14 @@ class AddCartItemButton extends StatelessWidget {
           builder: (context, state) {
         return MaterialButton(
           onPressed: () {
-            print('MaterialButton');
-            print('quantity: $quantity');
-            context
-                .read<CartActorCubit>()
-                .addToCart(CartItem.fromFavourite(favouriteItem, quantity));
+            context.read<CartActorCubit>().addToCart(
+                CartItem.fromProduct(product, quantity));
             onPressed?.call();
           },
           color: const Color(0xffCC7D00),
           child: CustomText(
             color: Colors.white,
-            text: "Add".tr,
+            text: "$text".tr,
             fontWeight: FontWeight.bold,
             fontSize: 14,
           ),

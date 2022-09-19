@@ -29,7 +29,7 @@ final List<GetPage<Widget>> mobileRoutes = <GetPage<Widget>>[
   GetPage<SplashPage>(
     name: MobileRoutes.SPLASH,
     page: () => const SplashPage(),
-    middlewares: [NotAuthMiddleware()],
+    // middlewares: [NotAuthMiddleware()],
   ),
   GetPage<OnBoardingView>(
       name: MobileRoutes.ON_BOARDING,

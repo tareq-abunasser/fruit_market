@@ -17,51 +17,39 @@ abstract class CartItem implements _$CartItem {
 
   const factory CartItem({
     required UniqueId id,
-    required ItemName name,
-    required ImageURL imageURL,
-    required Price currentPrice,
-    required Price oldPrice,
-    required Price saved,
+    required Product product,
     required Quantity quantity,
   }) = _CartItem;
 
   Option<ValueFailure<dynamic>> get failureOption {
-    return name.failureOrUnit
-        .andThen(imageURL.failureOrUnit)
-        .andThen(currentPrice.failureOrUnit)
-        .andThen(oldPrice.failureOrUnit)
-        .andThen(saved.failureOrUnit)
-        .andThen(quantity.failureOrUnit)
-        .fold((f) => some(f), (_) => none());
+    return product.failureOption.fold(
+        () => quantity.failureOrUnit.fold((f) => some(f), (_) => none()),
+        (f) => none());
   }
 
-  factory CartItem.fromFavourite(FavouriteItem item, int quantity) {
-    print('CartItem.fromFavourite');
-    print(item);
-    print(quantity);
+  factory CartItem.fromProduct(Product product, int quantity) {
     return CartItem(
-      id: item.id,
-      name: item.name,
-      imageURL: item.imageURL,
-      currentPrice: item.price,
-      oldPrice: Price(item.price.getOrCrash() +
-          item.price.getOrCrash() * item.discount.getOrCrash() / 100),
-      saved: Price(item.price.getOrCrash() * item.discount.getOrCrash() / 100),
+      id: UniqueId(),
+      product: product,
       quantity: Quantity(quantity),
     );
   }
 
-  factory CartItem.fromProduct(Product product) {
+  factory CartItem.empty() {
     return CartItem(
-      id: product.id,
-      name: product.name,
-      imageURL: product.imageURL,
-      currentPrice: product.price,
-      oldPrice: Price(product.price.getOrCrash() +
-          product.price.getOrCrash() * product.discount.getOrCrash() / 100),
-      saved: Price(
-          product.price.getOrCrash() * product.discount.getOrCrash() / 100),
+      id: UniqueId(),
+      product: Product.empty(),
       quantity: Quantity(1),
     );
+  }
+
+  Price get oldPrice {
+    return Price(product.price.getOrCrash() +
+        product.price.getOrCrash() * product.discount.getOrCrash() / 100);
+  }
+
+  Price get saved {
+    return Price(
+        product.price.getOrCrash() * product.discount.getOrCrash() / 100);
   }
 }

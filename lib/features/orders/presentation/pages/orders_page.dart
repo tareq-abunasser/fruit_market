@@ -1,59 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_market/features/orders/presentation/cubit/orders_cubit.dart';
+import 'package:fruit_market/features/orders/presentation/cubit/orders_actor/orders_actor_cubit.dart';
 import 'package:fruit_market/injection.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/widgets/critical_failure_display_widget.dart';
-import '../widgets/order_item.dart';
+import '../cubit/orders_watcher/orders_watcher_cubit.dart';
+import '../widgets/error_order_item_card.dart';
+import '../widgets/order_item_card.dart';
+import '../widgets/orders_body.dart';
 
 class OrdersPage extends StatelessWidget {
   const OrdersPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<OrdersCubit>()..watchOrders(),
-      child: BlocConsumer<OrdersCubit, OrdersState>(
-        listener:  (context, state) {
-          //  state.mapOrNull(
-          //   loadInProgress: (_) => Center(
-          //     child: CircularProgressIndicator(),
-          //   ),
-          //   loadFailure: (failure) => CriticalFailureDisplayWidget(
-          //     failure: failure,
-          //   ),
-          //   loadSuccess: (orders) => Get.snackbar("Success", "Orders"),
-          // );
-        },
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(title: Text("My Orders".tr)),
-            body: state.map(
-              initial: (_) => Container(),
-              loadInProgress: (_) =>
-                  const Center(child: CircularProgressIndicator()),
-              loadSuccess: (state) {
-                return ListView.separated(
-                  itemCount: state.orders.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return OrderItemCard(state.orders[index]);
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Divider(
-                      color: Colors.black38,
-                      thickness: 1,
-                    );
-                  },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt<OrdersWatcherCubit>()..watchOrders(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<OrdersActorCubit>(),
+        ),
+      ],
+      child: BlocListener<OrdersActorCubit, OrdersActorState>(
+          listener: (context, state) {
+            state.mapOrNull(
+              actionFailure: (state) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      state.failure.map(
+                        serverError: (_) => 'Server Failure',
+                        cacheError: (_) => 'Cache Failure',
+                        internet: (_) => 'No internet connection',
+                      ),
+                    ),
+                    backgroundColor: Colors.red,
+                  ),
                 );
               },
-              loadFailure: (state) => CriticalFailureDisplay(
-                state.failure,
-              ),
-            ),
-          );
-        },
-      ),
+              actionSuccess: (state) {},
+            );
+          },
+          child: Scaffold(
+            appBar: AppBar(title: Text("My Orders".tr)),
+            body: const OrdersBody(),
+          )),
     );
   }
 }

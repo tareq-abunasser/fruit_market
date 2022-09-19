@@ -22,8 +22,8 @@ class ProductDTOAdapter extends TypeAdapter<_$_ProductDTO> {
       parentId: fields[2] as String,
       price: fields[3] as double,
       image: fields[4] as String,
-      likes: (fields[5] as List).cast<dynamic>(),
-      rate: (fields[6] as Map).cast<String, double>(),
+      likes: (fields[5] as List).cast<String>(),
+      rates: (fields[6] as Map).cast<String, double>(),
       nutrition: (fields[7] as Map).cast<String, double>(),
       benefit: fields[8] as String,
       discount: fields[9] as double,
@@ -47,7 +47,7 @@ class ProductDTOAdapter extends TypeAdapter<_$_ProductDTO> {
       ..writeByte(5)
       ..write(obj.likes)
       ..writeByte(6)
-      ..write(obj.rate)
+      ..write(obj.rates)
       ..writeByte(7)
       ..write(obj.nutrition)
       ..writeByte(8)
@@ -77,8 +77,8 @@ _$_ProductDTO _$$_ProductDTOFromJson(Map<String, dynamic> json) =>
       parentId: json['parent_id'] as String,
       price: (json['price'] as num).toDouble(),
       image: json['imageurl'] as String,
-      likes: json['likes'] as List<dynamic>,
-      rate: (json['rate'] as Map<String, dynamic>).map(
+      likes: (json['likes'] as List<dynamic>).map((e) => e as String).toList(),
+      rates: (json['rate'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(k, (e as num).toDouble()),
       ),
       nutrition: (json['Nutrition'] as Map<String, dynamic>).map(
@@ -95,7 +95,7 @@ Map<String, dynamic> _$$_ProductDTOToJson(_$_ProductDTO instance) =>
       'price': instance.price,
       'imageurl': instance.image,
       'likes': instance.likes,
-      'rate': instance.rate,
+      'rate': instance.rates,
       'Nutrition': instance.nutrition,
       'benefit': instance.benefit,
       'discount': instance.discount,

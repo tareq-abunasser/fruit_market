@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_market/core/widgets/custom_text_field.dart';
 
-import '../../../../core/constants.dart';
+import '../../../../core/constant/constants.dart';
 import '../../../../core/services/size_config.dart';
 
 class ListTileItem extends StatelessWidget {

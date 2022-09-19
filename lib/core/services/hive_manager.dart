@@ -16,11 +16,11 @@ class HiveManager {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     await Hive.initFlutter((appDocumentDirectory.path));
     await getIt<AccountHiveManager>().init();
+    await getIt<ProductHiveManager>().init();
     await getIt<CartHiveManager>().init();
     await getIt<FavouriteHiveManager>().init();
     await getIt<CategoryHiveManager>().init();
     await getIt<SubcategoryHiveManager>().init();
-    await getIt<ProductHiveManager>().init();
     await getIt<OrderHiveManager>().init();
   }
 

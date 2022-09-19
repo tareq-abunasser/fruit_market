@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_market/core/widgets/custom_text_field.dart';
 import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/custom_images.dart';
+import '../../../cart/presentation/widgets/add_cart_item_button.dart';
 import '../../domain/entities/product.dart';
 import 'nutrition_widget.dart';
 
@@ -64,7 +65,12 @@ class ProductDetailsWidget extends StatelessWidget {
               CustomText(
                 text: " ${product.price.getOrCrash()} Per/ kg",
               ),
-              MaterialButton(child: const Text("Add to Cart"), onPressed: () {})
+              const Spacer(),
+              AddCartItemButton(
+                product: product,
+                text: "Add to cart",
+                quantity: 1,
+              )
             ],
           ),
         ],

@@ -23,18 +23,18 @@ class _$CartItemDTOTearOff {
   const _$CartItemDTOTearOff();
 
   _CartItemDTO call(
-      {@HiveField(0) @JsonKey(ignore: true) String? id,
-      @HiveField(1) required String name,
-      @HiveField(3) required double price,
-      @HiveField(4) required double discount,
-      @HiveField(5) required String image,
-      @HiveField(6) required int quantity}) {
+      {@HiveField(0)
+      @JsonKey(ignore: true)
+          String? id,
+      @HiveField(1)
+      @JsonKey(name: 'product')
+      @ProductConverter()
+          required ProductDTO product,
+      @HiveField(2)
+          required int quantity}) {
     return _CartItemDTO(
       id: id,
-      name: name,
-      price: price,
-      discount: discount,
-      image: image,
+      product: product,
       quantity: quantity,
     );
   }
@@ -53,14 +53,10 @@ mixin _$CartItemDTO {
   @JsonKey(ignore: true)
   String? get id => throw _privateConstructorUsedError;
   @HiveField(1)
-  String get name => throw _privateConstructorUsedError;
-  @HiveField(3)
-  double get price => throw _privateConstructorUsedError;
-  @HiveField(4)
-  double get discount => throw _privateConstructorUsedError;
-  @HiveField(5)
-  String get image => throw _privateConstructorUsedError;
-  @HiveField(6)
+  @JsonKey(name: 'product')
+  @ProductConverter()
+  ProductDTO get product => throw _privateConstructorUsedError;
+  @HiveField(2)
   int get quantity => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -75,12 +71,17 @@ abstract class $CartItemDTOCopyWith<$Res> {
           CartItemDTO value, $Res Function(CartItemDTO) then) =
       _$CartItemDTOCopyWithImpl<$Res>;
   $Res call(
-      {@HiveField(0) @JsonKey(ignore: true) String? id,
-      @HiveField(1) String name,
-      @HiveField(3) double price,
-      @HiveField(4) double discount,
-      @HiveField(5) String image,
-      @HiveField(6) int quantity});
+      {@HiveField(0)
+      @JsonKey(ignore: true)
+          String? id,
+      @HiveField(1)
+      @JsonKey(name: 'product')
+      @ProductConverter()
+          ProductDTO product,
+      @HiveField(2)
+          int quantity});
+
+  $ProductDTOCopyWith<$Res> get product;
 }
 
 /// @nodoc
@@ -94,10 +95,7 @@ class _$CartItemDTOCopyWithImpl<$Res> implements $CartItemDTOCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? price = freezed,
-    Object? discount = freezed,
-    Object? image = freezed,
+    Object? product = freezed,
     Object? quantity = freezed,
   }) {
     return _then(_value.copyWith(
@@ -105,27 +103,22 @@ class _$CartItemDTOCopyWithImpl<$Res> implements $CartItemDTOCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      price: price == freezed
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
-      discount: discount == freezed
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
-              as double,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
+      product: product == freezed
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ProductDTO,
       quantity: quantity == freezed
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
     ));
+  }
+
+  @override
+  $ProductDTOCopyWith<$Res> get product {
+    return $ProductDTOCopyWith<$Res>(_value.product, (value) {
+      return _then(_value.copyWith(product: value));
+    });
   }
 }
 
@@ -137,12 +130,18 @@ abstract class _$CartItemDTOCopyWith<$Res>
       __$CartItemDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(0) @JsonKey(ignore: true) String? id,
-      @HiveField(1) String name,
-      @HiveField(3) double price,
-      @HiveField(4) double discount,
-      @HiveField(5) String image,
-      @HiveField(6) int quantity});
+      {@HiveField(0)
+      @JsonKey(ignore: true)
+          String? id,
+      @HiveField(1)
+      @JsonKey(name: 'product')
+      @ProductConverter()
+          ProductDTO product,
+      @HiveField(2)
+          int quantity});
+
+  @override
+  $ProductDTOCopyWith<$Res> get product;
 }
 
 /// @nodoc
@@ -158,10 +157,7 @@ class __$CartItemDTOCopyWithImpl<$Res> extends _$CartItemDTOCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? price = freezed,
-    Object? discount = freezed,
-    Object? image = freezed,
+    Object? product = freezed,
     Object? quantity = freezed,
   }) {
     return _then(_CartItemDTO(
@@ -169,22 +165,10 @@ class __$CartItemDTOCopyWithImpl<$Res> extends _$CartItemDTOCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      price: price == freezed
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
-      discount: discount == freezed
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
-              as double,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
+      product: product == freezed
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ProductDTO,
       quantity: quantity == freezed
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -198,12 +182,15 @@ class __$CartItemDTOCopyWithImpl<$Res> extends _$CartItemDTOCopyWithImpl<$Res>
 @HiveType(typeId: 6, adapterName: 'CartItemDTOAdapter')
 class _$_CartItemDTO extends _CartItemDTO {
   _$_CartItemDTO(
-      {@HiveField(0) @JsonKey(ignore: true) this.id,
-      @HiveField(1) required this.name,
-      @HiveField(3) required this.price,
-      @HiveField(4) required this.discount,
-      @HiveField(5) required this.image,
-      @HiveField(6) required this.quantity})
+      {@HiveField(0)
+      @JsonKey(ignore: true)
+          this.id,
+      @HiveField(1)
+      @JsonKey(name: 'product')
+      @ProductConverter()
+          required this.product,
+      @HiveField(2)
+          required this.quantity})
       : super._();
 
   factory _$_CartItemDTO.fromJson(Map<String, dynamic> json) =>
@@ -215,23 +202,16 @@ class _$_CartItemDTO extends _CartItemDTO {
   final String? id;
   @override
   @HiveField(1)
-  final String name;
+  @JsonKey(name: 'product')
+  @ProductConverter()
+  final ProductDTO product;
   @override
-  @HiveField(3)
-  final double price;
-  @override
-  @HiveField(4)
-  final double discount;
-  @override
-  @HiveField(5)
-  final String image;
-  @override
-  @HiveField(6)
+  @HiveField(2)
   final int quantity;
 
   @override
   String toString() {
-    return 'CartItemDTO(id: $id, name: $name, price: $price, discount: $discount, image: $image, quantity: $quantity)';
+    return 'CartItemDTO(id: $id, product: $product, quantity: $quantity)';
   }
 
   @override
@@ -240,10 +220,7 @@ class _$_CartItemDTO extends _CartItemDTO {
         (other.runtimeType == runtimeType &&
             other is _CartItemDTO &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.price, price) &&
-            const DeepCollectionEquality().equals(other.discount, discount) &&
-            const DeepCollectionEquality().equals(other.image, image) &&
+            const DeepCollectionEquality().equals(other.product, product) &&
             const DeepCollectionEquality().equals(other.quantity, quantity));
   }
 
@@ -251,10 +228,7 @@ class _$_CartItemDTO extends _CartItemDTO {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(price),
-      const DeepCollectionEquality().hash(discount),
-      const DeepCollectionEquality().hash(image),
+      const DeepCollectionEquality().hash(product),
       const DeepCollectionEquality().hash(quantity));
 
   @JsonKey(ignore: true)
@@ -270,12 +244,15 @@ class _$_CartItemDTO extends _CartItemDTO {
 
 abstract class _CartItemDTO extends CartItemDTO {
   factory _CartItemDTO(
-      {@HiveField(0) @JsonKey(ignore: true) String? id,
-      @HiveField(1) required String name,
-      @HiveField(3) required double price,
-      @HiveField(4) required double discount,
-      @HiveField(5) required String image,
-      @HiveField(6) required int quantity}) = _$_CartItemDTO;
+      {@HiveField(0)
+      @JsonKey(ignore: true)
+          String? id,
+      @HiveField(1)
+      @JsonKey(name: 'product')
+      @ProductConverter()
+          required ProductDTO product,
+      @HiveField(2)
+          required int quantity}) = _$_CartItemDTO;
   _CartItemDTO._() : super._();
 
   factory _CartItemDTO.fromJson(Map<String, dynamic> json) =
@@ -287,18 +264,11 @@ abstract class _CartItemDTO extends CartItemDTO {
   String? get id;
   @override
   @HiveField(1)
-  String get name;
+  @JsonKey(name: 'product')
+  @ProductConverter()
+  ProductDTO get product;
   @override
-  @HiveField(3)
-  double get price;
-  @override
-  @HiveField(4)
-  double get discount;
-  @override
-  @HiveField(5)
-  String get image;
-  @override
-  @HiveField(6)
+  @HiveField(2)
   int get quantity;
   @override
   @JsonKey(ignore: true)

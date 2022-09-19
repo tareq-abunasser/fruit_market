@@ -18,18 +18,16 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$OrderItemTearOff {
   const _$OrderItemTearOff();
 
-  _Product call(
+  _OrderItem call(
       {required UniqueId id,
-      required ItemName name,
-      required ImageURL imageURL,
-      required double rate,
-      required DateTime deliveredOn}) {
-    return _Product(
+      required CartItem cartItem,
+      required DateTime orderAt,
+      required double rate}) {
+    return _OrderItem(
       id: id,
-      name: name,
-      imageURL: imageURL,
+      cartItem: cartItem,
+      orderAt: orderAt,
       rate: rate,
-      deliveredOn: deliveredOn,
     );
   }
 }
@@ -40,10 +38,9 @@ const $OrderItem = _$OrderItemTearOff();
 /// @nodoc
 mixin _$OrderItem {
   UniqueId get id => throw _privateConstructorUsedError;
-  ItemName get name => throw _privateConstructorUsedError;
-  ImageURL get imageURL => throw _privateConstructorUsedError;
+  CartItem get cartItem => throw _privateConstructorUsedError;
+  DateTime get orderAt => throw _privateConstructorUsedError;
   double get rate => throw _privateConstructorUsedError;
-  DateTime get deliveredOn => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OrderItemCopyWith<OrderItem> get copyWith =>
@@ -54,12 +51,9 @@ mixin _$OrderItem {
 abstract class $OrderItemCopyWith<$Res> {
   factory $OrderItemCopyWith(OrderItem value, $Res Function(OrderItem) then) =
       _$OrderItemCopyWithImpl<$Res>;
-  $Res call(
-      {UniqueId id,
-      ItemName name,
-      ImageURL imageURL,
-      double rate,
-      DateTime deliveredOn});
+  $Res call({UniqueId id, CartItem cartItem, DateTime orderAt, double rate});
+
+  $CartItemCopyWith<$Res> get cartItem;
 }
 
 /// @nodoc
@@ -73,167 +67,154 @@ class _$OrderItemCopyWithImpl<$Res> implements $OrderItemCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? imageURL = freezed,
+    Object? cartItem = freezed,
+    Object? orderAt = freezed,
     Object? rate = freezed,
-    Object? deliveredOn = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as UniqueId,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as ItemName,
-      imageURL: imageURL == freezed
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
-              as ImageURL,
+      cartItem: cartItem == freezed
+          ? _value.cartItem
+          : cartItem // ignore: cast_nullable_to_non_nullable
+              as CartItem,
+      orderAt: orderAt == freezed
+          ? _value.orderAt
+          : orderAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       rate: rate == freezed
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
               as double,
-      deliveredOn: deliveredOn == freezed
-          ? _value.deliveredOn
-          : deliveredOn // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ));
+  }
+
+  @override
+  $CartItemCopyWith<$Res> get cartItem {
+    return $CartItemCopyWith<$Res>(_value.cartItem, (value) {
+      return _then(_value.copyWith(cartItem: value));
+    });
   }
 }
 
 /// @nodoc
-abstract class _$ProductCopyWith<$Res> implements $OrderItemCopyWith<$Res> {
-  factory _$ProductCopyWith(_Product value, $Res Function(_Product) then) =
-      __$ProductCopyWithImpl<$Res>;
+abstract class _$OrderItemCopyWith<$Res> implements $OrderItemCopyWith<$Res> {
+  factory _$OrderItemCopyWith(
+          _OrderItem value, $Res Function(_OrderItem) then) =
+      __$OrderItemCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {UniqueId id,
-      ItemName name,
-      ImageURL imageURL,
-      double rate,
-      DateTime deliveredOn});
+  $Res call({UniqueId id, CartItem cartItem, DateTime orderAt, double rate});
+
+  @override
+  $CartItemCopyWith<$Res> get cartItem;
 }
 
 /// @nodoc
-class __$ProductCopyWithImpl<$Res> extends _$OrderItemCopyWithImpl<$Res>
-    implements _$ProductCopyWith<$Res> {
-  __$ProductCopyWithImpl(_Product _value, $Res Function(_Product) _then)
-      : super(_value, (v) => _then(v as _Product));
+class __$OrderItemCopyWithImpl<$Res> extends _$OrderItemCopyWithImpl<$Res>
+    implements _$OrderItemCopyWith<$Res> {
+  __$OrderItemCopyWithImpl(_OrderItem _value, $Res Function(_OrderItem) _then)
+      : super(_value, (v) => _then(v as _OrderItem));
 
   @override
-  _Product get _value => super._value as _Product;
+  _OrderItem get _value => super._value as _OrderItem;
 
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
-    Object? imageURL = freezed,
+    Object? cartItem = freezed,
+    Object? orderAt = freezed,
     Object? rate = freezed,
-    Object? deliveredOn = freezed,
   }) {
-    return _then(_Product(
+    return _then(_OrderItem(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as UniqueId,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as ItemName,
-      imageURL: imageURL == freezed
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
-              as ImageURL,
+      cartItem: cartItem == freezed
+          ? _value.cartItem
+          : cartItem // ignore: cast_nullable_to_non_nullable
+              as CartItem,
+      orderAt: orderAt == freezed
+          ? _value.orderAt
+          : orderAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       rate: rate == freezed
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
               as double,
-      deliveredOn: deliveredOn == freezed
-          ? _value.deliveredOn
-          : deliveredOn // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_Product extends _Product {
-  const _$_Product(
+class _$_OrderItem extends _OrderItem {
+  const _$_OrderItem(
       {required this.id,
-      required this.name,
-      required this.imageURL,
-      required this.rate,
-      required this.deliveredOn})
+      required this.cartItem,
+      required this.orderAt,
+      required this.rate})
       : super._();
 
   @override
   final UniqueId id;
   @override
-  final ItemName name;
+  final CartItem cartItem;
   @override
-  final ImageURL imageURL;
+  final DateTime orderAt;
   @override
   final double rate;
-  @override
-  final DateTime deliveredOn;
 
   @override
   String toString() {
-    return 'OrderItem(id: $id, name: $name, imageURL: $imageURL, rate: $rate, deliveredOn: $deliveredOn)';
+    return 'OrderItem(id: $id, cartItem: $cartItem, orderAt: $orderAt, rate: $rate)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Product &&
+            other is _OrderItem &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.imageURL, imageURL) &&
-            const DeepCollectionEquality().equals(other.rate, rate) &&
-            const DeepCollectionEquality()
-                .equals(other.deliveredOn, deliveredOn));
+            const DeepCollectionEquality().equals(other.cartItem, cartItem) &&
+            const DeepCollectionEquality().equals(other.orderAt, orderAt) &&
+            const DeepCollectionEquality().equals(other.rate, rate));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(imageURL),
-      const DeepCollectionEquality().hash(rate),
-      const DeepCollectionEquality().hash(deliveredOn));
+      const DeepCollectionEquality().hash(cartItem),
+      const DeepCollectionEquality().hash(orderAt),
+      const DeepCollectionEquality().hash(rate));
 
   @JsonKey(ignore: true)
   @override
-  _$ProductCopyWith<_Product> get copyWith =>
-      __$ProductCopyWithImpl<_Product>(this, _$identity);
+  _$OrderItemCopyWith<_OrderItem> get copyWith =>
+      __$OrderItemCopyWithImpl<_OrderItem>(this, _$identity);
 }
 
-abstract class _Product extends OrderItem {
-  const factory _Product(
+abstract class _OrderItem extends OrderItem {
+  const factory _OrderItem(
       {required UniqueId id,
-      required ItemName name,
-      required ImageURL imageURL,
-      required double rate,
-      required DateTime deliveredOn}) = _$_Product;
-  const _Product._() : super._();
+      required CartItem cartItem,
+      required DateTime orderAt,
+      required double rate}) = _$_OrderItem;
+  const _OrderItem._() : super._();
 
   @override
   UniqueId get id;
   @override
-  ItemName get name;
+  CartItem get cartItem;
   @override
-  ImageURL get imageURL;
+  DateTime get orderAt;
   @override
   double get rate;
   @override
-  DateTime get deliveredOn;
-  @override
   @JsonKey(ignore: true)
-  _$ProductCopyWith<_Product> get copyWith =>
+  _$OrderItemCopyWith<_OrderItem> get copyWith =>
       throw _privateConstructorUsedError;
 }

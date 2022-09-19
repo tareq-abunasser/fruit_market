@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../core/entities/failures.dart';
@@ -17,6 +18,7 @@ class ProductCubit extends Cubit<ProductState> {
 
   void updateFavoriteProduct(Product product) {
     emit(const ProductState.actionInProgress());
+
     _updateFavouriteProduct(product).then((failureOrUnit) => failureOrUnit.fold(
           (f) => emit(ProductState.updateFailure(f)),
           (unit) {

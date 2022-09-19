@@ -18,9 +18,8 @@ class OrderItemDTOAdapter extends TypeAdapter<_$_OrderItemDTO> {
     };
     return _$_OrderItemDTO(
       id: fields[0] as String?,
-      name: fields[1] as String,
-      image: fields[2] as String,
-      deliveredOn: fields[3] as Timestamp,
+      cartItem: fields[1] as CartItemDTO,
+      orderAt: fields[2] as Timestamp,
       rate: fields[4] as double,
     );
   }
@@ -28,15 +27,13 @@ class OrderItemDTOAdapter extends TypeAdapter<_$_OrderItemDTO> {
   @override
   void write(BinaryWriter writer, _$_OrderItemDTO obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.name)
+      ..write(obj.cartItem)
       ..writeByte(2)
-      ..write(obj.image)
-      ..writeByte(3)
-      ..write(obj.deliveredOn)
+      ..write(obj.orderAt)
       ..writeByte(4)
       ..write(obj.rate);
   }
@@ -58,17 +55,15 @@ class OrderItemDTOAdapter extends TypeAdapter<_$_OrderItemDTO> {
 
 _$_OrderItemDTO _$$_OrderItemDTOFromJson(Map<String, dynamic> json) =>
     _$_OrderItemDTO(
-      name: json['name'] as String,
-      image: json['imageurl'] as String,
-      deliveredOn:
-          const TimestampConverter().fromJson(json['delivered_on'] as Object),
+      cartItem:
+          const CartConverter().fromJson(json['cart'] as Map<String, dynamic>),
+      orderAt: const TimestampConverter().fromJson(json['order_at'] as Object),
       rate: (json['rate'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$_OrderItemDTOToJson(_$_OrderItemDTO instance) =>
     <String, dynamic>{
-      'name': instance.name,
-      'imageurl': instance.image,
-      'delivered_on': const TimestampConverter().toJson(instance.deliveredOn),
+      'cart': const CartConverter().toJson(instance.cartItem),
+      'order_at': const TimestampConverter().toJson(instance.orderAt),
       'rate': instance.rate,
     };

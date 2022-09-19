@@ -48,8 +48,6 @@ class OrderRepository implements IOrderRepository {
     try {
       if (await _networkInfo.isConnected) {
         listOrderItemDTO = await _orderRemoteDataSourceImpl.getOrders();
-
-        return right(listOrderItem);
       } else {
         listOrderItemDTO = _orderLocalDataSourceImpl.getOrders();
       }
