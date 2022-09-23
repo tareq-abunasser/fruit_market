@@ -8,19 +8,11 @@ Either<ValueFailure<String>, int> validatePhoneNumber(
   int phoneLength = 9,
 }) {
   int? phoneNumber = int.tryParse(input);
-  print('input : ${input}');
   if(phoneNumber == null) {
     return left(ValueFailure.invalidPhoneNumber(failedValue: input));
   }
   return right(phoneNumber);
 
-  // if (input.bitLength == phoneLength) {
-  //   return right(input);
-  // } else {
-  //   return left(
-  //     ValueFailure.invalidPhoneNumber(failedValue: input.toString()),
-  //   );
-  // }
 }
 
 Either<ValueFailure<String>, String> validateMaxStringLength(
@@ -52,9 +44,9 @@ Either<ValueFailure<String>, String> validateSingleLine(String input) {
   }
 }
 
-// KtList is not mutable list
-// mean you can't modify the list in the memory
-// but you can copy it
+/// KtList is not mutable list
+/// mean you can't modify the list in the memory
+/// but you can copy it
 Either<ValueFailure<KtList<T>>, KtList<T>> validateMaxListLength<T>(
   KtList<T> input,
   int maxLength,

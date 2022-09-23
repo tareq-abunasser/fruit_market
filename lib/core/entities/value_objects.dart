@@ -11,26 +11,24 @@ import 'value_validators.dart';
 @immutable
 abstract class ValueObject<F, T> {
   const ValueObject();
+
   Either<ValueFailure<F>, T> get value;
 
   /// Throws [UnexpectedValueError] containing the [ValueFailure]
   T getOrCrash() {
-    // id = identity - same as writing (right) => right
+    /// id = identity - same as writing (right) => right
     return value.fold((f) => throw UnexpectedValueError(f), id);
   }
 
   Either<ValueFailure<dynamic>, Unit> get failureOrUnit {
     return value.fold(
-          (l) => left(l),
-          (r) => right(unit),
+      (l) => left(l),
+      (r) => right(unit),
     );
   }
+
   Option<ValueFailure<dynamic>> get failureOption {
     return value.fold((f) => some(f), (_) => none());
-    // return value.fold(
-    //   (l) => left(l),
-    //   (r) => right(unit),
-    // );
   }
 
   bool isValid() => value.isRight();
@@ -48,7 +46,6 @@ abstract class ValueObject<F, T> {
   @override
   String toString() => 'Value($value)';
 }
-
 
 class UniqueId extends ValueObject<String, String> {
   @override
@@ -99,7 +96,6 @@ class ImageURL extends ValueObject<String, String> {
   const ImageURL._(this.value);
 }
 
-
 class Price extends ValueObject<String, double> {
   @override
   final Either<ValueFailure<String>, double> value;
@@ -139,20 +135,6 @@ class Nutrition extends ValueObject<String, Map<String, double>> {
   const Nutrition._(this.value);
 }
 
-
-// class ImageURL extends ValueObject<String, String> {
-//   @override
-//   final Either<ValueFailure<String>, String> value;
-//
-//   factory ImageURL(String input) {
-//     return ImageURL._(
-//       validateStringNotEmpty(input),
-//     );
-//   }
-//
-//   const ImageURL._(this.value);
-// }
-
 class Discount extends ValueObject<String, double> {
   @override
   final Either<ValueFailure<String>, double> value;
@@ -185,8 +167,7 @@ class IsLike extends ValueObject<String, bool> {
 
   factory IsLike(List input) {
     return IsLike._(
-        right(input.contains(FirebaseAuth.instance.currentUser!.uid))
-    );
+        right(input.contains(FirebaseAuth.instance.currentUser!.uid)));
   }
 
   const IsLike._(this.value);

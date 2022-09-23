@@ -12,6 +12,7 @@ import '../../injection.dart';
 
 @Singleton()
 class HiveManager {
+
   Future<void> init() async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     await Hive.initFlutter((appDocumentDirectory.path));
@@ -28,7 +29,13 @@ class HiveManager {
     // await getIt<HomeHiveManager>().close();
     // await getIt<AccountHiveManager>().close();
     // await getIt<CartHiveManager>().close();
-
+    // await getIt<AccountHiveManager>().init();
+    // await getIt<ProductHiveManager>().init();
+    // await getIt<CartHiveManager>().init();
+    // await getIt<FavouriteHiveManager>().init();
+    // await getIt<CategoryHiveManager>().init();
+    // await getIt<SubcategoryHiveManager>().init();
+    // await getIt<OrderHiveManager>().init();
     await Hive.close();
   }
 

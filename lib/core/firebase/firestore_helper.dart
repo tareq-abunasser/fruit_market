@@ -64,6 +64,7 @@ extension DocumentReferenceX on DocumentReference {
 
   CollectionReference<Map<String, dynamic>> get userCartCollection =>
       collection('cart');
+
   CollectionReference<Map<String, dynamic>> get productsCollection =>
       collection('products');
 }
