@@ -42,7 +42,7 @@ class AccountRemoteDataSourceImpl extends AccountRemoteDataSource {
   @override
   Future<UserDTO?> getAccountData() async {
     printInfo(
-        info: 'class AccountRemoteDataSourceImpl, function getAccountData');
+        info: 'function getAccountData');
     try {
       final docUser = _firestore.userAccountDocument();
 
@@ -61,7 +61,7 @@ class AccountRemoteDataSourceImpl extends AccountRemoteDataSource {
   @override
   Future<void> addAccountData(UserDTO user) async {
     printInfo(
-        info: 'class AccountRemoteDataSourceImpl, function addAccountData');
+        info: 'function addAccountData');
     await _firestore
         .userAccountDocument()
         .set(user.toJson())
@@ -75,14 +75,14 @@ class AccountRemoteDataSourceImpl extends AccountRemoteDataSource {
   @override
   Future<void> deleteAccountData() async {
     printInfo(
-        info: 'class AccountRemoteDataSourceImpl, function deleteAccountData');
+        info: 'function deleteAccountData');
     _firestore.userAccountDocument().delete();
   }
 
   @override
   Future<void> updateAccountData(UserDTO user) async {
     printInfo(
-        info: 'class AccountRemoteDataSourceImpl, function updateAccountData');
+        info: 'function updateAccountData');
     await _firestore.userAccountDocument()
         .set(user.toJson())
         .then((value) => null)
@@ -93,7 +93,7 @@ class AccountRemoteDataSourceImpl extends AccountRemoteDataSource {
   Future<void> uploadProfileImageAsFile(File imageFile) async {
     printInfo(
         info:
-            'class AccountRemoteDataSourceImpl, function uploadProfileImageAsFile');
+            'function uploadProfileImageAsFile');
     await referenceOfProfileImage.putFile(imageFile).catchError((e) {
       printError(info: e.toString());
       throw ServerException(e.toString());
@@ -103,7 +103,7 @@ class AccountRemoteDataSourceImpl extends AccountRemoteDataSource {
   @override
   Future<String> getProfileImageURL() async {
     printInfo(
-        info: 'class AccountRemoteDataSourceImpl, function getProfileImageURL');
+        info: 'function getProfileImageURL');
     return await referenceOfProfileImage.getDownloadURL().catchError((e) {
       printError(info: e.toString());
       throw ServerException(e.toString());

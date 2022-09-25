@@ -21,7 +21,7 @@ import 'core/entities/external_packages_injectable_module.dart' as _i107;
 import 'core/firebase/firebase_injectable_module.dart' as _i108;
 import 'core/services/hive_manager.dart' as _i19;
 import 'core/services/local_notification_service.dart' as _i21;
-import 'core/services/network_info.dart' as _i22;
+import 'core/services/network_info_service.dart' as _i22;
 import 'core/services/preferences_helper.dart' as _i53;
 import 'core/services/remote_notification_service.dart' as _i29;
 import 'core/services/theme_service.dart' as _i56;
@@ -181,8 +181,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => externalPackagesInjectableModule.connectionChecker);
   gh.singleton<_i21.LocalNotificationService>(
       _i21.LocalNotificationServiceImpl(get<_i5.AwesomeNotifications>()));
-  gh.lazySingleton<_i22.NetworkInfo>(
-      () => _i22.NetworkInfoImpl(get<_i20.InternetConnectionChecker>()));
+  gh.lazySingleton<_i22.NetworkInfoService>(
+      () => _i22.NetworkInfoServiceImpl(get<_i20.InternetConnectionChecker>()));
   gh.singleton<_i23.OrderHiveManager>(_i23.OrderHiveManager());
   gh.lazySingleton<_i24.OrderLocalDataSource>(
       () => _i24.OrderLocalDataSourceImpl(get<_i23.OrderHiveManager>()));
@@ -219,32 +219,34 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i39.IAccountRepository>(() => _i40.AccountRepository(
       get<_i4.AccountLocalDataSource>(),
       get<_i34.AccountRemoteDataSource>(),
-      get<_i22.NetworkInfo>()));
+      get<_i22.NetworkInfoService>()));
   gh.lazySingleton<_i41.ICartRepository>(() => _i42.CartRepository(
       get<_i8.CartLocalDataSource>(),
       get<_i36.CartRemoteDataSource>(),
-      get<_i22.NetworkInfo>()));
+      get<_i22.NetworkInfoService>()));
   gh.lazySingleton<_i43.ICategoryRepository>(() => _i44.CategoryRepository(
       get<_i37.CategoryRemoteDataSource>(),
       get<_i10.CategoryLocalDataSource>(),
-      get<_i22.NetworkInfo>()));
+      get<_i22.NetworkInfoService>()));
   gh.lazySingleton<_i45.IFavouriteRepository>(() => _i46.FavouriteRepository(
       get<_i38.FavouriteRemoteDataSource>(),
       get<_i13.FavouriteLocalDataSource>(),
-      get<_i22.NetworkInfo>()));
+      get<_i22.NetworkInfoService>()));
   gh.lazySingleton<_i47.IOrderRepository>(() => _i48.OrderRepository(
       get<_i24.OrderLocalDataSource>(),
       get<_i25.OrderRemoteDataSource>(),
-      get<_i22.NetworkInfo>()));
+      get<_i22.NetworkInfoService>()));
   gh.lazySingleton<_i49.IProductRepository>(() => _i50.ProductRepository(
       get<_i28.ProductRemoteDataSource>(),
       get<_i27.ProductLocalDataSource>(),
-      get<_i22.NetworkInfo>()));
+      get<_i22.NetworkInfoService>()));
   gh.lazySingleton<_i51.ISubcategoryRepository>(() =>
-      _i52.SubcategoryRepository(get<_i33.SubcategoryRemoteDataSource>(),
-          get<_i32.SubcategoryLocalDataSource>(), get<_i22.NetworkInfo>()));
-  gh.lazySingleton<_i53.PreferencesHelper>(() =>
-      _i53.PreferencesHelper(sharedPreferences: get<_i30.SharedPreferences>()));
+      _i52.SubcategoryRepository(
+          get<_i33.SubcategoryRemoteDataSource>(),
+          get<_i32.SubcategoryLocalDataSource>(),
+          get<_i22.NetworkInfoService>()));
+  gh.lazySingleton<_i53.PreferencesHelper>(
+      () => _i53.PreferencesHelper(get<_i30.SharedPreferences>()));
   gh.lazySingleton<_i54.RemoveCartItem>(
       () => _i54.RemoveCartItem(get<_i41.ICartRepository>()));
   gh.lazySingleton<_i55.SearchProducts>(
@@ -302,7 +304,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i81.IAuthRepository>(() => _i82.AuthRepository(
       get<_i35.AuthRemoteDataSource>(),
       get<_i67.AuthLocalDataSource>(),
-      get<_i22.NetworkInfo>()));
+      get<_i22.NetworkInfoService>()));
   gh.singleton<_i83.LocalizationService>(
       _i83.LocalizationService(get<_i53.PreferencesHelper>()));
   gh.lazySingleton<_i84.OnBoardingLocalDataSource>(

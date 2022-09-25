@@ -10,43 +10,48 @@ import '../../features/product/data/datasources/product_hive_manager.dart';
 import '../../features/subcategory/data/datasources/subcategory_hive_manager.dart';
 import '../../injection.dart';
 
-@Singleton()
-class HiveManager {
+abstract class IHiveManager {
+  Future<void> init();
 
+  Future<void> close();
+
+  Future<void> clear();
+}
+
+@Singleton()
+class HiveManager extends IHiveManager {
+  static final List<IHiveManager> _hiveManagers = [
+    getIt<AccountHiveManager>(),
+    getIt<CartHiveManager>(),
+    getIt<FavouriteHiveManager>(),
+    getIt<OrderHiveManager>(),
+    getIt<ProductHiveManager>(),
+    getIt<CategoryHiveManager>(),
+    getIt<SubcategoryHiveManager>(),
+  ];
+
+  @override
   Future<void> init() async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     await Hive.initFlutter((appDocumentDirectory.path));
-    await getIt<AccountHiveManager>().init();
-    await getIt<ProductHiveManager>().init();
-    await getIt<CartHiveManager>().init();
-    await getIt<FavouriteHiveManager>().init();
-    await getIt<CategoryHiveManager>().init();
-    await getIt<SubcategoryHiveManager>().init();
-    await getIt<OrderHiveManager>().init();
+    for (final hiveManager in _hiveManagers) {
+      await hiveManager.init();
+    }
   }
 
+  @override
   Future<void> close() async {
-    // await getIt<HomeHiveManager>().close();
-    // await getIt<AccountHiveManager>().close();
-    // await getIt<CartHiveManager>().close();
-    // await getIt<AccountHiveManager>().init();
-    // await getIt<ProductHiveManager>().init();
-    // await getIt<CartHiveManager>().init();
-    // await getIt<FavouriteHiveManager>().init();
-    // await getIt<CategoryHiveManager>().init();
-    // await getIt<SubcategoryHiveManager>().init();
-    // await getIt<OrderHiveManager>().init();
+    for (final hiveManager in _hiveManagers) {
+      await hiveManager.close();
+    }
     await Hive.close();
   }
 
+  @override
   Future<void> clear() async {
-    await getIt<AccountHiveManager>().clear();
-    await getIt<CartHiveManager>().clear();
-    await getIt<FavouriteHiveManager>().clear();
-    await getIt<CategoryHiveManager>().clear();
-    await getIt<SubcategoryHiveManager>().clear();
-    await getIt<ProductHiveManager>().clear();
-    await getIt<OrderHiveManager>().clear();
+    for (final hiveManager in _hiveManagers) {
+      await hiveManager.clear();
+    }
     // await Hive.deleteFromDisk();
   }
 }

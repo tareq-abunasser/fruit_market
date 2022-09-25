@@ -47,7 +47,7 @@ class RemoteNotificationServiceImpl implements RemoteNotificationService {
     print('User granted permission: ${settings.authorizationStatus}');
   }
 
-   _checkPermissions() async {
+  _checkPermissions() async {
     NotificationSettings settings = await _messaging.getNotificationSettings();
     return settings.authorizationStatus;
   }
@@ -80,13 +80,12 @@ class RemoteNotificationServiceImpl implements RemoteNotificationService {
   _actionWhenBackgroundNotificationOpened() {
     // Also handle any interaction when the app is in the background via a
     // Stream listener
-    printInfo(info: '_initBackgroundState : listen to notification in background');
+    printInfo(
+        info: '_initBackgroundState : listen to notification in background');
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('A new onMessageOpenedApp event was published!');
+      printInfo(info: 'A new onMessageOpenedApp event was published!');
       _handleMessage(message);
     });
-
-    // FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
   }
 
   void _handleMessage(RemoteMessage message) {
@@ -95,7 +94,6 @@ class RemoteNotificationServiceImpl implements RemoteNotificationService {
     //
     // }
   }
-
 
   _setForegroundNotificationPresentationOptions() {
     /// Update the iOS foreground notification presentation options to allow
@@ -121,4 +119,15 @@ class RemoteNotificationServiceImpl implements RemoteNotificationService {
   }
 }
 
-// @pragma('vm:entry-point')
+@pragma('vm:entry-point')
+Future<void> firebaseMessagingBackgroundHandler(
+    RemoteMessage message,
+    ) async {
+  print("Handling a background message: ${message.messageId}");
+  LocalNotificationServiceImpl _localNotificationServiceImpl =
+  LocalNotificationServiceImpl(AwesomeNotifications());
+  _localNotificationServiceImpl.init();
+  _localNotificationServiceImpl.showNotificationFromJsonData(message.data);
+  print("Handling a background message2: ${message.messageId}");
+
+}

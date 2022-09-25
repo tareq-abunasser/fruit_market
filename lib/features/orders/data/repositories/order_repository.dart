@@ -4,7 +4,7 @@ import 'package:fruit_market/features/cart/domain/entities/cart_item.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/entities/exceptions.dart';
-import '../../../../core/services/network_info.dart';
+import '../../../../core/services/network_info_service.dart';
 import '../../domain/entities/order_item.dart';
 import '../../domain/repositories/i_order_repository.dart';
 import '../datasources/order_local_data_source.dart';
@@ -15,7 +15,7 @@ import '../models/order_item_dtos.dart';
 class OrderRepository implements IOrderRepository {
   final OrderLocalDataSource _orderLocalDataSourceImpl;
   final OrderRemoteDataSource _orderRemoteDataSourceImpl;
-  final NetworkInfo _networkInfo;
+  final NetworkInfoService _networkInfo;
 
   OrderRepository(
     this._orderLocalDataSourceImpl,

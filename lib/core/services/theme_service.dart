@@ -9,6 +9,8 @@ abstract class ThemeService {
   void switchTheme();
 
   bool get isDarkMode;
+
+  ThemeMode get theme;
 }
 
 @LazySingleton(as: ThemeService)
@@ -19,8 +21,8 @@ class ThemeServiceImpl implements ThemeService {
 
   static const _key = 'isDarkMode';
 
-  ThemeMode get theme =>
-      _loadThemeFromCache() ? ThemeMode.dark : ThemeMode.light;
+  @override
+  ThemeMode get theme => _loadThemeFromCache() ?? ThemeMode.system;
 
   @override
   void switchTheme() {
@@ -28,12 +30,12 @@ class ThemeServiceImpl implements ThemeService {
     _saveThemeToCache(!Get.isDarkMode);
   }
 
-  bool _loadThemeFromCache() {
+  ThemeMode? _loadThemeFromCache() {
     if (_preferencesManager.isContainsKey(key: _key)) {
       final bool isDarkMode = _preferencesManager.getData(key: _key);
-      return isDarkMode;
+      return isDarkMode ? ThemeMode.dark : ThemeMode.light;
     }
-    return false;
+    return null;
   }
 
   _saveThemeToCache(bool isDarkMode) =>
@@ -43,8 +45,4 @@ class ThemeServiceImpl implements ThemeService {
   bool get isDarkMode {
     return Get.isDarkMode;
   }
-}
-
-void switchTheme() {
-  Get.changeTheme(Get.isDarkMode ? lightTheme : darkTheme);
 }

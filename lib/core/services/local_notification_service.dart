@@ -107,10 +107,6 @@ class LocalNotificationServiceImpl implements LocalNotificationService {
     );
   }
 
-  int _generateIntUniqueKey() {
-    return DateTime.now().millisecondsSinceEpoch.remainder(100000);
-  }
-
   @override
   showNotificationFromJsonData(Map<String, dynamic> data){
     _awesomeNotifications.createNotificationFromJsonData(data);

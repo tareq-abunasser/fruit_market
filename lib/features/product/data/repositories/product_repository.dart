@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/entities/exceptions.dart';
 import '../../../../core/entities/failures.dart';
-import '../../../../core/services/network_info.dart';
+import '../../../../core/services/network_info_service.dart';
 import '../../domain/entities/product.dart';
 import '../../domain/repositories/i_product_repository.dart';
 import '../datasources/product_local_data_source.dart';
@@ -14,7 +14,7 @@ import '../models/product_dtos.dart';
 class ProductRepository implements IProductRepository {
   final ProductLocalDataSource _authLocalDataSourceImpl;
   final ProductRemoteDataSource _authRemoteDataSourceImpl;
-  final NetworkInfo _networkInfo;
+  final NetworkInfoService _networkInfo;
 
   ProductRepository(
     this._authRemoteDataSourceImpl,

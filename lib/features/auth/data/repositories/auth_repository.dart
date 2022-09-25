@@ -6,14 +6,14 @@ import 'package:fruit_market/features/auth/domain/failures/auth_failure.dart';
 import 'package:fruit_market/features/auth/domain/repositories/i_auth_repository.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../core/services/network_info.dart';
+import '../../../../core/services/network_info_service.dart';
 import '../../domain/entities/user.dart' as _user;
 
 @LazySingleton(as: IAuthRepository)
 class AuthRepository implements IAuthRepository {
   final AuthLocalDataSource _authLocalDataSourceImpl;
   final AuthRemoteDataSource _authRemoteDataSourceImpl;
-  final NetworkInfo _networkInfo;
+  final NetworkInfoService _networkInfo;
 
   AuthRepository(
     this._authRemoteDataSourceImpl,

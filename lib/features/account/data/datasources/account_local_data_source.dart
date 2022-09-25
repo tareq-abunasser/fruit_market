@@ -20,19 +20,19 @@ class AccountLocalDataSourceImpl extends AccountLocalDataSource {
 
   @override
   void cacheAccountData(UserDTO userCache) {
-    printInfo(info:'class AccountLocalDataSourceImpl, function cacheAccountData');
+    printInfo(info:'function cacheAccountData');
     _hiveManager.userBox!.put(userCache.id, userCache);
   }
 
   @override
   void deleteAccountData() {
-    printInfo(info:'class AccountLocalDataSourceImpl, function deleteAccountData');
+    printInfo(info:'function deleteAccountData');
     _hiveManager.userBox!.clear();
   }
 
   @override
   UserDTO? getAccountData() {
-    printInfo(info:'class AccountLocalDataSourceImpl, function getAccountData');
+    printInfo(info:'function getAccountData');
     return _hiveManager.userBox!.values.firstOrNull;
   }
 }

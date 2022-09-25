@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/entities/exceptions.dart';
 import '../../../../core/entities/failures.dart';
-import '../../../../core/services/network_info.dart';
+import '../../../../core/services/network_info_service.dart';
 import '../../domain/entities/category.dart';
 import '../../domain/repositories/category_repository.dart';
 import '../datasources/category_local_data_source.dart';
@@ -13,7 +13,7 @@ import '../datasources/category_remote_data_source.dart';
 class CategoryRepository implements ICategoryRepository {
   final CategoryLocalDataSource _categoryLocalDataSourceImpl;
   final CategoryRemoteDataSource _categoryRemoteDataSourceImpl;
-  final NetworkInfo _networkInfo;
+  final NetworkInfoService _networkInfo;
 
   CategoryRepository(
     this._categoryRemoteDataSourceImpl,

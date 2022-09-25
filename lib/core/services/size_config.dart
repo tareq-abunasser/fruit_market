@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SizeConfig {
   static double? screenWidth;
@@ -16,15 +17,25 @@ class SizeConfig {
     defaultSize = orientation == Orientation.landscape
         ? screenHeight! * .024
         : screenWidth! * .024;
-
-    print('this is the default size $defaultSize');
+    print('screenWidth: $screenWidth');
+    print('screenHeight: $screenHeight');
+    print('defaultSize: $defaultSize');
+    print('orientation: $orientation');
+    print('isLandscape: ${orientation == Orientation.landscape}');
+    print('isLandscape: ${orientation == Orientation.portrait}');
   }
-  void initTest(){
-    screenWidth = WidgetsBinding.instance.window.physicalSize.width;
-    screenHeight = WidgetsBinding.instance.window.physicalSize.height;
-    defaultSize = screenWidth! * .024;
-    // orientation == Orientation.landscape
-    //     ? screenHeight! * .024
-    //     : screenWidth! * .024;
+
+  void initWithoutContext() {
+
+    BuildContext? context = Get.context;
+    screenWidth = context?.width;
+    screenHeight = context?.height;
+    Orientation? orientation = context?.orientation;
+    print('screenWidth: $screenWidth');
+    print('screenHeight: $screenHeight');
+    print('defaultSize: $defaultSize');
+    print('orientation: $orientation');
+    print('isLandscape: ${context?.isLandscape}');
+    print('isLandscape: ${context?.isPortrait}');
   }
 }

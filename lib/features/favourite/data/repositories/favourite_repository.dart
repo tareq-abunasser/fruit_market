@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/entities/exceptions.dart';
 import '../../../../core/entities/failures.dart';
-import '../../../../core/services/network_info.dart';
+import '../../../../core/services/network_info_service.dart';
 import '../../domain/repositories/i_favourite_repository.dart';
 import '../datasources/favourite_local_data_source.dart';
 import '../datasources/favourite_remote_data_source.dart';
@@ -14,7 +14,7 @@ import '../../domain/entities/favourite_item.dart';
 class FavouriteRepository implements IFavouriteRepository {
   final FavouriteLocalDataSource _favouriteLocalDataSourceImpl;
   final FavouriteRemoteDataSource _favouriteRemoteDataSourceImpl;
-  final NetworkInfo _networkInfo;
+  final NetworkInfoService _networkInfo;
 
   FavouriteRepository(
     this._favouriteRemoteDataSourceImpl,

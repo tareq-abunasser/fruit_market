@@ -3,32 +3,32 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @LazySingleton()
 class PreferencesHelper {
-  final SharedPreferences sharedPreferences;
+  final SharedPreferences _sharedPreferences;
 
-  PreferencesHelper({
-    required this.sharedPreferences,
-  });
+  PreferencesHelper(
+     this._sharedPreferences,
+  );
 
   Future<bool> saveData({required String key, required dynamic data}) async {
-    if (data is bool) return await sharedPreferences.setBool(key, data);
-    if (data is String) return await sharedPreferences.setString(key, data);
-    if (data is int) return await sharedPreferences.setInt(key, data);
-    return await sharedPreferences.setDouble(key, data);
+    if (data is bool) return await _sharedPreferences.setBool(key, data);
+    if (data is String) return await _sharedPreferences.setString(key, data);
+    if (data is int) return await _sharedPreferences.setInt(key, data);
+    return await _sharedPreferences.setDouble(key, data);
   }
 
   getData({required String key}) {
-    return sharedPreferences.get(key);
+    return _sharedPreferences.get(key);
   }
 
   Future<bool> removeData({required String key}) async {
-    return await sharedPreferences.remove(key);
+    return await _sharedPreferences.remove(key);
   }
 
   Future<void> clearAllData() async {
-    sharedPreferences.clear();
+    _sharedPreferences.clear();
   }
 
   bool isContainsKey({required String key}) {
-    return sharedPreferences.containsKey(key);
+    return _sharedPreferences.containsKey(key);
   }
 }

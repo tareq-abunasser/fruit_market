@@ -10,6 +10,7 @@ import '../../routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import '../../../../injection.dart';
+import '../services/theme_service.dart';
 
 class AppWidget extends StatelessWidget {
   AppWidget({Key? key}) : super(key: key);
@@ -43,8 +44,7 @@ class AppWidget extends StatelessWidget {
         ),
         theme: lightTheme,
         darkTheme: darkTheme,
-        themeMode: defaultThemeMode,
-        // themeMode: ThemeMode.system,
+        themeMode: getIt<ThemeService>().theme,
       ),
     );
   }

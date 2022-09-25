@@ -3,9 +3,6 @@ import 'package:flutter/services.dart';
 
 import 'constants.dart';
 
-// ThemeMode defaultThemeMode = ThemeMode.system;
-ThemeMode defaultThemeMode = ThemeMode.light;
-
 ThemeData lightTheme = ThemeData(
   fontFamily: 'Poppins',
   // textTheme: ThemeData().textTheme.apply(
@@ -22,13 +19,12 @@ ThemeData lightTheme = ThemeData(
       color: Colors.white,
     ),
     systemOverlayStyle: SystemUiOverlayStyle(
-      // Status bar color
+      /// Status bar color
       statusBarColor: kMainColor,
-
-      // Status bar brightness (optional)
+      /// Status bar brightness (optional)
       statusBarIconBrightness: Brightness.dark,
-      // For Android (dark icons)
-      statusBarBrightness: Brightness.light, // For iOS (dark icons)
+      /// For Android (dark icons)
+      statusBarBrightness: Brightness.light, /// For iOS (dark icons)
     ),
   ),
   cardTheme: const CardTheme(
@@ -92,15 +88,13 @@ ThemeData lightTheme = ThemeData(
   visualDensity: VisualDensity.adaptivePlatformDensity,
 );
 
-
-
 ThemeData darkTheme = ThemeData.dark().copyWith(
   primaryColor: kMainColor,
   // dividerColor: kDividerColor,
   iconTheme: const IconThemeData(color: kDividerColor),
   primaryTextTheme: ThemeData.dark().textTheme.apply(
         fontFamily: 'Poppins',
-    bodyColor: Colors.white,
+        bodyColor: Colors.white,
       ),
   appBarTheme: const AppBarTheme(
     backgroundColor: kMainColor,

@@ -25,6 +25,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().initWithoutContext();
     SizeConfig().init(context);
     return Scaffold(
       body: Container(),

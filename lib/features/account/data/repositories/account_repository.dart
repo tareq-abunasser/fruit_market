@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/exceptions.dart';
 import '../../../../core/entities/failures.dart';
-import '../../../../core/services/network_info.dart';
+import '../../../../core/services/network_info_service.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/i_account_repository.dart';
 import '../datasources/account_local_data_source.dart';
@@ -17,7 +17,7 @@ import '../models/user_dtos.dart';
 class AccountRepository extends IAccountRepository {
   final AccountLocalDataSource _accountLocalDataSourceImpl;
   final AccountRemoteDataSource _accountRemoteDataSourceImpl;
-  final NetworkInfo _networkInfo;
+  final NetworkInfoService _networkInfo;
 
   AccountRepository(
     this._accountLocalDataSourceImpl,
