@@ -20,10 +20,9 @@ Future<void> initApp() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Get.printInfo(info: "Firebase initialized");
   await getIt<HiveManager>().init();
-  getIt<HiveManager>().clear();
+  // getIt<HiveManager>().clear();
   Get.printInfo(info: "HiveManager initialized all Boxes");
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  SizeConfig().initWithoutContext();
   await getIt<SplashRouter>().call();
   getIt<LocalNotificationService>().init();
   getIt<RemoteNotificationService>().init();

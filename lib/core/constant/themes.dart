@@ -90,8 +90,8 @@ ThemeData lightTheme = ThemeData(
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
   primaryColor: kMainColor,
-  // dividerColor: kDividerColor,
-  iconTheme: const IconThemeData(color: kDividerColor),
+  dividerColor: const Color(0x1500000),
+  iconTheme: const IconThemeData(color:  Color(0x1500000)),
   primaryTextTheme: ThemeData.dark().textTheme.apply(
         fontFamily: 'Poppins',
         bodyColor: Colors.white,

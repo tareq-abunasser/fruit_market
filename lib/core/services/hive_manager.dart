@@ -19,18 +19,17 @@ abstract class IHiveManager {
 }
 
 @Singleton()
-class HiveManager extends IHiveManager {
+class HiveManager{
   static final List<IHiveManager> _hiveManagers = [
     getIt<AccountHiveManager>(),
-    getIt<CartHiveManager>(),
-    getIt<FavouriteHiveManager>(),
-    getIt<OrderHiveManager>(),
     getIt<ProductHiveManager>(),
+    getIt<FavouriteHiveManager>(),
+    getIt<CartHiveManager>(),
+    getIt<OrderHiveManager>(),
     getIt<CategoryHiveManager>(),
     getIt<SubcategoryHiveManager>(),
   ];
 
-  @override
   Future<void> init() async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     await Hive.initFlutter((appDocumentDirectory.path));
@@ -39,7 +38,6 @@ class HiveManager extends IHiveManager {
     }
   }
 
-  @override
   Future<void> close() async {
     for (final hiveManager in _hiveManagers) {
       await hiveManager.close();
@@ -47,7 +45,6 @@ class HiveManager extends IHiveManager {
     await Hive.close();
   }
 
-  @override
   Future<void> clear() async {
     for (final hiveManager in _hiveManagers) {
       await hiveManager.clear();

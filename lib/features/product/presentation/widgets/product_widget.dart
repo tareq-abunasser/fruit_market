@@ -66,7 +66,10 @@ class ProductWidget extends StatelessWidget {
                                   Icons.favorite,
                                   color: Colors.red,
                                 )
-                              : const Icon(Icons.favorite_border),
+                              : const Icon(
+                                  Icons.favorite_border_rounded,
+                                  color: Colors.black,
+                                ),
                         ),
                       ),
                     ),

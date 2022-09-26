@@ -13,6 +13,6 @@ class AccountSettingsPage extends StatelessWidget {
         appBar: AppBar(
             title: Text("settings".tr),
             backgroundColor: Theme.of(context).primaryColor),
-        body: const AccountSettingsListUtils());
+        body:  AccountSettingsListUtils());
   }
 }

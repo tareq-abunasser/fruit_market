@@ -11,7 +11,8 @@ import 'AccountSettingsCategory.dart';
 import 'custom_list_tile_item.dart';
 
 class AccountSettingsListUtils extends StatelessWidget {
-  const AccountSettingsListUtils({Key? key}) : super(key: key);
+  AccountSettingsListUtils({Key? key}) : super(key: key);
+  bool isDarkMode = getIt<ThemeService>().isDarkMode;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,6 @@ class AccountSettingsListUtils extends StatelessWidget {
         trailing: Row(mainAxisSize: MainAxisSize.min, children: [
           CustomText(
             text: getIt<LocalizationService>().currentLanguage.tr,
-            color: Colors.black54,
             fontSize: 16,
           ),
           const SizedBox(width: 10),
@@ -44,10 +44,12 @@ class AccountSettingsListUtils extends StatelessWidget {
         trailing: StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Switch(
-              value: getIt<ThemeService>().isDarkMode,
+              value: isDarkMode,
+              activeColor: Theme.of(context).primaryColor,
               onChanged: (value) {
                 setState(() {
                   getIt<ThemeService>().switchTheme();
+                  isDarkMode != isDarkMode;
                 });
               },
             );

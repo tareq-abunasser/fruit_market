@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../core/entities/failures.dart';
@@ -19,7 +20,7 @@ class SubcategoriesWidget extends StatefulWidget {
 
 class _SubcategoriesWidgetState extends State<SubcategoriesWidget>
     with AutomaticKeepAliveClientMixin<SubcategoriesWidget> {
-  static const _pageSize = 2;
+  static const _pageSize = 3;
   String? lastSubcategoryId;
   final PagingController<int, Subcategory> _pagingController =
       PagingController(firstPageKey: 0);
@@ -56,6 +57,8 @@ class _SubcategoriesWidgetState extends State<SubcategoriesWidget>
         limit: _pageSize,
         parentId: widget.parentId,
         lastSubcategoryId: lastSubcategoryId);
+    printInfo(info: "failureOrSubcategories _fetchPage");
+    printInfo(info: failureOrSubcategories.toString());
     failureOrSubcategories.fold(
         (error) => _pagingController.error = error.map(
             internet: (_) => 'No internet connection',
@@ -64,7 +67,7 @@ class _SubcategoriesWidgetState extends State<SubcategoriesWidget>
       if (subcategories.isNotEmpty) {
         lastSubcategoryId = subcategories.last.id.getOrCrash();
       }
-      final isLastPage = subcategories.length < _pageSize;
+      final isLastPage = subcategories.length != _pageSize;
 
       if (isLastPage) {
         _pagingController.appendLastPage(subcategories);

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/entities/exceptions.dart';
@@ -24,6 +25,7 @@ class SubcategoryRepository implements ISubcategoryRepository {
   @override
   Future<Either<Failure, List<Subcategory>>> getSubcategories(
       {String? parentId, int? limit, String? lastSubcategoryId}) async {
+    printInfo(info: 'function : getSubcategories');
     List<Subcategory> listSubcategory = [];
 
     try {
@@ -40,8 +42,8 @@ class SubcategoryRepository implements ISubcategoryRepository {
         return right(listSubcategory);
       } else {
         if (lastSubcategoryId == null) {
-          final listSubcategoryDTO =
-              _subcategoryLocalDataSourceImpl.getSubcategories();
+          final listSubcategoryDTO = _subcategoryLocalDataSourceImpl
+              .getSubcategories(parentId: parentId!);
           for (var subcategory in listSubcategoryDTO) {
             listSubcategory.add(subcategory.toDomain());
           }

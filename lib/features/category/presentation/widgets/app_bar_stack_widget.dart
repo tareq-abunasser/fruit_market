@@ -23,11 +23,6 @@ class AppBarStackWidget extends StatelessWidget {
                   fontSize: 25,
                   fontWeight: FontWeight.bold),
             ),
-            const Spacer(),
-              Icon(
-              color: Colors.white,
-              Icons.notifications,
-            ),
           ],
         ),
       ),

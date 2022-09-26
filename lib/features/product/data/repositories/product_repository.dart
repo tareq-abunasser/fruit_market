@@ -38,8 +38,8 @@ class ProductRepository implements IProductRepository {
         return right(listProduct);
       } else {
         if (lastProduct == null) {
-          final listProductDTO = await _authRemoteDataSourceImpl.getProducts(
-              parentId: parentId!, limit: limit, lastProduct: lastProduct);
+          final listProductDTO =  _authLocalDataSourceImpl.getProducts(
+              parentId: parentId!, limit: limit);
           for (var product in listProductDTO) {
             listProduct.add(product.toDomain());
           }

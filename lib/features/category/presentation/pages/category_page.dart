@@ -99,7 +99,7 @@ class CategoryPage extends StatelessWidget {
                 );
               } else {
                 return Container(
-                  color: Colors.white,
+                  color: Theme.of(context).dividerColor,
                 );
               }
             },

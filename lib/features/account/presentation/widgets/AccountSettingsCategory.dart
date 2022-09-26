@@ -19,7 +19,6 @@ class AccountSettingsCategory extends StatelessWidget {
         child:  CustomText(
           text: categoryName,
           fontWeight: FontWeight.bold,
-          color: Colors.black54,
         ),
       ),
     );

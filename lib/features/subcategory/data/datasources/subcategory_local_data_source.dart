@@ -20,7 +20,7 @@ class SubcategoryLocalDataSourceImpl extends SubcategoryLocalDataSource {
 
   @override
   Future<void> cacheSubcategories(List<SubcategoryDTO> subcategory) async {
-    Get.printInfo(info:'function : cacheSubcategories');
+    Get.printInfo(info: 'function : cacheSubcategories');
     Map<dynamic, SubcategoryDTO> subcategoriesAsMap = {};
     for (var p in subcategory) {
       subcategoriesAsMap[p.id] = p;
@@ -30,9 +30,16 @@ class SubcategoryLocalDataSourceImpl extends SubcategoryLocalDataSource {
 
   @override
   List<SubcategoryDTO> getSubcategories({String? parentId, int? limit}) {
-    Get.printInfo(info:'function : getSubcategories');
+    Get.printInfo(info: 'function : getSubcategories');
+    printInfo(info: 'parentId : $parentId');
+    printInfo(info: 'limit : $limit');
+    printInfo(
+        info:
+            'subcategoryBox : ${_hiveManager.subcategoryBox!.values.toList()}');
     try {
-      return _hiveManager.subcategoryBox!.values.toList();
+      return _hiveManager.subcategoryBox!.values
+          .where((element) => element.parentId == parentId)
+          .toList();
     } catch (_) {
       throw CacheException();
     }
@@ -40,7 +47,7 @@ class SubcategoryLocalDataSourceImpl extends SubcategoryLocalDataSource {
 
   @override
   void clear() {
-    Get.printInfo(info:'function : clear');
+    Get.printInfo(info: 'function : clear');
     try {
       _hiveManager.subcategoryBox!.clear();
     } catch (_) {

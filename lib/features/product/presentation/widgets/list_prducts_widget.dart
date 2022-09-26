@@ -59,7 +59,7 @@ class _ListProductWidgetState extends State<ListProductWidget> {
       if (products.isNotEmpty) {
         lastProductId = products.last.id.getOrCrash();
       }
-      final isLastPage = products.length < _pageSize;
+      final isLastPage = products.length != _pageSize;
 
       if (isLastPage) {
         _pagingController.appendLastPage(products);
