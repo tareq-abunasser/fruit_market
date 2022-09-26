@@ -1,16 +1,30 @@
 # fruit_market
+Flutter Clean Architecture Application 
 
-A new Flutter project.
+# Reso Coder's Flutter Clean Architecture Proposal
+![Flutter Clean Architecture](https://camo.githubusercontent.com/5ebd9fec726f604afde86e79971c30414d75c61d826f14b468dbb4907624f22a/68747470733a2f2f69302e77702e636f6d2f7265736f636f6465722e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031392f30382f436c65616e2d4172636869746563747572652d466c75747465722d4469616772616d2e706e673f773d3535362673736c3d31)
 
-## Getting Started
+# UI
+https://www.behance.net/gallery/115391773/Fruit-Market-Online-Delivery-App-UI-kit
 
-This project is a starting point for a Flutter application.
+## packages and plugins used
+1. backend
+   *  firebse
+2. state manegment
+   *  bloc with frezzed
+   *  cubit with frezzed
+3. localization
+   *  getx
+4. routing
+   *  getx
+5. local notification
+   *  awesome_notifications
+6. cache
+   *  hive
+   *  shared_preferences
+7. dependancy injenction
+   *  injectable
+   *  get_it
+8. native splash
+   *  flutter_native_splash
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
