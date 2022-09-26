@@ -17,6 +17,8 @@ https://www.behance.net/gallery/115391773/Fruit-Market-Online-Delivery-App-UI-ki
    *  getx
 4. routing
    *  getx
+ 5. theme mangement
+   *  getx
 5. local notification
    *  awesome_notifications
 6. cache
