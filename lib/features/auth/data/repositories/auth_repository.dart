@@ -1,84 +1,76 @@
 import 'package:dartz/dartz.dart';
-// import 'package:injectable/injectable.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:fruit_market/features/auth/domain/faliures/auth_failure.dart';
+import 'package:fruit_market/core/entities/exceptions.dart';
+import 'package:fruit_market/features/auth/data/datasources/auth_local_data_source.dart';
+import 'package:fruit_market/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:fruit_market/features/auth/domain/failures/auth_failure.dart';
 import 'package:fruit_market/features/auth/domain/repositories/i_auth_repository.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:get/get.dart';
+import 'package:injectable/injectable.dart';
+import '../../../../core/services/network_info_service.dart';
 import '../../domain/entities/user.dart' as _user;
-import './firebase_user_mapper.dart';
 
-// @LazySingleton(as: IAuthFacade)
+@LazySingleton(as: IAuthRepository)
 class AuthRepository implements IAuthRepository {
-  final FirebaseAuth _firebaseAuth;
-  final GoogleSignIn _googleSignIn;
-  final FacebookAuth _facebookAuth;
+  final AuthLocalDataSource _authLocalDataSourceImpl;
+  final AuthRemoteDataSource _authRemoteDataSourceImpl;
+  final NetworkInfoService _networkInfo;
 
   AuthRepository(
-    this._firebaseAuth,
-    this._googleSignIn,
-    this._facebookAuth,
+    this._authRemoteDataSourceImpl,
+    this._authLocalDataSourceImpl,
+    this._networkInfo,
   );
 
   @override
-  Future<Option<_user.User>> getSignedInUser() async =>
-      optionOf(_firebaseAuth.currentUser?.toDomain());
-
-  @override
-  Future<Either<AuthFailure, Unit>> signInWithGoogle() async {
-    final googleUser = await _googleSignIn.signIn();
-    if (googleUser == null) {
-      return left(const AuthFailure.serverError());
-    }
-    final googleAuthentication = await googleUser.authentication;
-    final authCredential = GoogleAuthProvider.credential(
-      idToken: googleAuthentication.idToken,
-      accessToken: googleAuthentication.accessToken,
-    );
-
+  Either<AuthFailure, _user.User> getSignedInUser() {
+    printInfo(info: 'class:AuthRepository , function : getSignedInUser');
     try {
-      await _firebaseAuth.signInWithCredential(authCredential);
-      return right(unit);
-    } on FirebaseAuthException catch (_) {
-      return left(const AuthFailure.serverError());
+      _user.User user = _authRemoteDataSourceImpl.getSignedInUser().toDomain();
+      return right(user);
+    } on UnAuthenticatedException {
+      return left(const AuthFailure.unAuthenticated());
     }
   }
 
+  @override
+  Future<Either<AuthFailure, Unit>> signInWithGoogle() async {
+    printInfo(info: 'class:AuthRepository , function : signInWithGoogle');
+    return _signIn(_authRemoteDataSourceImpl.signInWithGoogle);
+  }
 
   @override
-  Future<Either<AuthFailure, Unit>> signInWithFacebook() async{
-  // Trigger the sign-in flow
-  final LoginResult loginResult = await _facebookAuth.login();
-
-    if (loginResult == null) {
-      return left(const AuthFailure.serverError());
-    }
-  // Create a credential from the access token
-  final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-
-  // Once signed in, return the UserCredential
-      try {
-      await _firebaseAuth.signInWithCredential(facebookAuthCredential);
-      return right(unit);
-    } on FirebaseAuthException catch (_) {
-      return left(const AuthFailure.serverError());
-    }
-
+  Future<Either<AuthFailure, Unit>> signInWithFacebook() async {
+    printInfo(info: 'class:AuthRepository , function : signInWithFacebook');
+    return _signIn(_authRemoteDataSourceImpl.signInWithFacebook);
   }
 
   @override
   Future<void> signOut() => Future.wait([
-        _googleSignIn.signOut(),
-        _firebaseAuth.signOut(),
+        _authRemoteDataSourceImpl.signOut(),
+        _authLocalDataSourceImpl.signOut(),
       ]);
 
-  @override
-  Future<Either<AuthFailure, Unit>> completeUserInfo() {
-    // TODO: implement completeUserInfo
-    throw UnimplementedError();
+  Future<Either<AuthFailure, Unit>> _signIn(Function f) async {
+    printInfo(info: 'class:AuthRepository , function : _signIn');
+    try {
+      if (await _networkInfo.isConnected) {
+        await f();
+
+        if (getSignedInUser().isRight()) {
+          _authLocalDataSourceImpl
+              .cacheSignedInUser(_authRemoteDataSourceImpl.getSignedInUser());
+        } else {
+          return left(const AuthFailure.unAuthenticated());
+        }
+      } else {
+        return left(const AuthFailure.internet());
+      }
+
+      return right(unit);
+    } on ServerException {
+      return left(const AuthFailure.serverError());
+    } catch (e) {
+      return left(const AuthFailure.unknown());
+    }
   }
-
-
-
 }

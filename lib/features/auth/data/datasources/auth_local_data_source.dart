@@ -1,62 +1,76 @@
-import 'package:dartz/dartz.dart';
+import 'dart:convert';
 import 'package:fruit_market/features/auth/data/models/user_dtos.dart';
-import 'package:fruit_market/features/auth/data/models/user_info_dtos.dart';
-import 'package:fruit_market/features/auth/domain/entities/user_info.dart';
-
-import '../../../../core/entities/exceptions.dart';
-import '../../../../core/utils/preferences_manager.dart';
-import '../../domain/entities/user.dart';
+import 'package:get/get.dart';
+import 'package:injectable/injectable.dart';
+import '../../../../core/services/hive_manager.dart';
+import '../../../../core/services/preferences_helper.dart';
+import 'package:path_provider/path_provider.dart';
 
 abstract class AuthLocalDataSource {
-  /// Gets the cached [user info]
-  /// the user had an internet connection.
-  ///
-  /// Throws [CacheException] if no cached data is present.
-  Option<UserDTO> getSignedInUser();
+  UserDTO? getSignedInUser();
 
-  Future<void> cacheSignedInUser(UserDTO userCache);
+  void cacheSignedInUser(UserDTO userCache);
 
-  Option<UserInfoDTO> getUserInfo();
-
-  Future<void> cacheUserInfo(UserInfoDTO userInfoCache);
+  Future<void> signOut();
 }
 
+@LazySingleton(as: AuthLocalDataSource)
 class AuthLocalDataSourceImpl extends AuthLocalDataSource {
-  final PreferencesManager preferencesManager;
-  static const String PREF_USER_UNIQUE_ID = 'userId';
-  static const String PREF_USER_INFO = 'userInfo';
+  final PreferencesHelper _preferencesManager;
+  final HiveManager _hiveManager;
+  static const String prefUserUniqueID = 'userId';
 
-  AuthLocalDataSourceImpl({required this.preferencesManager});
+  AuthLocalDataSourceImpl(this._preferencesManager, this._hiveManager);
 
   @override
-  Option<UserDTO> getSignedInUser() {
-    final userId = preferencesManager.getData(key: PREF_USER_UNIQUE_ID);
-    if (userId != null) {
-      return optionOf(UserDTO(id: userId));
-    } else {
-      return none();
+  UserDTO? getSignedInUser() {
+    printInfo(
+        info: 'class:AuthLocalDataSourceImpl , function : getSignedInUser');
+    if (_preferencesManager.isContainsKey(key: prefUserUniqueID)) {
+      final String userId = _preferencesManager.getData(key: prefUserUniqueID);
+      return UserDTO.fromJson(json.decode(userId));
     }
+    return null;
   }
 
   @override
-  Future<void> cacheUserInfo(UserInfoDTO userInfoCache) async {
-    await preferencesManager.saveData(
-        key: PREF_USER_INFO, data: userInfoCache.toJson());
+  void cacheSignedInUser(UserDTO userCache) {
+    printInfo(
+        info: 'class:AuthLocalDataSourceImpl , function : cacheSignedInUser');
+    _preferencesManager.saveData(
+        key: prefUserUniqueID, data: json.encode(userCache.toJson()));
+  }
+
+  void clearUniqueID() {
+    printInfo(info: 'class:AuthLocalDataSourceImpl , function : clearUniqueID');
+     _preferencesManager.removeData(key: prefUserUniqueID);
+  }
+
+  void clearAccountData()  {
+    printInfo(
+        info: 'class:AuthLocalDataSourceImpl , function : clearAccountData');
+     clearUniqueID();
   }
 
   @override
-  Option<UserInfoDTO> getUserInfo() {
-    final userInfo = preferencesManager.getData(key: PREF_USER_INFO);
-    if (userInfo != null) {
-      return optionOf(UserInfoDTO.fromJson(userInfo));
-    } else {
-      return none();
+  Future<void> signOut() async {
+    printInfo(info: 'class:AuthLocalDataSourceImpl , function : signOut');
+     clearAccountData();
+    await _hiveManager.clear();
+  }
+
+  Future<void> emptyAllTempDirCached() async {
+    printInfo(
+        info:
+            'class:AuthLocalDataSourceImpl , function : emptyAllTempDirCached');
+    var tempDir = await getTemporaryDirectory();
+
+    if (tempDir.existsSync()) {
+      tempDir.deleteSync(recursive: true);
     }
-  }
-
-  @override
-  Future<void> cacheSignedInUser(UserDTO userCache) async {
-    await preferencesManager.saveData(
-        key: PREF_USER_INFO, data: userCache.toJson());
+    final appDir = await getApplicationSupportDirectory();
+    if (appDir.existsSync()) {
+      appDir.deleteSync(recursive: true);
+    }
   }
 }

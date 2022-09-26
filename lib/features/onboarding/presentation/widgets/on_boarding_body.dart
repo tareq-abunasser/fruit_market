@@ -1,7 +1,9 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/utils/size_config.dart';
+import '../../../../core/services/size_config.dart';
 import '../../../../core/widgets/custom_buttons.dart';
+import '../../../../injection.dart';
+import '../../domain/usecases/set_user_open_app_before.dart';
 import 'custom_indicator.dart';
 import 'custom_page_view.dart';
 import '../../../../routes/mobile_app_pages.dart';
@@ -48,14 +50,19 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
           child: Positioned(
             top: SizeConfig.defaultSize! * 10,
             right: 32,
-            child: const Text(
-              'Skip',
-              style: TextStyle(
-                fontSize: 14,
-                color:  Color(0xff898989),
-              ),
-              textAlign: TextAlign.left,
-            ),
+            child: TextButton(
+                onPressed: () {
+                  getIt<SetUserOpenAppBefore>().call();
+                  Get.offAndToNamed(MobileRoutes.LOGIN);
+                },
+                child: const Text(
+                  'Skip',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xff898989),
+                  ),
+                  textAlign: TextAlign.left,
+                )),
           ),
         ),
         Positioned(
@@ -69,7 +76,8 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeIn);
                 } else {
-                  Get.to(MobileRoutes.LOGIN);
+                  getIt<SetUserOpenAppBefore>().call();
+                  Get.offAndToNamed(MobileRoutes.LOGIN);
                 }
               },
               text: pageController!.hasClients

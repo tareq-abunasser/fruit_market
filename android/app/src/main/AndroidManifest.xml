@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fruit_market">
    <application
-        android:label="fruit_market"
+        android:label="@string/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -30,5 +30,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       <!-- A custom Android Notification Channel to deliver FCM notifications on a non-default channel -->
+       <meta-data
+           android:name="com.google.firebase.messaging.default_notification_channel_id"
+           android:value="basic_channel" />
     </application>
 </manifest>

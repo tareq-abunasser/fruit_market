@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import '../constants.dart';
-import '../../features/splash/presentation/pages/splash_view.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_market/core/constant/themes.dart';
+import 'package:fruit_market/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:fruit_market/injection.dart';
+import '../constant/constants.dart';
 import '../../localization/localization_service.dart';
 import '../../routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import '../../../../injection.dart';
+import '../services/theme_service.dart';
 
 class AppWidget extends StatelessWidget {
   AppWidget({Key? key}) : super(key: key);
@@ -12,60 +18,33 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<AuthCubit>()),
+      ],
+      child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         enableLog: true,
         getPages: routes,
         initialRoute: initial,
-        locale: LocalizationService.locale,
+        locale: getIt<LocalizationService>().initialLocale,
+        fallbackLocale: LocalizationService.locale,
+        translations: getIt<LocalizationService>(),
         navigatorKey: navigatorKey,
-        translations: LocalizationService(),
         builder: (context, widget) => ResponsiveWrapper.builder(
-              widget,
-              maxWidth: 1200,
-              minWidth: 480,
-              defaultScale: true,
-              breakpoints: [
-                const ResponsiveBreakpoint.resize(480, name: MOBILE),
-                const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-                const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-              ],
-
-            ),
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        appBarTheme: const AppBarTheme(
-          color: Color.fromRGBO(23, 143, 73, 1.0),
+          widget,
+          maxWidth: 1200,
+          minWidth: 480,
+          // defaultScale: true,
+          breakpoints: [
+            const ResponsiveBreakpoint.resize(480, name: MOBILE),
+            const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+          ],
         ),
-        dividerColor: kMainColor,
-        primaryColor: kMainColor,
-        scaffoldBackgroundColor: const Color.fromRGBO(244, 245, 250, 1),
-        progressIndicatorTheme: const ProgressIndicatorThemeData(
-          color: kMainColor,
-        ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: kMainColor,
-          sizeConstraints: BoxConstraints(
-            minWidth: 80,
-            minHeight: 80,
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          // labelStyle: GoogleFonts.cairo(
-          //     textStyle: const TextStyle(
-          //         color: Color.fromRGBO(23, 143, 73, 1),
-          //         fontSize: 12,
-          //         fontWeight: FontWeight.normal)),
-          enabledBorder: const UnderlineInputBorder(
-            borderSide:
-            BorderSide(color: Color.fromRGBO(23, 143, 73, 1)),
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide:
-            BorderSide(color: Color.fromRGBO(23, 143, 73, 1)),
-          ),
-        ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        themeMode: getIt<ThemeService>().theme,
       ),
     );
   }

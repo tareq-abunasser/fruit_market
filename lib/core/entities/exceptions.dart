@@ -1,3 +1,15 @@
-class ServerException implements Exception {}
+class ServerException implements Exception {
+  String? cause;
 
-class CacheException implements Exception {}
+  ServerException([this.cause]);
+}
+
+class CacheException implements Exception {
+  String? cause;
+
+  CacheException([this.cause]);
+}
+
+class UnAuthenticatedException implements Exception {}
+
+class InternetException implements Exception {}

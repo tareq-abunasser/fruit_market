@@ -34,5 +34,18 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
     required T failedValue,
   }) = DifferentPassword<T>;
 
+  const factory ValueFailure.invalidPhoneNumber({
+    required T failedValue,
+  }) = InvalidPhoneNumber<T>;
+  const factory ValueFailure.invalidQuantity({
+    required T failedValue,
+  }) = InvalidQuantity<T>;
 }
 
+@freezed
+abstract class Failure with _$Failure {
+  const factory Failure.internet() = Internet;
+  const factory Failure.serverError() = ServerError;
+  const factory Failure.cacheError() = CacheError;
+
+}
