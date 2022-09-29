@@ -22,7 +22,6 @@ class PageViewItem extends StatelessWidget {
           title!,
           style: const TextStyle(
             fontSize: 20,
-            color:  Color(0xff2f2e41),
             fontWeight: FontWeight.w600,
           ),
           textAlign: TextAlign.left,
@@ -33,7 +32,6 @@ class PageViewItem extends StatelessWidget {
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 15,
-            color:  Color(0xff78787c),
           ),
           textAlign: TextAlign.left,
         ),

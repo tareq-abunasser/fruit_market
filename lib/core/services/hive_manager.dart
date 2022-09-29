@@ -1,4 +1,5 @@
 import 'package:fruit_market/features/category/data/datasources/category_hive_manager.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
@@ -31,6 +32,7 @@ class HiveManager{
   ];
 
   Future<void> init() async {
+    printInfo(info: "HiveManager initialize all Boxes");
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     await Hive.initFlutter((appDocumentDirectory.path));
     for (final hiveManager in _hiveManagers) {

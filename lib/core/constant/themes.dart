@@ -3,14 +3,14 @@ import 'package:flutter/services.dart';
 
 import 'constants.dart';
 
-ThemeData lightTheme = ThemeData(
-  fontFamily: 'Poppins',
-  // textTheme: ThemeData().textTheme.apply(
-  //       fontFamily: 'Poppins',
-  //     ),
-  // primaryTextTheme: ThemeData().textTheme.apply(
-  //       fontFamily: 'Poppins',
-  //     ),
+ThemeData lightTheme = ThemeData.light().copyWith(
+  textTheme: ThemeData().textTheme.apply(
+        fontFamily: 'Poppins',
+      ),
+  primaryTextTheme: ThemeData.light().textTheme.apply(
+        fontFamily: 'Poppins',
+        bodyColor: Colors.black,
+      ),
   appBarTheme: const AppBarTheme(
     color: kMainColor,
     titleTextStyle: TextStyle(
@@ -21,10 +21,14 @@ ThemeData lightTheme = ThemeData(
     systemOverlayStyle: SystemUiOverlayStyle(
       /// Status bar color
       statusBarColor: kMainColor,
+
       /// Status bar brightness (optional)
       statusBarIconBrightness: Brightness.dark,
+
       /// For Android (dark icons)
-      statusBarBrightness: Brightness.light, /// For iOS (dark icons)
+      statusBarBrightness: Brightness.light,
+
+      /// For iOS (dark icons)
     ),
   ),
   cardTheme: const CardTheme(
@@ -91,7 +95,7 @@ ThemeData lightTheme = ThemeData(
 ThemeData darkTheme = ThemeData.dark().copyWith(
   primaryColor: kMainColor,
   dividerColor: const Color(0x1500000),
-  iconTheme: const IconThemeData(color:  Color(0x1500000)),
+  iconTheme: const IconThemeData(color: Color(0x1500000)),
   primaryTextTheme: ThemeData.dark().textTheme.apply(
         fontFamily: 'Poppins',
         bodyColor: Colors.white,
