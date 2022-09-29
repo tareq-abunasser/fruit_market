@@ -32,5 +32,5 @@ https://www.behance.net/gallery/115391773/Fruit-Market-Online-Delivery-App-UI-ki
     
 
 ## app 
-![fruit_market](https://i.ibb.co/CsGHnC3/fruit-market-2.gif)
+![fruit market](https://user-images.githubusercontent.com/51222169/193123048-d745f321-8e88-4215-80fc-a0edaeef4e23.gif)
 
