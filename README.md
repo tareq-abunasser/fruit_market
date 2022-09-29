@@ -1,4 +1,4 @@
-# fruit_market
+# fruit market
 Flutter Clean Architecture Application
 
 # Reso Coder's Flutter Clean Architecture Proposal
@@ -31,6 +31,6 @@ https://www.behance.net/gallery/115391773/Fruit-Market-Online-Delivery-App-UI-ki
     *  flutter_native_splash
     
 
-# app 
-![fruit_market 2](https://i.ibb.co/CsGHnC3/fruit-market-2.gif)
+## app 
+![fruit_market](https://i.ibb.co/CsGHnC3/fruit-market-2.gif)
 
