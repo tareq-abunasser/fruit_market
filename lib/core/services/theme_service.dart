@@ -26,7 +26,7 @@ class ThemeServiceImpl implements ThemeService {
 
   @override
   void switchTheme() {
-    Get.changeTheme(Get.isDarkMode ? lightTheme : darkTheme);
+    Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
     _saveThemeToCache(!Get.isDarkMode);
   }
 

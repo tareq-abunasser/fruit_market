@@ -48,9 +48,9 @@ class AccountSettingsListUtils extends StatelessWidget {
               activeColor: Theme.of(context).primaryColor,
               onChanged: (value) {
                 setState(() {
-                  getIt<ThemeService>().switchTheme();
-                  isDarkMode != isDarkMode;
+                  isDarkMode = !isDarkMode;
                 });
+                getIt<ThemeService>().switchTheme();
               },
             );
           },

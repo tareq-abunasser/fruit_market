@@ -75,7 +75,7 @@ class CustomButtonWithIcon extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Poppins',
                 fontSize: 12,
-                color: Color(0xFF000000),
+                // color: Color(0xFF000000),
               ),
               textAlign: TextAlign.left,
             ),

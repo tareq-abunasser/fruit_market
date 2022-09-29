@@ -55,11 +55,11 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
                   getIt<SetUserOpenAppBefore>().call();
                   Get.offAndToNamed(MobileRoutes.LOGIN);
                 },
-                child: const Text(
+                child: Text(
                   'Skip',
                   style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xff898989),
+                    fontSize: 18,
+                    color: Theme.of(context).primaryColor,
                   ),
                   textAlign: TextAlign.left,
                 )),
