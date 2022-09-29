@@ -27,7 +27,7 @@ https://www.behance.net/gallery/115391773/Fruit-Market-Online-Delivery-App-UI-ki
 8. dependency injection
     *  injectable
     *  get_it
-9. native splash
+9. splash
     *  flutter_native_splash
     
 
