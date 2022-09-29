@@ -24,7 +24,7 @@ https://www.behance.net/gallery/115391773/Fruit-Market-Online-Delivery-App-UI-ki
 7. cache
     *  hive
     *  shared_preferences
-8. dependency injunction
+8. dependency injection
     *  injectable
     *  get_it
 9. native splash
