@@ -29,4 +29,9 @@ https://www.behance.net/gallery/115391773/Fruit-Market-Online-Delivery-App-UI-ki
     *  get_it
 9. native splash
     *  flutter_native_splash
+    
+
+# app 
+![fruit market]
+(https://i.ibb.co/QJ4C6Z2/fruit-market.gif)
 
