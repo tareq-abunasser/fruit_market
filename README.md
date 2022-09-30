@@ -1,5 +1,5 @@
 # fruit market
-Flutter Clean Architecture Application
+Flutter Clean Architecture & Clean Code (SOLID)  Application
 
 # Reso Coder's Flutter Clean Architecture Proposal
 ![Flutter Clean Architecture](https://camo.githubusercontent.com/5ebd9fec726f604afde86e79971c30414d75c61d826f14b468dbb4907624f22a/68747470733a2f2f69302e77702e636f6d2f7265736f636f6465722e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031392f30382f436c65616e2d4172636869746563747572652d466c75747465722d4469616772616d2e706e673f773d3535362673736c3d31)
