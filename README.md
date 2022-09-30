@@ -31,6 +31,6 @@ https://www.behance.net/gallery/115391773/Fruit-Market-Online-Delivery-App-UI-ki
     *  flutter_native_splash
     
 
-## simple video demonstrate the app 
+## App Tutorial 
 ![fruit market](https://user-images.githubusercontent.com/51222169/193123964-f17e6386-b57d-4706-a148-c82ee7298273.gif)
 
